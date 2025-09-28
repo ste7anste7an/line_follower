@@ -1,0 +1,66 @@
+module 'Line Follower' Input
+author Ste7an
+version 1 1 
+description 'I2C Line follower on ch32v203'
+variables _buf _line_plot _line_buf a 
+
+  spec ' ' 'init_line' 'init line _ plot _' 'num bool' 8 true
+  spec 'r' 'read line' 'read line'
+  spec 'r' 'bar_nr' 'bar_nr _' 'auto' '10'
+  spec ' ' 'command' 'command _' 'auto' 'val_raw'
+
+to bar_nr nr {
+  return ('[data:join]' 'bar' nr)
+}
+
+to command cmd {
+  local 'cmd_id' 0
+  if (cmd == 'val_raw') {
+    cmd_id = 0
+  } (cmd == 'val_cal') {
+    cmd_id = 1
+  } (cmd == 'val_dig') {
+    cmd_id = 2
+  } (cmd == 'get_min') {
+    cmd_id = 4
+  } (cmd == 'get_max') {
+    cmd_id = 5
+  } (cmd == 'get_avg') {
+    cmd_id = 6
+  } (cmd == 'calibrate') {
+    cmd_id = 3
+  } (cmd == 'print_cal') {
+    cmd_id = 8
+  } (cmd == 'version') {
+    cmd_id = 11
+  }
+  local 'buf' ('[data:makeList]' cmd_id)
+  '[sensors:i2cWrite]' 51 buf
+}
+
+to init_line 'number of sensors' plot {
+  _nr_sensors = (v 'number of sensors')
+  _line_plot = plot
+  if plot {
+    'enable lvgl' true true
+    for i _nr_sensors {
+      '[tft:LVGLaddobj]' 'bar' (bar_nr i)
+      '[tft:LVGLsetsize]' (bar_nr i) 15 100
+      '[tft:LVGLsetpos]' (bar_nr i) (i * 25) 20
+      '[tft:LVGLsetcolor]' (bar_nr i) (colorSwatch 190 29 9 255) (colorSwatch 255 0 10 255)
+      '[tft:LVGLsetattribute]' 'range' (bar_nr i) 0 255
+    }
+  }
+  _line_buf = (newList _nr_sensors)
+}
+
+to 'read line' {
+  '[sensors:i2cRead]' 51 _line_buf
+  if _line_plot {
+    for i _nr_sensors {
+      '[tft:LVGLsetval]' (bar_nr i) (at i _line_buf)
+    }
+  }
+  return _line_buf
+}
+
