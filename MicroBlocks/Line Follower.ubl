@@ -1,7 +1,7 @@
 module 'Line Follower' Input
 author Ste7an
 version 1 3 
-choices commands val_raw val_cal val_dig get_min get_max get_avg calibrate print_cal version invert 
+choices commands val_raw val_cal val_dig get_min get_max get_avg calibrate print_cal version position invert 
 description 'I2C Line follower on ch32v203'
 variables _buf _line_plot _line_buf a _inverted 
 
