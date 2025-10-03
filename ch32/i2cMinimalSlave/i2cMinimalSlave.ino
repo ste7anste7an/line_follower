@@ -20,7 +20,7 @@
 #define MIN_VERSION 0
 
 
-#define NUM_SENSORS 8
+#define NUM_SENSORS 10
 
 #include <Wire.h>
 #define MY_I2C_ADDRESS 0x33
@@ -39,11 +39,14 @@ typedef enum {
     MODE_LOAD_CAL, // 10
     MODE_VERSION, //11
     MODE_DEBUG, //12
-    MODE_POSITION //13
+    MODE_POSITION, //13
+    MODE_INVERT //14
 } Mode;
 
 Mode current_mode = MODE_VAL_RAW;
+Mode old_mode = MODE_VAL_RAW;
 uint8_t callibrating = 0;
+bool inverted=true;
 int nr=0;
 unsigned long t0 = millis();
 
@@ -54,11 +57,11 @@ uint8_t calAvg[NUM_SENSORS];
 
 int weights[NUM_SENSORS];
 
-int adcPins[]={PA0,PA1,PA2,PA3,PA4,PA5,PA6,PA7};
+int adcPins[]={PA0,PA1,PA2,PA3,PA4,PA5,PA6,PA7,PB0,PB1};
 
 void readSensors(uint8_t outVals[]) {
   for (int i = 0; i < NUM_SENSORS; ++i) {
-    outVals[i] = 255-(analogRead(adcPins[i])>>4);
+     outVals[i] = 255-(analogRead(adcPins[i])>>4);
   }
 }
 
@@ -101,6 +104,18 @@ void doCalibrate() {
     calAvg[i] = (calMin[i] + calMax[i]) / 2;
   }
 
+}
+
+void invertBuf(const uint8_t inp[], uint8_t outp[]) {
+  if (inverted) {
+    for (int i=0; i< NUM_SENSORS; i++) {
+      outp[i]=inp[i];
+    }
+  } else {
+    for (int i=0; i< NUM_SENSORS; i++) {
+      outp[i]=255-inp[i];
+    }
+  }
 }
 
 void computeNormalized(const uint8_t raw[], uint8_t normOut[]) {
@@ -151,6 +166,7 @@ bool getLinePosition(const uint8_t raw[], uint8_t &posOut) {
 
 void ReceiveEvent(int nBytes) {
   Serial.println("received I2C msg");
+  old_mode = current_mode;
   if (nBytes > 0) {
     current_mode = Wire.read();
     Serial.print("received command: ");
@@ -158,33 +174,42 @@ void ReceiveEvent(int nBytes) {
   }
   // red remaining bytes
   nBytes--;
+  switch (current_mode) {
+    case MODE_CALIBRATE:
+      initCalibrate();
+      //current_mode = old_mode;
+      break;
+    case MODE_PRINT_CAL:
+      printCal();
+      //current_mode = old_mode;
+      break;
+    case MODE_DEBUG:
+      Serial.println(millis());
+      break;
+    case MODE_INVERT:
+      inverted = !inverted;
+      Serial.print("inverted :");
+      Serial.println(inverted);
+      //current_mode = old_mode;
+  }
+  // read remaining bytes
   while(nBytes>0)
   {
     Serial.println(Wire.read());
     nBytes--;
   }
-  switch (current_mode) {
-    case MODE_CALIBRATE:
-    
-      initCalibrate();
-      break;
-    case MODE_PRINT_CAL:
-      printCal();
-      
-      break;
-    case MODE_DEBUG:
-      Serial.println(millis());
-      break;
+  
 
 
-
-  }
+  
 
 }
 
 void RequestEvent() {
   uint8_t buf[NUM_SENSORS];
   uint8_t norm[NUM_SENSORS];
+  uint8_t invert[NUM_SENSORS];
+  
   nr+=1;
   if (nr==1000) {
     Serial.print("delay=");
@@ -195,16 +220,19 @@ void RequestEvent() {
   switch (current_mode) {
     case MODE_VAL_RAW:
       readSensors(buf);
+      //invertBuf(buf,invert);
       Wire.write(buf,NUM_SENSORS);
       break;
     case MODE_CALIBRATE:
       readSensors(buf);
       doCalibrate();
+      //invertBuf(buf,invert);
       Wire.write(buf,NUM_SENSORS);
       break;
     case MODE_VAL_CAL:
       readSensors(buf);
       computeNormalized(buf,norm);
+      //invertBuf(norm,invert);
       Wire.write(norm,NUM_SENSORS);
       break;
     case MODE_VAL_DIG:
