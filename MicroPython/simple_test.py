@@ -11,4 +11,8 @@ while(1):
     buf =  i2c.readfrom(51,8)
     print_sensor(buf)
     print()
-    sleep_ms(200)   
+    sleep_ms(200)     
+
+
+# i2c.writeto(51,b'\x01') # start calibrated mode
+# i2c.writeto(51,b'\x01') # start calibration
