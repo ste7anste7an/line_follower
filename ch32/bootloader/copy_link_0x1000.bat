@@ -1,0 +1,1 @@
+copy Link_0x1000.ld C:\Users\kidsp\AppData\Local\Arduino15\packages\WCH\hardware\ch32v\1.0.4\system\CH32V20x\SRC\Ld\Link.ld
