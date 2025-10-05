@@ -24,28 +24,36 @@
 
 #include <Wire.h>
 #define MY_I2C_ADDRESS 0x33
- 
-typedef enum {
-    MODE_VAL_RAW = 0,
-    MODE_VAL_CAL, //1
-    MODE_VAL_DIG, //2
-    MODE_CALIBRATE, //3
-    MODE_GET_MIN,// 4
-    MODE_GET_MAX,// 5
-    MODE_GET_AVG,//6
-    MODE_IS_CALIBRATED, //7 
-    MODE_PRINT_CAL, //8
-    MODE_SAVE_CAL, //9
-    MODE_LOAD_CAL, // 10
-    MODE_VERSION, //11
-    MODE_DEBUG, //12
-    MODE_POSITION, //13
-    MODE_INVERT //14
-} Mode;
 
-Mode current_mode = MODE_VAL_RAW;
-Mode old_mode = MODE_VAL_RAW;
-uint8_t callibrating = 0;
+#define CTRL_PIN PB3
+
+typedef enum {
+    CMD_SET_MODE_RAW = 0,
+    CMD_SET_MODE_CAL, //1
+    CMD_SET_MODE_DIG, //2
+    CMD_CALIBRATE, //3
+    CMD_GET_MIN,// 4
+    CMD_GET_MAX,// 5
+    CMD_GET_AVG,//6
+    CMD_IS_CALIBRATED, //7 
+    CMD_PRINT_CAL, //8
+    CMD_SET_MIN, //9
+    CMD_SET_MAX, // 10
+    CMD_GET_VERSION, //11
+    CMD_DEBUG, //12
+    CMD_GET_POSITION, //13
+    CMD_SET_EMITTER //14
+} Commands;
+
+typedef enum {
+    MODE_RAW,
+    MODE_CAL,
+    MODE_DIG,
+    MODE_CALIBRATING
+} Modes;
+
+Modes current_mode = MODE_RAW;
+uint8_t is_calibrated = 0;
 bool inverted=true;
 int nr=0;
 unsigned long t0 = millis();
@@ -54,8 +62,6 @@ unsigned long t0 = millis();
 uint8_t calMin[NUM_SENSORS];
 uint8_t calMax[NUM_SENSORS];
 uint8_t calAvg[NUM_SENSORS];
-
-int weights[NUM_SENSORS];
 
 int adcPins[]={PA0,PA1,PA2,PA3,PA4,PA5,PA6,PA7,PB0,PB1};
 
@@ -77,7 +83,7 @@ void printCal() {
 
 void initCalibrate() {
   // initialize min/max to extremes
-  Serial.println("start callibrating");
+  Serial.println("start calibrating");
   for (int i = 0; i < NUM_SENSORS; ++i) {
     calMin[i] = 255;
     calMax[i] = 0;
@@ -103,7 +109,21 @@ void doCalibrate() {
     }
     calAvg[i] = (calMin[i] + calMax[i]) / 2;
   }
+  is_calibrated = true;
 
+}
+
+void setEmitter(uint8_t level) {
+   pinMode(CTRL_PIN, OUTPUT);
+   digitalWrite(CTRL_PIN, LOW);
+   delayMicroseconds(1000); // delay 1ms to reset level
+   digitalWrite(CTRL_PIN, HIGH);
+   for (int i=0; i<level; i++) {
+      digitalWrite(CTRL_PIN, LOW);
+      delayMicroseconds(1);
+      digitalWrite(CTRL_PIN, HIGH);
+      delayMicroseconds(10);
+   }
 }
 
 void invertBuf(const uint8_t inp[], uint8_t outp[]) {
@@ -144,52 +164,133 @@ void computeDigital(const uint8_t raw[], uint8_t normOut[]) {
 bool getLinePosition(const uint8_t raw[], uint8_t &posOut) {
   uint8_t norm[NUM_SENSORS];
   computeNormalized(raw, norm);
-  long num = 0;
-  long den = 0;
+  long weighted_sum = 0;
+  long sum = 0;
+  int start = -10*(NUM_SENSORS-1);
   for (int i = 0; i < NUM_SENSORS; ++i) {
-    num += (long)norm[i] * (long)weights[i];
-    den += norm[i];
+    weighted_sum += (long)norm[i] * (start + i*20);
+    sum += norm[i];
   }
-  if (den < 50) { // nothing detected (tunable)
+  if (sum < 10) { // nothing detected (tunable)
     return false;
   }
-  long p = num / den; // p in approx -350..350
+  
+  long p;
+  if (sum!=0) {
+    p = weighted_sum * 10 / sum; // p in approx -350..350
+  } else
+  p=0;
   // scale to -1000..1000
-  posOut = (int)((p * 128L) / 350L);
-  if (posOut > 128) posOut = 128;
-  if (posOut < -128) posOut = -128;
-  posOut+=128;
+  if (p > 400) p = 400;
+  if (p < -400) p = -400;
+  posOut=(p+400)*255/800; // between 0 and 255
   return true;
 }
 
-
+ 
 
 void ReceiveEvent(int nBytes) {
+  uint8_t command;
+  uint8_t buf[NUM_SENSORS];
   Serial.println("received I2C msg");
-  old_mode = current_mode;
   if (nBytes > 0) {
-    current_mode = Wire.read();
+    command = Wire.read();
     Serial.print("received command: ");
-    Serial.println(current_mode);
+    Serial.println(command);
+  }
+  if (command<4) { // then change measuring mode
+    current_mode=command;
   }
   // red remaining bytes
   nBytes--;
-  switch (current_mode) {
-    case MODE_CALIBRATE:
-      initCalibrate();
-      //current_mode = old_mode;
+  switch (command) {
+    case CMD_SET_MODE_RAW:
+      current_mode = MODE_RAW;
       break;
-    case MODE_PRINT_CAL:
+    case CMD_SET_MODE_CAL:
+      current_mode = MODE_CAL;
+      break;
+    case CMD_SET_MODE_DIG:
+      current_mode = MODE_DIG;
+      break;
+      
+    case CMD_CALIBRATE:
+      initCalibrate();
+      current_mode = MODE_CALIBRATING;//current_mode = old_mode;
+      break;
+    case CMD_IS_CALIBRATED:
+      buf[0]=is_calibrated;
+      Wire.write(buf,1);      
+      break;
+    case CMD_PRINT_CAL:
       printCal();
       //current_mode = old_mode;
       break;
-    case MODE_DEBUG:
+    case CMD_DEBUG:
       Serial.println(millis());
       break;
-    case MODE_INVERT:
-      inverted = !inverted;
-      Serial.print("inverted :");
-      Serial.println(inverted);
+    case CMD_SET_EMITTER:
+      if (nBytes>0) {
+        Serial.print("emitter :");
+        uint8_t level = Wire.read();
+        nBytes--;
+        Serial.println(level);
+        setEmitter(level);
+      }
+      break;
+    case CMD_SET_MIN:
+      if (nBytes>=8) {
+        Serial.print("set cal min ");
+        for (int i=0; i<8; i++) {
+          uint8_t val = Wire.read();
+          calMin[i]=val;
+          calAvg[i] = (calMin[i] + calMax[i]) / 2;
+          Serial.print(",");
+          Serial.print(val);
+          nBytes--;
+        }
+        Serial.println();
+      }
+      break;
+    case CMD_SET_MAX:
+      if (nBytes>=8) {
+        Serial.print("set cal max ");
+        for (int i=0; i<8; i++) {
+          uint8_t val = Wire.read();
+          calMax[i]=val;
+          calAvg[i] = (calMin[i] + calMax[i]) / 2;
+          Serial.print(",");
+          Serial.print(val);
+          nBytes--;
+        }
+        Serial.println();
+      }
+      break;
+
+    case CMD_GET_MIN:
+      Wire.write(calMin, NUM_SENSORS);
+      break;
+    case CMD_GET_MAX:
+      Wire.write(calMax, NUM_SENSORS);
+      break;
+    case CMD_GET_AVG:
+      Wire.write(calAvg, NUM_SENSORS);
+      break;
+    case CMD_GET_VERSION:
+      buf[0]=MAJ_VERSION;
+      buf[1]=MIN_VERSION;
+      Wire.write(buf, 2);
+      break;
+    case CMD_GET_POSITION:
+      uint8_t pos;
+      readSensors(buf);
+      getLinePosition(buf,pos);
+      buf[0]=pos; // reuse buf
+      Wire.write(buf,1);
+      Serial.print("position:");
+      Serial.println(pos);
+      break;
+
       //current_mode = old_mode;
   }
   // read remaining bytes
@@ -198,11 +299,6 @@ void ReceiveEvent(int nBytes) {
     Serial.println(Wire.read());
     nBytes--;
   }
-  
-
-
-  
-
 }
 
 void RequestEvent() {
@@ -218,57 +314,30 @@ void RequestEvent() {
     nr=0;
   }
   switch (current_mode) {
-    case MODE_VAL_RAW:
+    case MODE_RAW:
       readSensors(buf);
       //invertBuf(buf,invert);
       Wire.write(buf,NUM_SENSORS);
       break;
-    case MODE_CALIBRATE:
+    case MODE_CAL:
+      readSensors(buf);
+      computeNormalized(buf,norm);
+      Serial.print("a[0]= ");
+      Serial.println(norm[0]);
+      //invertBuf(norm,invert);
+      Wire.write(norm,NUM_SENSORS);
+      break;
+    case MODE_DIG:
+      readSensors(buf);
+      computeDigital(buf,norm);
+      Wire.write(norm,NUM_SENSORS);
+      break;
+    case MODE_CALIBRATING:
       readSensors(buf);
       doCalibrate();
       //invertBuf(buf,invert);
       Wire.write(buf,NUM_SENSORS);
       break;
-    case MODE_VAL_CAL:
-      readSensors(buf);
-      computeNormalized(buf,norm);
-      //invertBuf(norm,invert);
-      Wire.write(norm,NUM_SENSORS);
-      break;
-    case MODE_VAL_DIG:
-      readSensors(buf);
-      computeDigital(buf,norm);
-      Wire.write(norm,NUM_SENSORS);
-      break;
-    case MODE_PRINT_CAL:
-      readSensors(buf);
-      Wire.write(buf,NUM_SENSORS);
-      break;
-    case MODE_POSITION:
-      uint8_t pos;
-      readSensors(buf);
-      getLinePosition(buf,pos);
-      buf[0]=pos; // reuse buf
-      Wire.write(buf,1);
-      Serial.print("position:");
-      Serial.println(pos);
-
-      break;
-    case MODE_GET_MIN:
-      Wire.write(calMin, NUM_SENSORS);
-      break;
-    case MODE_GET_MAX:
-      Wire.write(calMax, NUM_SENSORS);
-      break;
-    case MODE_GET_AVG:
-      Wire.write(calAvg, NUM_SENSORS);
-      break;
-    case MODE_VERSION:
-      buf[0]=MAJ_VERSION;
-      buf[1]=MIN_VERSION;
-      Wire.write(buf, NUM_SENSORS);
-      break;
-      
     default:
       readSensors(buf);
       Wire.write(buf,NUM_SENSORS);
@@ -281,19 +350,12 @@ void setup() {
   Serial.begin(115200);
   Serial.println("I2C slave @address 0x33");
 
-  Mode current_mode = MODE_VAL_RAW;
+  current_mode = MODE_RAW;
 
   Wire.begin(MY_I2C_ADDRESS);
   // Note: enable I2C slave functionality in /libraries/Wire/src/utility/twi.h to prevent error message for next two lines
   Wire.onReceive(ReceiveEvent);
   Wire.onRequest(RequestEvent);
-
-  int dist=10;
-  int start = -dist/2*(NUM_SENSORS-1);
-  for (int i=0; i<NUM_SENSORS; i++) {
-     weights[i]= start+i*dist;
-  }
-
 
 }
 
