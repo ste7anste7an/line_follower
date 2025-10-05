@@ -2,12 +2,13 @@ module main
 author unknown
 version 1 0 
 description ''
-variables buf count calibrate 
+variables count calibrate 
 
   spec ' ' 'calibrate' 'calibrate _' 'auto' 200
   spec ' ' 'Calibrate' 'Calibrate'
   spec ' ' 'inverting' 'inverting'
   spec ' ' 'switch' 'switch'
+  spec 'r' 'line' 'line'
 
 to Calibrate {
   calibrate = (booleanConstant true)
@@ -25,53 +26,41 @@ to inverting {
   invert ('[tft:LVGLgetval]' 'inverting')
 }
 
+to line {
+  return ('[data:join]' ('read line') ('[data:makeList]' ('get position')))
+}
+
 to switch {
   if ('[tft:LVGLgetval]' 'switch') {
-    command 'val_cal'
+    command 'mode calibrated'
   } else {
-    command 'val_raw'
+    command 'mode raw'
   }
 }
 
-script 467 50 {
-for i 127 {}
-}
+script 924 50 ('get calibration' 'average')
 
-script 137 76 {
-if ('[sensors:i2cExists]' i) {
-  sayIt i
-  waitMillis 500
-}
-}
-
-script 174 263 {
-whenStarted
-}
-
-script 113 410 {
-command 'invert' 'true'
-}
-
-script 191 644 {
+script 195 77 {
 whenCondition calibrate
 comment 'start calibration for 10 seconds'
 command 'calibrate'
 '[tft:LVGLsetval]' 'led' (booleanConstant true)
 waitMillis 10000
 if ('[tft:LVGLgetval]' 'cal_val') {
-  command 'val_cal'
+  command 'mode calibrated'
 } else {
-  command 'val_raw'
+  command 'mode raw'
 }
 '[tft:LVGLsetval]' 'led' (booleanConstant false)
 calibrate = (booleanConstant false)
 }
 
-script 692 667 {
+script 696 100 {
 whenStarted
+init
 comment 'start line follower with 8 sensors and plot'
 init_line 8 true
-command 'val_raw'
+command 'mode raw'
 init_callback
 comment 'make simple GUI for calibration etc.'
 '[tft:LVGLaddbtn]' 'Calibrate'
@@ -96,27 +85,120 @@ add_callback 'Calibrate'
 '[tft:LVGLsetsize]' 'position' 20 200
 '[tft:LVGLsetpos]' 'position' 240 20
 comment 'position ranges need to be checked'
-'[tft:LVGLsetattribute]' 'range' 'position' 0 350
+'[tft:LVGLsetattribute]' 'range' 'position' 0 255
 add_callback 'switch'
 add_callback 'inverting'
+add_command 'line' 9 0 'h'
 calibrate = (booleanConstant false)
 forever {
   a = ('read line')
+  sayIt 123
   handle_event
-  '[tft:LVGLsetval]' 'position' ('get position')
+  '[tft:LVGLsetval]' 'position' (position_i2c)
 }
 }
 
-script 143 1093 {
+script 1029 231 {
+forever {
+  buf = ('read line')
+}
+}
+
+script 1075 476 {
+command 'mode calibrated'
+}
+
+script 147 526 {
 to Calibrate {}
 }
 
-script 398 1115 {
+script 402 548 {
 to switch {}
 }
 
-script 123 1268 {
+script 127 701 {
 to inverting {}
+}
+
+script 201 829 {
+'set emitter level' 10
+}
+
+script 96 999 {
+to line {}
+}
+
+script 748 1241 {
+process
+}
+
+script 895 1247 ('get position')
+
+script 150 1360 {
+'set emitter level' 0
+}
+
+script 149 1692 (file_contents 'cal_val.bin' true)
+
+script 50 2367 {
+to 'set calibration' {}
+}
+
+
+module Files Data
+author MicroBlocks
+version 1 4 
+description 'Flash file system operations. Currently supports the LittleFS file system on ESP8266 and ESP32 boards. The GnuBlocks virtual machine (Linux and Raspberry Pi) supports the native system.'
+
+  spec ' ' '[file:open]' 'open file _' 'str'
+  spec ' ' '[file:close]' 'close file _' 'str'
+  spec ' ' '[file:delete]' 'delete file _' 'str'
+  space
+  spec ' ' '[file:appendLine]' 'append line _ to file _' 'str str'
+  spec ' ' '[file:appendBytes]' 'append bytes _ to file _' 'str str'
+  space
+  spec 'r' '[file:fileSize]' 'size of file _' 'str'
+  spec 'r' 'file_contents' 'contents of file _ : binary _' 'str bool' '' false
+  space
+  spec 'r' '[file:readLine]' 'next line of file _' 'str'
+  spec 'r' '[file:readBytes]' 'next _ bytes of file _ : starting at _' 'num str num' 100 '' 0
+  spec 'r' '[file:readInto]' 'read into _ from file _' 'str str' 'a ByteArray' ''
+  spec 'r' '[file:endOfFile]' 'end of file _' 'str'
+  space
+  spec 'r' '[file:readPosition]' 'read position of file _' 'str'
+  spec ' ' '[file:setReadPosition]' 'set read position _ of file _' 'num str' 0 ''
+  spec ' ' 'file_SkipBytes' 'skip _ bytes of file _' 'num str' 4 ''
+  space
+  spec 'r' 'file names' 'file names : in directory _' 'str'
+  spec 'r' '[file:systemInfo]' 'file system info'
+
+to 'file names' dir {
+  '[file:startList]' dir
+  local 'result' ('[data:makeList]')
+  local 'fileName' ('[file:nextInList]')
+  repeatUntil (fileName == '') {
+    '[data:addLast]' fileName result
+    fileName = ('[file:nextInList]')
+  }
+  return result
+}
+
+to file_SkipBytes offset file {
+  local 'newPosition' (('[file:readPosition]' file) + offset)
+  '[file:setReadPosition]' newPosition file
+}
+
+to file_contents fileName optionBinary {
+  local 'binary' (argOrDefault 2 (booleanConstant false))
+  local 'byteCount' ('[file:fileSize]' fileName)
+  local 'result' ('[data:newByteArray]' byteCount)
+  local 'i' 1
+  '[file:open]' fileName
+  repeatUntil (i > byteCount) {
+    i += ('[file:readInto]' result fileName)
+  }
+  '[file:close]' fileName
+  return (ifExpression binary result ('[data:convertType]' result 'string'))
 }
 
 
@@ -277,46 +359,78 @@ to symbol symbolname {
 module 'Line Follower' Input
 author Ste7an
 version 1 3 
-choices commands val_raw val_cal val_dig get_min get_max get_avg calibrate print_cal version position invert 
+choices set_calibration minimum maximum 
+choices get_calibration minimum maximum average 
+choices commands 'mode raw' 'mode calibrated' 'mode digital' calibrate 'get minimum' 'get maximum' 'get average' 'is calibrated' 'print calibration' 'set minimum' 'set maximum' 'get version' debug 'get position' 'set emitter' 
 description 'I2C Line follower on ch32v203'
-variables _buf _line_plot _line_buf a _inverted _nr_sensors 
+variables _buf _line_plot _line_buf a _inverted _nr_sensors tmp buf 
 
   spec ' ' 'init_line' 'init line _ plot _' 'num bool' 8 true
   spec 'r' 'read line' 'read line'
-  spec 'r' 'bar_nr' 'bar_nr _' 'auto' '10'
-  spec ' ' 'command' 'command _ : value _' 'str.commands auto' 'val_raw' true
+  spec 'r' '_bar_nr' '_bar_nr _' 'auto' '10'
   spec ' ' 'invert' 'invert _' 'bool' true
   spec 'r' 'get position' 'get position'
+  spec ' ' 'set emitter level' 'set emitter level _' 'auto' '10'
+  spec ' ' 'set calibration' 'set calibration _ values _' 'str.set_calibration auto' 'minimum' '10'
+  spec ' ' 'command' 'command _ : value _' 'str.commands auto' 'mode raw' true
+  spec 'r' 'get calibration' 'get calibration _' 'str.get_calibration' 'minimum'
+  spec 'r' 'is calibrated' 'is calibrated'
+  spec ' ' 'save calibration' 'save calibration'
+  spec ' ' 'load calibration' 'load calibration'
+  spec 'r' 'position_i2c' 'position_i2c'
 
-to bar_nr nr {
+to '_bar_nr' nr {
   return ('[data:join]' 'bar' nr)
 }
 
 to command cmd {
   local 'cmd_id' 0
-  if (cmd == 'val_raw') {
+  if (cmd == 'mode raw') {
     cmd_id = 0
-  } (cmd == 'val_cal') {
+  } (cmd == 'mode calibrated') {
     cmd_id = 1
-  } (cmd == 'val_dig') {
+  } (cmd == 'mode digigtal') {
     cmd_id = 2
-  } (cmd == 'get_min') {
-    cmd_id = 4
-  } (cmd == 'get_max') {
-    cmd_id = 5
-  } (cmd == 'get_avg') {
-    cmd_id = 6
   } (cmd == 'calibrate') {
     cmd_id = 3
-  } (cmd == 'print_cal') {
+  } (cmd == 'get minimum') {
+    cmd_id = 4
+  } (cmd == 'get maximum') {
+    cmd_id = 5
+  } (cmd == 'get average') {
+    cmd_id = 6
+  } (cmd == 'is calibrated') {
+    cmd_id = 7
+  } (cmd == 'print calibration') {
     cmd_id = 8
-  } (cmd == 'version') {
+  } (cmd == 'set minimum') {
+    cmd_id = 9
+  } (cmd == 'set maximum') {
+    cmd_id = 10
+  } (cmd == 'get version') {
     cmd_id = 11
-  } (cmd == 'invert') {
+  } (cmd == 'debug') {
+    cmd_id = 12
+  } (cmd == 'get position') {
+    cmd_id = 13
+  } (cmd == 'set emitter') {
     cmd_id = 14
   }
   local 'buf' ('[data:makeList]' cmd_id)
   '[sensors:i2cWrite]' 51 buf
+}
+
+to 'get calibration' minmax {
+  local 'buf' (newList _nr_sensors)
+  if (minmax == 'minimum') {
+    command 'get minimum'
+  } (minmax == 'maximum') {
+    command 'get maximum'
+  } else {
+    command 'get average'
+  }
+  '[sensors:i2cRead]' 51 buf
+  return buf
 }
 
 to 'get position' {
@@ -329,7 +443,10 @@ to 'get position' {
     sum = (sum + (at i adc))
     weightsum = (weightsum + ((start_weight + (20 * i)) * (at i adc)))
   }
-  return ((weightsum * 10) / sum)
+  if (sum != 0) {
+    return ((weightsum * 10) / sum)
+  }
+  return 0
 }
 
 to init_line 'number of sensors' plot {
@@ -339,11 +456,11 @@ to init_line 'number of sensors' plot {
   if plot {
     'enable lvgl' true true
     for i _nr_sensors {
-      '[tft:LVGLaddobj]' 'bar' (bar_nr i)
-      '[tft:LVGLsetsize]' (bar_nr i) 15 100
-      '[tft:LVGLsetpos]' (bar_nr i) (i * 20) 20
-      '[tft:LVGLsetcolor]' (bar_nr i) (colorSwatch 190 29 9 255) (colorSwatch 255 0 10 255)
-      '[tft:LVGLsetattribute]' 'range' (bar_nr i) 0 255
+      '[tft:LVGLaddobj]' 'bar' ('_bar_nr' i)
+      '[tft:LVGLsetsize]' ('_bar_nr' i) 15 100
+      '[tft:LVGLsetpos]' ('_bar_nr' i) (i * 20) 20
+      '[tft:LVGLsetcolor]' ('_bar_nr' i) (colorSwatch 190 29 9 255) (colorSwatch 255 0 10 255)
+      '[tft:LVGLsetattribute]' 'range' ('_bar_nr' i) 0 255
     }
   }
   _line_buf = (newList _nr_sensors)
@@ -353,20 +470,68 @@ to invert inverted {
   _inverted = inverted
 }
 
+to 'is calibrated' {
+  local 'buf' (newList 1)
+  command 'is calibrated'
+  '[sensors:i2cRead]' 51 buf
+  return ((at 1 buf) == 1)
+}
+
+to 'load calibration' {
+  '[file:open]' 'cal_val.bin'
+  tmp = ('[data:convertType]' ('[file:readBytes]' 8 'cal_val.bin') 'list')
+  'set calibration' 'minimum' tmp
+  tmp = ('[data:convertType]' ('[file:readBytes]' 8 'cal_val.bin') 'list')
+  'set calibration' 'maximum' tmp
+  '[file:close]' 'cal_val.bin'
+}
+
+to position_i2c {
+  command 'get position'
+  buf = (newList 1)
+  '[sensors:i2cRead]' 51 buf
+  return (at 1 buf)
+}
+
 to 'read line' {
   '[sensors:i2cRead]' 51 _line_buf
+  if _inverted {
+    for i _nr_sensors {
+      atPut i _line_buf (255 - (at i _line_buf))
+    }
+  }
   if _line_plot {
-    if _inverted {
-      for i _nr_sensors {
-        '[tft:LVGLsetval]' (bar_nr i) (255 - (at i _line_buf))
-      }
-    } else {
-      for i _nr_sensors {
-        '[tft:LVGLsetval]' (bar_nr i) (at i _line_buf)
-      }
+    for i _nr_sensors {
+      '[tft:LVGLsetval]' ('_bar_nr' i) (at i _line_buf)
     }
   }
   return _line_buf
+}
+
+to 'save calibration' {
+  '[file:delete]' 'cal_val.bin'
+  '[file:open]' 'cal_val.bin'
+  tmp = ('get calibration' 'minimum')
+  '[file:appendBytes]' ('[data:convertType]' tmp 'byte array') 'cal_val.bin'
+  tmp = ('get calibration' 'maximum')
+  '[file:appendBytes]' ('[data:convertType]' tmp 'byte array') 'cal_val.bin'
+  '[file:close]' 'cal_val.bin'
+}
+
+to 'set calibration' minmax values {
+  if ((size values) != _nr_sensors) {
+    sayIt 'length of value array is not equal to number of sensors'
+  } else {
+    if (minmax == 'minimum') {
+      '[sensors:i2cWrite]' 51 ('[data:join]' ('[data:makeList]' 9) values)
+    } else {
+      '[sensors:i2cWrite]' 51 ('[data:join]' ('[data:makeList]' 10) values)
+    }
+  }
+}
+
+to 'set emitter level' level {
+  '[sensors:i2cWrite]' 51 ('[data:makeList]' 14 level)
 }
 
 
@@ -386,3 +551,400 @@ description 'Provides blocks to read tilt in the three axes, acceleration, tempe
   space
   spec ' ' '[sensors:i2cSetClockSpeed]' 'set i2c clock speed _' 'num' 400000
   spec ' ' '[sensors:i2cSetPins]' 'set i2c pins SDA _ SCL _' 'num num' 4 5
+
+module micropup
+author Ste7an
+version 1 1 
+choices data_type b h i 
+description 'Library to facilitate communication with Pybricks hubs. See https://github.com/ste7anste7an/micropup'
+variables _pup_sensor_id _pup_commands _pup_nr_modes _pup_cur_mode _pup_last_nack _pup_connected _pup_senddata _pup_payloads 
+
+  spec ' ' 'init' 'init : sensor id _' 'auto' 62
+  spec ' ' 'add_command' 'add command _ to hub _ from hub _ type _' 'str auto auto str.data_type' '' '1' '1' 'b'
+  spec ' ' 'process' 'process'
+  spec 'r' '_tohex' '_tohex _' 'auto' '10'
+  spec 'r' '_bytestowords' '_bytestowords _' 'auto' '10'
+  spec 'r' '_unsignedbytes' '_unsignedbytes _' 'auto' '10'
+  spec 'r' '_bytetoword' '_bytetoword _' 'auto' '10'
+  spec 'r' '_wordstobytes' '_wordstobytes _' 'auto' '10'
+  spec 'r' '_wordtobyte' '_wordtobyte _' 'auto' '10'
+  spec 'r' '_longtobyte' '_longtobyte _' 'auto' '10'
+  spec 'r' '_bytestolongs' '_bytestolongs _' 'auto' '10'
+  spec 'r' '_bytetolong' '_bytetolong _' 'auto' '10'
+  spec 'r' '_longstobytes' '_longstobytes _' 'auto' '10'
+  spec 'r' '_make_payload' '_make_payload _ _ _' 'auto auto auto' '10' '10' '10'
+  spec 'r' '_hextolist' '_hextolist _' 'auto' '10'
+  spec 'r' '_heartbeat' '_heartbeat'
+  spec ' ' '_init_sensor' '_init_sensor'
+  spec ' ' '_initmode' '_initmode _' 'auto' '10'
+  spec ' ' '_sendatachk' '_sendatachk _' 'auto' '10'
+  spec ' ' '_sendhex' '_sendhex _' 'auto' '10'
+  spec 'r' '_calc_len_data' '_calc_len_data _ _ _' 'auto auto auto' '10' '10' '10'
+  spec 'r' '_get_type' '_get_type _' 'auto' '10'
+  spec 'r' '_log_len' '_log_len _' 'auto' '10'
+  spec 'r' '_log2' '_log2 _' 'auto' '10'
+  spec ' ' '_reset' '_reset'
+  spec ' ' '_send_data' '_send_data _' 'auto' '10'
+  spec ' ' '_set_payload' '_set_payload _ _' 'auto auto' '10' '10'
+
+to '_bytestolongs' bytes {
+  local 'longs' ('[data:makeList]')
+  for i ((size bytes) / 4) {
+    local 'cnt' ((i * 4) - 3)
+    '[data:addLast]' ('_bytetolong' ('[data:makeList]' (at (cnt - 0) bytes) (at (cnt + 1) bytes) (at (cnt + 2) bytes) (at (cnt + 3) bytes))) longs
+  }
+  return longs
+}
+
+to '_bytestowords' bytes {
+  local 'len' ((size bytes) / 2)
+  local 'words' (newList len)
+  for i len {
+    local 'cnt' (i * 2)
+    atPut i words ('_bytetoword' ('[data:makeList]' (at (cnt - 1) bytes) (at (cnt + 0) bytes)))
+  }
+  return words
+}
+
+to '_bytetolong' bytes {
+  return ((((at 1 bytes) + ((at 2 bytes) << 8)) + ((at 3 bytes) << 16)) + ((at 4 bytes) << 24))
+}
+
+to '_bytetoword' bytes {
+  local 'unsigned' ((at 1 bytes) + ((at 2 bytes) << 8))
+  if (unsigned > 32767) {
+    unsigned = (unsigned - 65536)
+  }
+  return unsigned
+}
+
+to '_calc_len_data' data_type to_hub from_hub {
+  return ('_log_len' ((1 << data_type) * (maximum to_hub from_hub)))
+}
+
+to '_get_type' type {
+  local 'data_type' 0
+  if (type == 'i') {
+    data_type = 2
+  } (type == 'h') {
+    data_type = 1
+  } else {
+    data_type = 0
+  }
+  return data_type
+}
+
+to '_heartbeat' {
+  if (((millisOp) - _pup_last_nack) > 4000) {'_reset'}
+  if (('[serial:available]') > 0) {
+    local 'cmd' (at 1 ('[serial:readNr]' 1))
+    if (cmd == 2) {
+      _pup_last_nack = (millisOp)
+      '_sendatachk' ('[data:makeList]' ((hexToInt '46') | 0) 0)
+    } (cmd == (hexToInt '46')) {
+      _pup_last_nack = (millisOp)
+      local 'ser_data' ('[serial:read]')
+      comment 'mode = (b & 0b111)'
+      local 'wrtmode' ((at 3 ser_data) & 7)
+      _pup_cur_mode = wrtmode
+      comment ' len = 2 ** ((b & 0b111000) >> 3)'
+      local 'lenpow2' (((at 3 ser_data) & 56) >> 3)
+      local 'len' (1 << lenpow2)
+      local 'list' (newList len)
+      for i len {
+        atPut i list (at (i + 3) ser_data)
+      }
+      return ('[data:makeList]' wrtmode list)
+    } (cmd == (hexToInt '43')) {
+      _pup_last_nack = (millisOp)
+      local 'ser_data' ('[serial:read]')
+      _pup_cur_mode = (at 1 ser_data)
+      '_send_data' _pup_cur_mode
+    }
+  }
+}
+
+to '_hextolist' hexstr {
+  local 'len' ((size hexstr) / 2)
+  local 'data' (newList len)
+  for i len {
+    atPut i data (hexToInt ('[data:copyFromTo]' hexstr ((i * 2) - 1) (i * 2)))
+  }
+  return data
+}
+
+to '_init_sensor' {
+  '_sendhex' 0
+  comment 'TYPE_ID'
+  '_sendatachk' ('[data:makeList]' (hexToInt '40') _pup_sensor_id)
+  comment 'CMD_MODES 0x49 <nr_modes> <nr_views>'
+  '_sendatachk' ('[data:makeList]' (hexToInt '49') (_pup_nr_modes - 1) (_pup_nr_modes - 1))
+  comment 'set baud rate to 115200'
+  '_sendhex' '5200c201006e'
+  comment 'CMD_VERSION'
+  '_sendhex' '5f0000000100000105a5'
+  for i _pup_nr_modes {
+    '_initmode' ((_pup_nr_modes + 0) - i)
+  }
+}
+
+to '_initmode' mode {
+  local 'cur_command' (at (mode + 1) _pup_commands)
+  local 'data_type' (at 4 cur_command)
+  comment 'INFO mode + power'
+  local 'list' ('[data:join]' ('[data:makeList]' ((hexToInt 'a0') | mode)) ('_hextolist' ('[data:toString]' '00646174')) ('[data:makeList]' (hexToInt '30') (48 + mode)) ('_hextolist' ('[data:toString]' '0080000000050400000000')))
+  waitMillis 20
+  '_sendatachk' list
+  comment 'INFO RAW, PCT, SI'
+  for i 3 {
+    local 'list' ('[data:join]' ('[data:makeList]' ((hexToInt '98') | mode) i) ('_hextolist' ('[data:toString]' '000000000000c842')))
+    '_sendatachk' list
+    waitMillis 20
+  }
+  waitMillis 10
+  comment 'INFO UNITS = empty len 0'
+  local 'list' ('[data:makeList]' ((hexToInt '80') | mode) 4 0)
+  '_sendatachk' list
+  comment 'info mapping: 0x88|mode 0x05 input=(abs)0x10 output=(abs)0x10'
+  local 'list' ('[data:makeList]' ((hexToInt '88') | mode) 5 (hexToInt '10') (hexToInt '10'))
+  '_sendatachk' list
+  comment '0x90|mode 0x80 <data_type> <log2(len)> <digits> <decimals>'
+  local 'max_len' (maximum (at 2 cur_command) (at 3 cur_command))
+  local 'list' ('[data:makeList]' ((hexToInt '90') | mode) (hexToInt '80') max_len (at 4 cur_command) 3 0)
+  '_sendatachk' list
+}
+
+to '_log2' len {
+  if (len == 1) {
+    return 0
+  } (len == 2) {
+    return 1
+  } (len == 4) {
+    return 2
+  } (len == 8) {
+    return 3
+  } (len == 16) {
+    return 4
+  } (len == 32) {
+    return 5
+  } else {
+    return 0
+  }
+}
+
+to '_log_len' len {
+  local 'loglen' 0
+  if (len > 16) {
+    return 5
+  } (len > 8) {
+    return 4
+  } (len > 4) {
+    return 3
+  } (len > 2) {
+    return 2
+  } (len > 1) {
+    return 1
+  } else {
+    return 0
+  }
+}
+
+to '_longstobytes' longs {
+  local 'bytes' ('[data:makeList]')
+  for i (size longs) {
+    bytes = ('[data:join]' bytes ('_longtobyte' (at i longs)))
+  }
+  return bytes
+}
+
+to '_longtobyte' long {
+  local 'bytes' ('[data:makeList]' (long & 255) ((long >> 8) & 255) ((long >> 16) & 255) ((long >> 24) & 255))
+  return bytes
+}
+
+to '_make_payload' payload data_type tot_len {
+  if (data_type == 0) {
+    local 'raw_bytes' payload
+  } (data_type == 1) {
+    local 'raw_bytes' ('_wordstobytes' payload)
+  } (data_type == 2) {
+    local 'raw_bytes' ('_longstobytes' payload)
+  } else {
+  }
+  comment 'extend raw_bytes to 1>>loglen'
+  local 'pad_len' ((1 << tot_len) - (size raw_bytes))
+  if (pad_len > 0) {
+    return ('[data:join]' raw_bytes (newList pad_len))
+  } else {
+    return raw_bytes
+  }
+}
+
+to '_reset' {
+  '[serial:close]'
+  _pup_last_nack = (millisOp)
+  _pup_cur_mode = 0
+  _pup_connected = 0
+  local 'tmp_var' 0
+  if (('[serial:espversion]') == 2) {
+    tmp_var = (digitalReadOp 8)
+    digitalWriteOp 7 true
+    waitMillis 50
+    digitalWriteOp 7 false
+  } else {
+    '[serial:close]'
+    tmp_var = (digitalReadOp 18)
+    digitalWriteOp 19 true
+    waitMillis 50
+    digitalWriteOp 19 false
+  }
+  waitMillis 450
+  '[serial:open]' 2400
+  '_init_sensor'
+  '_sendhex' 4
+  '[serial:open]' 115200
+  waitMillis 10
+  '_sendhex' 'c0003f'
+  _pup_connected = 1
+  '[serial:open]' 115200
+}
+
+to '_send_data' mode {
+  if (_pup_connected == 1) {
+    local 'payload' (at (mode + 1) _pup_payloads)
+    local 'loglen' (at 5 (at (mode + 1) _pup_commands))
+    local 'list' ('[data:makeList]' (((hexToInt 'c0') | (loglen << 3)) | mode))
+    local 'len' (1 << loglen)
+    local 'datalist' (newList len)
+    for i len {
+      atPut i datalist (at i payload)
+    }
+    '_sendatachk' ('[data:join]' list datalist)
+  }
+}
+
+to '_sendatachk' data {
+  local 'chk' 255
+  for i (size data) {
+    chk = (chk ^ (at i data))
+  }
+  '[serial:write]' ('[data:join]' data ('[data:makeList]' chk))
+}
+
+to '_sendhex' hexstr {
+  if (isType hexstr 'number') {
+    local 'data' (newList 1)
+    atPut 1 data hexstr
+  } else {
+    local 'len' ((size hexstr) / 2)
+    local 'data' (newList len)
+    for i len {
+      atPut i data (hexToInt ('[data:copyFromTo]' hexstr ((i * 2) - 1) (i * 2)))
+    }
+  }
+  '[serial:write]' data
+  waitMillis 1
+}
+
+to '_set_payload' mode payload {
+  atPut (mode + 1) _pup_payloads payload
+}
+
+to '_tohex' data {
+  local 'hexstr' ('[data:toString]' '')
+  for i (size data) {
+    local 'hexstr' ('[data:join]' hexstr ('dec2any Base' '16' (at i data) 2 false))
+  }
+  return hexstr
+}
+
+to '_unsignedbytes' bytes {
+  local 'unsigned' ('[data:makeList]')
+  for i (size bytes) {
+    local 'val' (at i bytes)
+    if (val > 127) {
+      val = (val - 256)
+    }
+    '[data:addLast]' val unsigned
+  }
+  return unsigned
+}
+
+to '_wordstobytes' words {
+  local 'bytes' ('[data:makeList]')
+  for i (size words) {
+    bytes = ('[data:join]' bytes ('_wordtobyte' (at i words)))
+  }
+  return bytes
+}
+
+to '_wordtobyte' word {
+  local 'bytes' ('[data:makeList]' (word & 255) (word >> 8))
+  return bytes
+}
+
+to add_command cmd to_hub from_hub type {
+  comment 'type is dropdown ''b'', ''h'', ''i'' for byte, 16-bit word, 32-bit int'
+  local 'data_type' ('_get_type' type)
+  local 'new_command' ('[data:makeList]' cmd to_hub from_hub data_type ('_calc_len_data' data_type to_hub from_hub))
+  if ((size _pup_commands) == 0) {
+    _pup_commands = ('[data:makeList]' new_command)
+  } else {
+    '[data:addLast]' new_command _pup_commands
+  }
+  _pup_nr_modes = (size _pup_commands)
+  '[data:addLast]' (newList 32) _pup_payloads
+}
+
+to init sensor_id {
+  if (sensor_id == 0) {
+    _pup_sensor_id = 61
+  } else {
+    _pup_sensor_id = sensor_id
+  }
+  comment 'Initialize global variables'
+  _pup_commands = ('[data:makeList]')
+  _pup_cur_mode = 0
+  _pup_senddata = (newList 32)
+  _pup_payloads = ('[data:makeList]')
+  _pup_last_nack = (millisOp)
+}
+
+to process {
+  local 'local_data' ('_heartbeat')
+  local 'data_from_hub' (booleanConstant false)
+  if ((size local_data) > 0) {
+    comment 'arguments passed'
+    data_from_hub = (booleanConstant true)
+    local 'mode' (at 1 local_data)
+    local 'payload_bytes' (at 2 local_data)
+  } else {
+    local 'mode' _pup_cur_mode
+    local 'payload' ('[data:makeList]')
+  }
+  local 'function_name' (at 1 (at (mode + 1) _pup_commands))
+  local 'has_return' ((at 2 (at (mode + 1) _pup_commands)) > 0)
+  local 'has_arg' ((at 3 (at (mode + 1) _pup_commands)) > 0)
+  local 'data_type' (at 4 (at (mode + 1) _pup_commands))
+  local 'tot_len' (at 5 (at (mode + 1) _pup_commands))
+  if data_from_hub {
+    if (data_type == 0) {
+      local 'payload' ('_unsignedbytes' payload_bytes)
+    } (data_type == 1) {
+      local 'payload' ('_bytestowords' payload_bytes)
+    } (data_type == 2) {
+      local 'payload' ('_bytestolongs' payload_bytes)
+    }
+  }
+  if (or (and (not has_arg) has_return) (and has_arg (and has_return data_from_hub))) {
+    local 'ret_val' (callCustomReporter function_name payload)
+    if (isType ret_val 'number') {
+      ret_val = ('[data:makeList]' ret_val)
+    }
+    '_set_payload' mode ('_make_payload' ret_val data_type tot_len)
+  } (and has_arg (and (not has_return) data_from_hub)) {
+    callCustomCommand function_name payload
+  }
+  '_send_data' _pup_cur_mode
+}
+
