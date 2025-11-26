@@ -2,13 +2,12 @@ module main
 author unknown
 version 1 0 
 description ''
-variables count calibrate 
+variables count calibrate time_ms _line_pos _line_min _line_max 
 
   spec ' ' 'calibrate' 'calibrate _' 'auto' 200
   spec ' ' 'Calibrate' 'Calibrate'
   spec ' ' 'inverting' 'inverting'
   spec ' ' 'switch' 'switch'
-  spec 'r' 'line' 'line'
 
 to Calibrate {
   calibrate = (booleanConstant true)
@@ -26,10 +25,6 @@ to inverting {
   invert ('[tft:LVGLgetval]' 'inverting')
 }
 
-to line {
-  return ('[data:join]' ('read line') ('[data:makeList]' ('get position')))
-}
-
 to switch {
   if ('[tft:LVGLgetval]' 'switch') {
     command 'mode calibrated'
@@ -38,9 +33,49 @@ to switch {
   }
 }
 
-script 1005 50 ('get calibration' 'average')
+script 187 50 ('is calibrated')
 
-script 172 63 {
+script 50 59 ('read line')
+
+script 777 76 {
+'save calibration'
+}
+
+script 975 85 {
+'set emitter level' 0
+}
+
+script 452 90 {
+'[file:open]' 'cal_val.bin'
+}
+
+script 188 98 ('get calibration' 'minimum')
+
+script 778 127 {
+'load calibration'
+}
+
+script 184 139 ('get calibration' 'maximum')
+
+script 454 143 ('[file:readBytes]' 8 'cal_val.bin')
+
+script 176 185 {
+command 'print calibration'
+}
+
+script 489 202 {
+'[file:close]' 'cal_val.bin'
+}
+
+script 728 205 (v _line_buf)
+
+script 1019 211 (v _line_min)
+
+script 893 212 (v _line_pos)
+
+script 1129 213 (v _line_max)
+
+script 274 290 {
 whenCondition calibrate
 comment 'start calibration for 10 seconds'
 command 'calibrate'
@@ -55,7 +90,7 @@ if ('[tft:LVGLgetval]' 'cal_val') {
 calibrate = (booleanConstant false)
 }
 
-script 516 63 {
+script 618 290 {
 whenStarted
 init
 comment 'start line follower with 8 sensors and plot'
@@ -92,97 +127,31 @@ add_command 'line' 9 0 'h'
 calibrate = (booleanConstant false)
 forever {
   a = ('read line')
-  sayIt 123
   handle_event
-  local 'pos' (at 1 (position_i2c))
+  local 'pos' ('get position')
   '[tft:LVGLsetval]' 'position' pos
-  graphIt pos
+  comment 'add green process here when connected to lego'
+  buf = (newList 11)
+  '[sensors:i2cRead]' 51 buf
+  graphIt (at 9 buf) pos
 }
 }
 
-script 1110 231 {
-forever {
-  buf = ('read line')
-}
-}
-
-script 1094 425 {
-graphIt 100
-}
-
-script 1156 476 {
-command 'mode calibrated'
-}
-
-script 271 487 {
-to Calibrate {}
-}
-
-script 50 512 {
+script 116 696 {
 to switch {}
 }
 
-script 208 701 {
+script 373 714 {
+to Calibrate {}
+}
+
+script 116 950 {
 to inverting {}
 }
 
-script 282 829 {
-'set emitter level' 0
-}
-
-script 72 1115 {
-to line {}
-}
-
-script 829 1241 {
+script 668 1598 {
 process
 }
-
-script 976 1247 ('get position')
-
-script 201 1284 (file_contents 'cal_val.bin' true)
-
-script 470 1358 ('get calibration' 'minimum')
-
-script 231 1360 {
-'set emitter level' 0
-}
-
-script 591 1451 (position_i2c)
-
-script 521 1663 ('[file:fileSize]' 'cal_val.bin')
-
-script 757 1686 {
-'save calibration'
-}
-
-script 144 1692 {
-'[file:appendBytes]' '' ''
-}
-
-script 475 1710 {
-'[file:open]' 'cal_val.bin'
-}
-
-script 189 1782 (file_contents 'cal_val.bin' true)
-
-script 649 1797 ('get calibration' 'minimum')
-
-script 1024 1870 {
-'set calibration' 'maximum' tmp
-}
-
-script 885 1930 {
-'load calibration'
-}
-
-script 1042 1988 ('get calibration' 'maximum')
-
-script 788 2026 {
-'[file:delete]' 'cal_val.bin'
-}
-
-script 1091 2124 (v tmp)
 
 
 module Files Data
@@ -415,8 +384,8 @@ variables _buf _line_plot _line_buf a _inverted _nr_sensors tmp buf
   spec ' ' 'command' 'command _ : value _' 'str.commands auto' 'mode raw' true
   spec 'r' 'get calibration' 'get calibration _' 'str.get_calibration' 'minimum'
   spec 'r' 'is calibrated' 'is calibrated'
-  spec ' ' 'save calibration' 'save calibration'
-  spec ' ' 'load calibration' 'load calibration'
+  spec ' ' 'save calibration' 'calibration to file'
+  spec ' ' 'load calibration' 'calibration from file'
   spec 'r' 'position_i2c' 'position_i2c'
 
 to '_bar_nr' nr {
@@ -461,7 +430,7 @@ to command cmd {
 }
 
 to 'get calibration' minmax {
-  local 'buf' (newList _nr_sensors)
+  local 'tmp_buf' (newList _nr_sensors)
   if (minmax == 'minimum') {
     command 'get minimum'
   } (minmax == 'maximum') {
@@ -469,22 +438,26 @@ to 'get calibration' minmax {
   } else {
     command 'get average'
   }
-  '[sensors:i2cRead]' 51 buf
-  return buf
+  '[sensors:i2cRead]' 51 tmp_buf
+  return tmp_buf
 }
 
 to 'get position' {
   local 'adc' 0
   local 'sum' 0
   local 'weightsum' 0
-  local 'start_weight' ((-1 * (20 / 2)) * (_nr_sensors - 1))
+  local 'val' 0
   adc = ('read line')
   for i _nr_sensors {
-    sum = (sum + (at i adc))
-    weightsum = (weightsum + ((start_weight + (20 * i)) * (at i adc)))
+    val = (at i adc)
+    if (val < 50) {
+      val = 0
+    }
+    sum = (sum + val)
+    weightsum = (weightsum + ((i + 1) * val))
   }
   if (sum != 0) {
-    return ((weightsum * 10) / sum)
+    return ((((weightsum * 255) / sum) - 255) / 7)
   }
   return 0
 }
@@ -503,7 +476,7 @@ to init_line 'number of sensors' plot {
       '[tft:LVGLsetattribute]' 'range' ('_bar_nr' i) 0 255
     }
   }
-  _line_buf = (newList _nr_sensors)
+  _line_buf = (newList (_nr_sensors + 4))
 }
 
 to invert inverted {
@@ -532,10 +505,7 @@ to 'load calibration' {
 }
 
 to position_i2c {
-  command 'get position'
-  buf = (newList 3)
-  '[sensors:i2cRead]' 51 buf
-  return buf
+  return _line_pos
 }
 
 to 'read line' {
@@ -550,6 +520,9 @@ to 'read line' {
       '[tft:LVGLsetval]' ('_bar_nr' i) (at i _line_buf)
     }
   }
+  _line_pos = (at (_nr_sensors + 1) _line_buf)
+  _line_min = (at (_nr_sensors + 2) _line_buf)
+  _line_max = (at (_nr_sensors + 3) _line_buf)
   return _line_buf
 }
 
@@ -558,6 +531,7 @@ to 'save calibration' {
   if ('is calibrated') {
     vals = ('get calibration' 'minimum')
     if ((size vals) > 0) {
+      '[file:close]' 'cal_val.bin'
       '[file:delete]' 'cal_val.bin'
       '[file:open]' 'cal_val.bin'
       '[file:appendBytes]' ('[data:convertType]' vals 'byte array') 'cal_val.bin'
@@ -565,10 +539,10 @@ to 'save calibration' {
       '[file:appendBytes]' ('[data:convertType]' vals 'byte array') 'cal_val.bin'
       '[file:close]' 'cal_val.bin'
     } else {
-      sayIt 'noy yet calibrated'
+      sayIt 'not yet calibrated'
     }
   } else {
-    sayIt 'noy yet calibrated'
+    sayIt 'not yet calibrated'
   }
 }
 
@@ -588,23 +562,6 @@ to 'set emitter level' level {
   '[sensors:i2cWrite]' 51 ('[data:makeList]' 14 level)
 }
 
-
-module 'Sensor Primitives' Input
-author MicroBlocks
-version 1 1 
-tags tilt acceleration light sensor capacitive button 
-description 'Provides blocks to read tilt in the three axes, acceleration, temperature and light level. Many boards come with this particular set of sensors, such as the micro:bit, the Circuit Playground Express, the Calliope or the Citilab ED1.'
-
-  spec 'r' '[sensors:tiltX]' 'tilt x'
-  spec 'r' '[sensors:tiltY]' 'tilt y'
-  spec 'r' '[sensors:tiltZ]' 'tilt z'
-  spec 'r' '[display:lightLevel]' 'light level'
-  spec 'r' '[sensors:temperature]' 'temperature (°C)'
-  space
-  spec 'r' '[sensors:touchRead]' 'capacitive sensor _' 'num' 1
-  space
-  spec ' ' '[sensors:i2cSetClockSpeed]' 'set i2c clock speed _' 'num' 400000
-  spec ' ' '[sensors:i2cSetPins]' 'set i2c pins SDA _ SCL _' 'num num' 4 5
 
 module micropup
 author Ste7an

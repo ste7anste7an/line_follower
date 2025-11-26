@@ -1,3 +1,42 @@
+module main
+author unknown
+version 1 0 
+description ''
+variables _can_measure 
+
+  spec ' ' 'load calibration' 'load calibration'
+  spec ' ' 'save calibration' 'save calibration'
+
+to 'load calibration' {
+}
+
+to 'save calibration' {
+}
+
+script 52 66 {
+to 'save calibration' {}
+}
+
+script 50 202 {
+to 'load calibration' {}
+}
+
+script 373 430 {
+_can_measure = (booleanConstant false)
+command 'save calibration'
+comment 'wait some safe time'
+waitMillis 1000
+_can_measure = (booleanConstant true)
+}
+
+script 452 671 {
+_can_measure = (booleanConstant false)
+command 'load calibration'
+waitMillis 500
+_can_measure = (booleanConstant true)
+}
+
+
 module 'Line Follower' Input
 author Ste7an
 version 1 3 
@@ -5,7 +44,7 @@ choices set_calibration minimum maximum
 choices get_calibration minimum maximum average 
 choices commands 'mode raw' 'mode calibrated' 'mode digital' calibrate 'get minimum' 'get maximum' 'get average' 'is calibrated' 'save calibration' 'load calibration' 'print calibration' 'set minimum' 'set maximum' 'get version' debug 'get position' 'set emitter' 
 description 'I2C Line follower on ch32v203'
-variables _buf _line_plot _line_buf a _inverted _nr_sensors tmp buf _can_measure 
+variables _buf _line_plot _line_buf a _inverted _nr_sensors tmp buf 
 
   spec ' ' 'init_line' 'init line _ plot _' 'num bool' 8 true
   spec 'r' 'read line' 'read line'
@@ -17,11 +56,9 @@ variables _buf _line_plot _line_buf a _inverted _nr_sensors tmp buf _can_measure
   spec ' ' 'command' 'command _ : value _' 'str.commands auto' 'mode raw' true
   spec 'r' 'get calibration' 'get calibration _' 'str.get_calibration' 'minimum'
   spec 'r' 'is calibrated' 'is calibrated'
-  spec ' ' 'save calibration' 'calibration to file'
-  spec ' ' 'load calibration' 'calibration from file'
+  spec ' ' 'save calibration' 'save calibration'
+  spec ' ' 'load calibration' 'load calibration'
   spec 'r' 'position_i2c' 'position_i2c'
-  spec ' ' 'store calibration' 'store calibration'
-  spec ' ' 'restore calibration' 'restore calibration'
 
 to '_bar_nr' nr {
   return ('[data:join]' 'bar' nr)
@@ -111,7 +148,7 @@ to init_line 'number of sensors' plot {
     for i _nr_sensors {
       '[tft:LVGLaddobj]' 'bar' ('_bar_nr' i)
       '[tft:LVGLsetsize]' ('_bar_nr' i) 15 100
-      '[tft:LVGLsetpos]' ('_bar_nr' i) (((_nr_sensors * 20) - (i * 20)) + 20) 20
+      '[tft:LVGLsetpos]' ('_bar_nr' i) (i * 20) 20
       '[tft:LVGLsetcolor]' ('_bar_nr' i) (colorSwatch 190 29 9 255) (colorSwatch 255 0 10 255)
       '[tft:LVGLsetattribute]' 'range' ('_bar_nr' i) 0 255
     }
@@ -168,13 +205,6 @@ to 'read line' {
   }
 }
 
-to 'restore calibration' {
-  _can_measure = (booleanConstant false)
-  command 'load calibration'
-  waitMillis 500
-  _can_measure = (booleanConstant true)
-}
-
 to 'save calibration' {
   local 'vals' 0
   if ('is calibrated') {
@@ -209,13 +239,5 @@ to 'set calibration' minmax values {
 
 to 'set emitter level' level {
   '[sensors:i2cWrite]' 51 ('[data:makeList]' 14 level)
-}
-
-to 'store calibration' {
-  _can_measure = (booleanConstant false)
-  command 'save calibration'
-  comment 'wait some safe time'
-  waitMillis 1000
-  _can_measure = (booleanConstant true)
 }
 
