@@ -1,20 +1,55 @@
 /*
   I2C Slave used for reading Line Follwowing ir detectors.
 */
+
+
+enum LogLevel { LOG_ERROR=0, LOG_WARN, LOG_INFO, LOG_DEBUG, LOG_VERBOSE };
+static LogLevel CURRENT_LOG_LEVEL = LOG_DEBUG;
+
+// printf-style logging macro using Serial.printf directly
+#define LOG(level, fmt, ...) do { \
+    if(level <= CURRENT_LOG_LEVEL) { \
+        Serial.printf("[%s] " fmt "\n", logLevelStr(level), ##__VA_ARGS__); \
+    } \
+} while(0)
+
+inline const char* logLevelStr(LogLevel level) {
+    switch(level) {
+        case LOG_ERROR:   return "ERROR";
+        case LOG_WARN:    return "WARN";
+        case LOG_INFO:    return "INFO";
+        case LOG_DEBUG:   return "DEBUG";
+        case LOG_VERBOSE: return "VERBOSE";
+        default:          return "LOG";
+    }
+}
+
+
+
 // include standard eeprom library for writing calibration values
 #include <EEPROM.h>
+//#include <stdio.h>
+//#include "Adafruit_TinyUSB.h"
 
-#define MAJ_VERSION 1
-#define MIN_VERSION 0
+#define MAJ_VERSION 2
+#define MIN_VERSION 13
 
 
 #define NUM_SENSORS 8
 #include <Adafruit_NeoPixel.h>
 
-#define LED_PIN  PB11     // any PAx / PBx pin works
-#define LED_COUNT 1
+#define NEOPIXEL_PIN PB11  // any PAx / PBx pin works
 
-Adafruit_NeoPixel strip(NUM_SENSORS, LED_PIN, NEO_GRB + NEO_KHZ800);
+Adafruit_NeoPixel strip(NUM_SENSORS+1, NEOPIXEL_PIN, NEO_GRB + NEO_KHZ800);
+
+#define FLASH_TIME 250 // is ms
+#define CAL_TIME 5000 // is ms
+
+unsigned long t_cal_on;
+unsigned long t_cal_off;
+unsigned long t_cal_stop;
+
+int count=0;
 
 #include <Wire.h>
 #define MY_I2C_ADDRESS 0x33
@@ -36,68 +71,83 @@ typedef enum {
   CMD_GET_VERSION,    //11
   CMD_DEBUG,          //12
   CMD_GET_POSITION,   //13
-  CMD_SET_EMITTER,     //14
-  CMD_SAVE_CAL, // 15 save calibrated values to eeprom
-  CMD_LOAD_CAL  //16 load calibrated values frpom eeprom
+  CMD_SET_EMITTER,    //14
+  CMD_SAVE_CAL,       // 15 save calibrated values to eeprom
+  CMD_LOAD_CAL,       //16 load calibrated values frpom eeprom
+  CMD_NEOPIXEL,       // 17 neopixel: lednr, r, g, b, write
+  CMD_LEDS            //18
 } Commands;
 
 typedef enum {
   MODE_RAW,
   MODE_CAL,
   MODE_DIG,
-  MODE_CALIBRATING
+  MODE_CALIBRATING,
 } Modes;
 
+typedef enum {
+  LEDS_OFF,
+  LEDS_NORMAL,
+  LEDS_INVERTED,
+  LEDS_POSITION
+} LedsMode;
+
+
+
 Modes current_mode = MODE_RAW;
+LedsMode current_leds_mode = LEDS_NORMAL;
 bool is_calibrated = false;
 bool calc_position = true;
 bool inverted = true;
+bool debugging = true;
 int nr = 0;
 unsigned long t0 = millis();
-uint8_t load_cal[2]={0,0};
+uint8_t load_cal[2] = { 0, 0 };
 
-uint8_t calMin[NUM_SENSORS+4]; // +4 to keep these arrays as long as the measurment array buf
-uint8_t calMax[NUM_SENSORS+4];
-uint8_t calAvg[NUM_SENSORS+4];
+uint8_t rawVals[NUM_SENSORS + 4];
+uint8_t calMin[NUM_SENSORS + 4];  // +4 to keep these arrays as long as the measurment array buf
+uint8_t calMax[NUM_SENSORS + 4];
+uint8_t calAvg[NUM_SENSORS + 4];
 
-int adcPins[] = { PA0, PA1, PA2, PA3, PA4, PA5, PA6, PA7, PB0, PB1 };
+int adcPins[] = { PA0, PA1, PA2, PA3, PA4, PA5, PA6, PA7, PB0, PB1 };  // 10 GPIO's for 10 possible detectors
 
 
 // --- IWDG register definitions (from WCH datasheet) ---
-#define IWDG_BASE      0x40003000UL
-#define IWDG_KR        (*(volatile uint32_t *)(IWDG_BASE + 0x00))
-#define IWDG_PR        (*(volatile uint32_t *)(IWDG_BASE + 0x04))
-#define IWDG_RLR       (*(volatile uint32_t *)(IWDG_BASE + 0x08))
-#define IWDG_SR        (*(volatile uint32_t *)(IWDG_BASE + 0x0C))
+#define IWDG_BASE 0x40003000UL
+#define IWDG_KR (*(volatile uint32_t *)(IWDG_BASE + 0x00))
+#define IWDG_PR (*(volatile uint32_t *)(IWDG_BASE + 0x04))
+#define IWDG_RLR (*(volatile uint32_t *)(IWDG_BASE + 0x08))
+#define IWDG_SR (*(volatile uint32_t *)(IWDG_BASE + 0x0C))
 
 // --- Key values ---
-#define IWDG_START     0xCCCC
-#define IWDG_REFRESH   0xAAAA
-#define IWDG_UNLOCK    0x5555
+#define IWDG_START 0xCCCC
+#define IWDG_REFRESH 0xAAAA
+#define IWDG_UNLOCK 0x5555
 
 // --- Helper functions ---
 void wdt_init(uint16_t timeout_ms) {
   // LSI ≈ 40 kHz
   // Choose prescaler and reload for desired timeout
   // Example: prescaler 32 → tick = 1.25 ms
-  uint8_t prescaler = 3; // PR = 3 -> divide by 32
-  uint32_t tick_ms = (1000UL * 32UL) / 40000UL; // ≈ 0.8 ms/tick
+  uint8_t prescaler = 3;                         // PR = 3 -> divide by 32
+  uint32_t tick_ms = (1000UL * 32UL) / 40000UL;  // ≈ 0.8 ms/tick
   uint16_t reload = min((uint16_t)(timeout_ms / tick_ms), (uint16_t)0x0FFF);
 
-  IWDG_KR = IWDG_START;  // Start the watchdog
-  IWDG_KR = IWDG_UNLOCK; // Enable PR and RLR access
+  IWDG_KR = IWDG_START;   // Start the watchdog
+  IWDG_KR = IWDG_UNLOCK;  // Enable PR and RLR access
   IWDG_PR = prescaler;
   IWDG_RLR = reload;
-  IWDG_KR = IWDG_REFRESH; // Reload counter
+  IWDG_KR = IWDG_REFRESH;  // Reload counter
 }
 
 void wdt_feed() {
   IWDG_KR = IWDG_REFRESH;
 }
 
-void readSensors(uint8_t outVals[]) {
+// read raw values and store in global rawVals buffer
+void readSensors() {
   for (int i = 0; i < NUM_SENSORS; ++i) {
-    outVals[i] = 255 - (analogRead(adcPins[i]) >> 4);
+    rawVals[i] = 255 - (analogRead(adcPins[i]) >> 4);
   }
 }
 
@@ -117,12 +167,11 @@ void printCal() {
 
 void initCalibrate() {
   // initialize min/max to extremes
-  Serial.println("start calibrating");
-  for (int i = 0; i < NUM_SENSORS+4; ++i) {
+  LOG(LOG_DEBUG, "start calibrating\r\n");
+  for (int i = 0; i < NUM_SENSORS + 4; ++i) {
     calMin[i] = 255;
     calMax[i] = 0;
   }
-  
 }
 
 
@@ -130,10 +179,10 @@ void doCalibrate() {
   // initialize min/max to extremes
   unsigned long t0 = millis();
   uint8_t vals[NUM_SENSORS];
-  readSensors(vals);
+  //readSensors(vals);
   for (int i = 0; i < NUM_SENSORS; ++i) {
-    if (vals[i] < calMin[i]) calMin[i] = vals[i];
-    if (vals[i] > calMax[i]) calMax[i] = vals[i];
+    if (rawVals[i] < calMin[i]) calMin[i] = rawVals[i];
+    if (rawVals[i] > calMax[i]) calMax[i] = rawVals[i];
   }
 
   // avoid zero-range
@@ -143,8 +192,9 @@ void doCalibrate() {
       calMax[i] = calMin[i] + 8;
     }
     calAvg[i] = (calMin[i] + calMax[i]) / 2;
-  }
+  } 
   is_calibrated = true;
+  LOG(LOG_DEBUG,"is_calibrated set to true\r");
 }
 
 void setEmitter(uint8_t level) {
@@ -161,16 +211,27 @@ void setEmitter(uint8_t level) {
 }
 
 void show_neopixel(uint8_t buf[]) {
-  for (int i=0; i<NUM_SENSORS; i++) {
-    if (is_calibrated) 
-      strip.setPixelColor(i, strip.Color(0, (uint8_t)(buf[i]/16), 0)); // Green
-    else 
-       strip.setPixelColor(i, strip.Color((uint8_t)(buf[i]/16), 0, 0)); // Red
-  }  
-  strip.show();
-  
+  if (current_leds_mode == LEDS_NORMAL) {
+    for (int i = 0; i < NUM_SENSORS; i++) {
+      if (is_calibrated)
+        strip.setPixelColor(i, strip.Color(0, (uint8_t)(buf[i] / 16), 0));  // Green
+      else
+        strip.setPixelColor(i, strip.Color((uint8_t)(buf[i] / 16), 0, 0));  // Red
+    }
+    strip.show();
+  } else 
+  if (current_leds_mode == LEDS_INVERTED) {
+    for (int i = 0; i < NUM_SENSORS; i++) {
+      if (is_calibrated)
+        strip.setPixelColor(i, strip.Color(0, 16-(uint8_t)(buf[i] / 16), 0));  // Green
+      else
+        strip.setPixelColor(i, strip.Color(16-(uint8_t)(buf[i] / 16), 0, 0));  // Red
+    }
+    strip.show();
+  }
 }
 
+// not used
 void invertBuf(const uint8_t inp[], uint8_t outp[]) {
   if (inverted) {
     for (int i = 0; i < NUM_SENSORS; i++) {
@@ -205,17 +266,20 @@ void computeDigital(const uint8_t raw[], uint8_t normOut[]) {
   }
 }
 
+//uint32_t cnt_pos=0;
 
 bool getLinePosition(const uint8_t norm[], uint8_t &posOut, uint8_t &minOut, uint8_t &maxOut) {
   long weighted_sum = 0;
   long sum = 0;
   minOut = 255;
   maxOut = 0;
+  posOut = 0; // default value
   int val;
   if (!is_calibrated) return false;
   // hardcoded num sensors !!!
   for (int i = 0; i < NUM_SENSORS; ++i) {
     val = 255 - norm[i];  // invert
+    if (val<50) val=0;
     weighted_sum += val * (i + 1);
     sum += val;
     if (val > maxOut) maxOut = val;
@@ -224,21 +288,27 @@ bool getLinePosition(const uint8_t norm[], uint8_t &posOut, uint8_t &minOut, uin
   // if (sum < 10) { // nothing detected (tunable)
   //   return false;
   // }
-
-  long p;
+   long p;
   if (sum > 0) {
     p = (255 * weighted_sum);
     p /= sum;  // p in approx -350..350
   } else
     p = 0;
   // scale to -1000..1000
-  // for (int i=0; i<8; i++) {
-  //   Serial.print(norm[i]);
-  //   Serial.print(",");
-  // }
+  
   posOut = (p - 255) / 7;
-  // Serial.print("pos=");
-  // Serial.println(posOut);
+  
+  // cnt_pos++;
+  // if ( cnt_pos%1000==0) {
+
+  // for (int i=0; i<8; i++) {
+  //   LOG(LOG_DEBUG,"%d, \r",norm[i]);
+  // }
+  // LOG(LOG_DEBUG,"sum= %d, weighted sum = %d\r\n ",sum,weighted_sum);
+ 
+  
+  // LOG(LOG_DEBUG,"\r\npos=%d\r\n",posOut);
+  // }
   return true;
 }
 
@@ -246,67 +316,68 @@ bool getLinePosition(const uint8_t norm[], uint8_t &posOut, uint8_t &minOut, uin
 
 
 uint8_t computeMovingAverageDerivative(uint8_t pos) {
-    static uint8_t lastPos = 0;
-    static uint32_t lastTime = 0;
-    static bool initialized = false;
+  static uint8_t lastPos = 0;
+  static uint32_t lastTime = 0;
+  static bool initialized = false;
 
-    static float derivHistory[N_SAMPLES];
-    static uint8_t index = 0;
-    static uint8_t count = 0;
+  static float derivHistory[N_SAMPLES];
+  static uint8_t index = 0;
+  static uint8_t count = 0;
 
-    uint32_t now = millis();
+  uint32_t now = millis();
 
-    if (!initialized) {
-        lastPos = pos;
-        lastTime = now;
-        initialized = true;
-        return 128;  // neutral mid value
-    }
-
-    int16_t deltaPos = (int16_t)pos - (int16_t)lastPos;
-    uint32_t deltaTime = now - lastTime;
-
-    // Handle wrap-around (0↔255)
-    if (deltaPos > 128) deltaPos -= 256;
-    else if (deltaPos < -128) deltaPos += 256;
-
-    float derivative = 0.0f;
-    if (deltaTime > 0) {
-        derivative = (float)deltaPos / (float)deltaTime;  // pos units per ms
-    }
-
-    // Store derivative in circular buffer
-    derivHistory[index] = derivative;
-    index = (index + 1) % N_SAMPLES;
-    if (count < N_SAMPLES) count++;
-
-    // Compute moving average
-    float sum = 0.0f;
-    for (uint8_t i = 0; i < count; i++) {
-        sum += derivHistory[i];
-    }
-    float avgDerivative = sum / count;
-
+  if (!initialized) {
     lastPos = pos;
     lastTime = now;
+    initialized = true;
+    return 128;  // neutral mid value
+  }
 
-    // --- Convert to uint8_t output ---
-    float scaled = avgDerivative * 100.0f + 128.0f;  // scale and offset
-    if (scaled < 0.0f) scaled = 0.0f;
-    if (scaled > 255.0f) scaled = 255.0f;
+  int16_t deltaPos = (int16_t)pos - (int16_t)lastPos;
+  uint32_t deltaTime = now - lastTime;
 
-    return (uint8_t)lroundf(scaled);  // rounded uint8_t in [0..255]
+  // Handle wrap-around (0↔255)
+  if (deltaPos > 128) deltaPos -= 256;
+  else if (deltaPos < -128) deltaPos += 256;
+
+  float derivative = 0.0f;
+  if (deltaTime > 0) {
+    derivative = (float)deltaPos / (float)deltaTime;  // pos units per ms
+  }
+
+  // Store derivative in circular buffer
+  derivHistory[index] = derivative;
+  index = (index + 1) % N_SAMPLES;
+  if (count < N_SAMPLES) count++;
+
+  // Compute moving average
+  float sum = 0.0f;
+  for (uint8_t i = 0; i < count; i++) {
+    sum += derivHistory[i];
+  }
+  float avgDerivative = sum / count;
+
+  lastPos = pos;
+  lastTime = now;
+
+  // --- Convert to uint8_t output ---
+  float scaled = avgDerivative * 100.0f + 128.0f;  // scale and offset
+  if (scaled < 0.0f) scaled = 0.0f;
+  if (scaled > 255.0f) scaled = 255.0f;
+
+  return (uint8_t)lroundf(scaled);  // rounded uint8_t in [0..255]
 }
 
 void ReceiveEvent(int nBytes) {
   uint8_t command;
-  uint8_t buf[NUM_SENSORS];
+  uint8_t buf[NUM_SENSORS+4] = {0};
   //Serial.print("nbytes:"); Serial.println(nbytes);
-  Serial.println("received I2C msg");
+  if (debugging) Serial.println("received I2C msg");
   if (nBytes > 0) {
     command = Wire.read();
-    Serial.print("received command: ");
-    Serial.println(command);
+    if (debugging) {
+      LOG(LOG_DEBUG,"received command: %d\r\n",command);
+    }
     //delay(1);
   }
   if (command < 4) {  // then change measuring mode
@@ -328,149 +399,165 @@ void ReceiveEvent(int nBytes) {
     case CMD_CALIBRATE:
       initCalibrate();
       current_mode = MODE_CALIBRATING;  //current_mode = old_mode;
+      t_cal_on = millis();
+      t_cal_stop = millis() + CAL_TIME;
+      // show_leds = false;
+      // for (int i=0; i<NUM_SENSORS; i++) {
+
+      // }
+      // flash extra NEOPIXEL
       break;
     case CMD_IS_CALIBRATED:
       buf[0] = is_calibrated ? 1 : 0;
-      Wire.write(buf, NUM_SENSORS+4);
+      Wire.write(buf, NUM_SENSORS + 4);
       break;
     case CMD_PRINT_CAL:
       printCal();
       //current_mode = old_mode;
       break;
     case CMD_DEBUG:
-      Serial.println(millis());
+      debugging = !debugging;  // toggle debug
+      LOG(LOG_DEBUG,"Debugging enabled\r\n");
       break;
     case CMD_SET_EMITTER:
       if (nBytes > 0) {
-        Serial.print("emitter :");
+        if (debugging) { Serial.print("emitter :"); }
         uint8_t level = Wire.read();
         nBytes--;
-        Serial.println(level);
+        if (debugging) { Serial.println(level); }
         setEmitter(level);
       }
       break;
+    case CMD_LEDS:
+      if (nBytes > 0) {
+        uint8_t led_mode = Wire.read();
+        LOG(LOG_DEBUG,"led mode= %d\r\n",led_mode);
+        current_leds_mode = led_mode;
+        if (current_leds_mode == LEDS_OFF) {  // switch off neopixels
+          strip.clear();
+          strip.show();
+        }
+      }
+      break;
+    case CMD_NEOPIXEL:
+      if (nBytes >= 4) {
+        uint8_t nr_led = Wire.read();
+        nBytes--;
+        uint8_t r = Wire.read();
+        nBytes--;
+        uint8_t g = Wire.read();
+        nBytes--;
+        uint8_t b = Wire.read();
+        nBytes--;
+        LOG(LOG_VERBOSE,"nr=%d, r=%d, g=%d, b=%d\r\n",nr_led,r,g,b);
+
+        strip.setPixelColor(nr_led, strip.Color(r, g, b));
+        strip.show();  //always show neopixels
+      }
+      break;
+
     case CMD_SET_MIN:
       if (nBytes >= 8) {
-        Serial.print("set cal min ");
+        if (debugging) { Serial.print("set cal min "); }
         for (int i = 0; i < 8; i++) {
           uint8_t val = Wire.read();
           calMin[i] = val;
           calAvg[i] = (calMin[i] + calMax[i]) / 2;
-          Serial.print(",");
-          Serial.print(val);
+          LOG(LOG_DEBUG,"%d, ",val);
           nBytes--;
         }
-        Serial.println();
-        load_cal[0]=1;
-        if (load_cal[1]==1) {
-          is_calibrated=true;
+        LOG(LOG_DEBUG,"\r\n");
+        load_cal[0] = 1;
+        if (load_cal[1] == 1) {
+          is_calibrated = true;
         }
       }
       break;
     case CMD_SET_MAX:
       if (nBytes >= 8) {
-        Serial.print("set cal max ");
+        LOG(LOG_DEBUG,"set cal max\r\n ");
         for (int i = 0; i < 8; i++) {
           uint8_t val = Wire.read();
           calMax[i] = val;
           calAvg[i] = (calMin[i] + calMax[i]) / 2;
-          Serial.print(",");
-          Serial.print(val);
+          if (debugging) {
+            LOG(LOG_DEBUG,"%d,",val);
+          }
           nBytes--;
         }
-        Serial.println();
-        load_cal[1]=1;
-        if (load_cal[0]==1) {
-          is_calibrated=true;
+        LOG(LOG_DEBUG,"\r\n");
+        load_cal[1] = 1;
+        if (load_cal[0] == 1) {
+          is_calibrated = true;
         }
       }
       break;
 
     case CMD_GET_MIN:
-      Wire.write(calMin, NUM_SENSORS+4);
+      Wire.write(calMin, NUM_SENSORS + 4);
       break;
     case CMD_GET_MAX:
-      Wire.write(calMax, NUM_SENSORS+4);
+      Wire.write(calMax, NUM_SENSORS + 4);
       break;
     case CMD_GET_AVG:
-      Wire.write(calAvg, NUM_SENSORS+4);
+      Wire.write(calAvg, NUM_SENSORS + 4);
       break;
 
     case CMD_SAVE_CAL:
-      Serial.println("CMD_SAVE_CAL");
+      LOG(LOG_DEBUG,"CMD_SAVE_CAL\r\n");
       //printCal();
-      if (is_calibrated==1) {
-        for (int i=0; i<NUM_SENSORS; i++) {
-          EEPROM.write(i,calMin[i]);
-          EEPROM.write(i+NUM_SENSORS,calMax[i]);
-          //Serial.print("calmax ");Serial.print(i); Serial.print("= "); Serial.println(calMax[i]);
+      if (is_calibrated == 1) {
+        for (int i = 0; i < NUM_SENSORS; i++) {
+          EEPROM.write(i, calMin[i]);
+          EEPROM.write(i + NUM_SENSORS, calMax[i]);
         }
       }
       EEPROM.commit();
       break;
     case CMD_LOAD_CAL:
-      Serial.println("CMD_LOAD_CAL");
-      for (int i=0; i<NUM_SENSORS; i++) {
-        calMin[i]=EEPROM.read(i);
-        calMax[i]=EEPROM.read(i+NUM_SENSORS);
-        //Serial.print("calmax ");Serial.print(i); Serial.print("= "); Serial.println(calMax[i]);
+      LOG(LOG_DEBUG,"CMD_LOAD_CAL\r\n");
+      for (int i = 0; i < NUM_SENSORS; i++) {
+        calMin[i] = EEPROM.read(i);
+        calMax[i] = EEPROM.read(i + NUM_SENSORS);
         calAvg[i] = (calMin[i] + calMax[i]) / 2;
-  
       }
-      is_calibrated=1;
+      is_calibrated = 1;
       //printCal();
       break;
     case CMD_GET_VERSION:
       buf[0] = MAJ_VERSION;
       buf[1] = MIN_VERSION;
-      Wire.write(buf, NUM_SENSORS+4);
+      Wire.write(buf, NUM_SENSORS + 4);
       break;
-    case CMD_GET_POSITION:
-      if (nBytes > 0) {
-        Serial.print("emitter :");
-        uint8_t measure_pos = Wire.read();
-        calc_position = (measure_pos == 1);
-        if (calc_position) {
-          Serial.println("calc postion Yes");
-        } else {
-          Serial.println("calc postion No");
-        }
-        nBytes--;
-      }
-      // uint8_t pos;
-      // uint8_t minval;
-      // uint8_t maxval;
-      // readSensors(buf);
-      // if (getLinePosition(buf,pos,minval,maxval)) {
-      //   buf[0]=pos; // reuse buf
-      //   buf[1]=minval;
-      //   buf[2]=maxval;
-      // } else {
-      //   buf[0]=0;
-      //   buf[1]=0;
-      //   buf[2]=0;
-      // }
-      // // buf[0]=123;
-      // // buf[1]=222;
-      // // buf[2]=42;
-      // Wire.write(buf,3);
+    // case CMD_GET_POSITION:
+    //   if (nBytes > 0) {
+    //     uint8_t measure_pos = Wire.read();
+    //     calc_position = (measure_pos == 1);
+    //     if (debugging) {
+    //       if (calc_position) {
+    //         LOG(LOG_DEBUG,"calc postion Yes\r\n");
+    //       } else {
+    //         LOG(LOG_DEBUG,"calc postion No\r\n");
+    //       }
+    //     }
+    //     nBytes--;
+    //   }
 
-      // //buf[0]=pos; // reuse buf
-      // //Wire.write(buf,1);
-      // //Serial.print("position:");
-      // //Serial.println(pos);
 
-      break;
+    //   break;
 
       //current_mode = old_mode;
   }
   // read remaining bytes
-  Serial.print("nBytes=");
-  Serial.println(nBytes);
+  if (debugging) {
+    LOG(LOG_VERBOSE,"nBytes=%d\r\n",nBytes);
+  }
 
   while (nBytes > 0) {
-    Serial.println("reading extra byte");
-    Serial.println(Wire.read());
+    if (debugging) {
+      Serial.println("reading extra byte");
+      Serial.println(Wire.read());
+    }
     nBytes--;
   }
 }
@@ -484,92 +571,182 @@ void RequestEvent() {
   uint8_t maxval;
   nr += 1;
   if (nr == 1000) {
-    Serial.print("delay=");
-    Serial.println(millis() - t0);
+    LOG(LOG_DEBUG,"delay=%d\r\n",millis() - t0);
     t0 = millis();
     nr = 0;
   }
   switch (current_mode) {
     case MODE_RAW:
-      readSensors(buf);
-      show_neopixel(buf);
+      // readSensors(buf);
+      // show_neopixel(buf);
+
+      show_neopixel(rawVals);
+
       //invertBuf(buf,invert);
-      Wire.write(buf, NUM_SENSORS + 4);
+      Wire.write(rawVals, NUM_SENSORS + 4);
       break;
     case MODE_CAL:
-      readSensors(buf);
-      computeNormalized(buf, norm);
-      show_neopixel(norm);
+      // readSensors(buf);
+      // computeNormalized(buf, norm);
+      computeNormalized(rawVals, norm);
+      if (current_leds_mode!=LEDS_POSITION)
+        show_neopixel(norm);
       if (calc_position) {
         if (getLinePosition(norm, pos, minval, maxval)) {
+          if (current_leds_mode==LEDS_POSITION) {
+            
+            float fpos = pos * (8.0 / 256.0);
+
+            int i = floor(fpos);        // left LED
+            float frac = fpos - i;      // blend factor
+
+            int j = i + 1;              // right LED
+            if (j >= 8) j = 7;
+
+            const int R = 20;
+            const int G = 0;
+            const int B = 0;
+
+            // Calculate intensity
+            int R_i = R * (1.0 - frac);
+            int R_j = R * frac;
+
+            // Light LEDs
+            strip.clear();
+            
+            if (i >= 0 && i < 8)
+                strip.setPixelColor(i, strip.Color(R_i, G, B));
+
+            if (j >= 0 && j < 8)
+                strip.setPixelColor(j, strip.Color(R_j, G, B));
+            
+            // uint8_t led_nr=pos/32;
+            // strip.setPixelColor(led_nr, strip.Color(30, 0, 0));  // Red
+            strip.show();
+          }
           norm[NUM_SENSORS] = pos;
           norm[NUM_SENSORS + 1] = minval;
           norm[NUM_SENSORS + 2] = maxval;
         } else {
-          pos=0;
+          pos = 0;
           norm[NUM_SENSORS] = 0;
           norm[NUM_SENSORS + 1] = 0;
           norm[NUM_SENSORS + 2] = 0;
         }
       }
-      norm[NUM_SENSORS+3]=computeMovingAverageDerivative(pos);
-      //Serial.print("a[0]= ");
-      //Serial.println(norm[0]);
-      //invertBuf(norm,invert);
+      norm[NUM_SENSORS + 3] = computeMovingAverageDerivative(pos);
       Wire.write(norm, NUM_SENSORS + 4);
       break;
     case MODE_DIG:
-      readSensors(buf);
-      computeDigital(buf, norm);
+      computeDigital(rawVals, norm);
       Wire.write(norm, NUM_SENSORS + 4);
       break;
     case MODE_CALIBRATING:
-      readSensors(buf);
+      show_neopixel(rawVals);
+      
       doCalibrate();
       //invertBuf(buf,invert);
-      Wire.write(buf, NUM_SENSORS+4);
+      Wire.write(rawVals, NUM_SENSORS + 4);
       break;
     default:
-      readSensors(buf);
-      Wire.write(buf, NUM_SENSORS+4);
+      Wire.write(rawVals, NUM_SENSORS + 4);
   }
 }
 
+uint8_t buf[NUM_SENSORS];
+
 void setup() {
-  
-
+/*
+ if (!TinyUSBDevice.isInitialized()) {
+    TinyUSBDevice.begin(0);
+  }
+*/
+ 
   strip.begin();
-  strip.show(); // Turn off pixels
+  strip.show();  // Turn off pixels
 
-strip.setPixelColor(0, strip.Color(25, 0, 0)); // Red
+  strip.setPixelColor(0, strip.Color(25, 0, 0));  // Red
   strip.show();
-  delay(500);
+  delay(100);
 
-  strip.setPixelColor(0, strip.Color(0, 25, 0)); // Green
+  strip.setPixelColor(0, strip.Color(0, 25, 0));  // Green
   strip.show();
-  delay(500);
+  delay(100);
 
-  strip.setPixelColor(0, strip.Color(0, 0, 25)); // Blue
+  strip.setPixelColor(0, strip.Color(0, 0, 25));  // Blue
   strip.show();
-  delay(500);
+  delay(100);
 
   Serial.begin(115200);
   Serial.println("I2C slave @address 0x33");
-  EEPROM.begin(); // setup eeprom usage
+  Serial.printf("\nhallo %d %px\n",1234, buf);
+  EEPROM.begin();  // setup eeprom usage
   current_mode = MODE_RAW;
 
   Wire.begin(MY_I2C_ADDRESS);
   // Note: enable I2C slave functionality in /libraries/Wire/src/utility/twi.h to prevent error message for next two lines
   Wire.onReceive(ReceiveEvent);
   Wire.onRequest(RequestEvent);
-  
+
   //wdt_init(2000);  // 2 second watchdog
   //Serial.println("Watchdog active!");
 }
 
-void loop() {
-  //wdt_feed();
-  //Serial.println("Feeding watchdog");
-  delay(100);
 
+uint32_t lastFlash = 0;
+bool flashState = false;
+
+
+void loop() {
+
+  count+=1;
+  if (count%2000 ==0) {
+    Serial.printf("count=%d\n\r",count);
+    Serial.printf("mode=%d\r\n", current_mode);
+    Serial.printf("is calibrated: %d calc_position=%d\r",is_calibrated,calc_position);
+  }
+  // read new values
+  readSensors();
+  
+  if (current_mode != MODE_CALIBRATING) {
+    if (is_calibrated) 
+      strip.setPixelColor(NUM_SENSORS, strip.Color(0, 20, 0));
+    else
+      strip.setPixelColor(NUM_SENSORS, strip.Color(0, 0, 0));
+    strip.show();
+  }
+  if (current_mode == MODE_CALIBRATING) {
+  //if (false) {
+
+  //  readSensors(buf);
+  // if (show_leds) {
+  //   for (int i = 0; i < NUM_SENSORS; i++) {
+  //     if (is_calibrated)
+  //       strip.setPixelColor(i, strip.Color(0, (uint8_t)(buf[i] / 16), 0));  // Green
+  //     else
+  //       strip.setPixelColor(i, strip.Color((uint8_t)(buf[i] / 16), 0, 0));  // Red
+  //   }
+    
+  // }
+
+    //doCalibrate();
+
+    // FLASH AFTER ALL OTHER PIXEL UPDATES
+    static uint32_t lastFlash = 0;
+    static bool flashState = false;
+    if (millis() - lastFlash >= FLASH_TIME) {
+      lastFlash = millis();
+      flashState = !flashState;
+
+      if (flashState) {
+        strip.setPixelColor(NUM_SENSORS, strip.Color(40, 0, 0));  // on
+      } else {
+        strip.setPixelColor(NUM_SENSORS, strip.Color(0, 0, 0));   // off
+      }
+
+      strip.show();   // <-- AFTER flashing pixel changed
+    }
+  }
+  
+  delay(1);
 }
