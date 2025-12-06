@@ -3,9 +3,8 @@ author Ste7an
 version 1 3 
 choices set_calibration minimum maximum 
 choices get_calibration minimum maximum average 
-choices commands 'mode raw' 'mode calibrated' 'mode digital' calibrate 'get minimum' 'get maximum' 'get average' 'is calibrated' 'save calibration' 'load calibration' 'print calibration' 'set minimum' 'set maximum' 'get version' debug 'get position' 'set emitter' 
 choices led_modes off on inverted position 
-
+choices commands 'mode raw' 'mode calibrated' 'get version' debug calibrate 'is calibrated' 'load calibration' 'save calibration' 'get minimum' 'get maximum' 'set minimum' 'set maximum' neopixel 'set leds' 
 description 'I2C Line follower on ch32v203'
 variables _buf _line_plot _line_buf a _inverted _nr_sensors tmp buf _can_measure 
 
@@ -16,7 +15,7 @@ variables _buf _line_plot _line_buf a _inverted _nr_sensors tmp buf _can_measure
   spec 'r' 'get position' 'get position'
   spec ' ' 'set emitter level' 'set emitter level _' 'auto' '10'
   spec ' ' 'set calibration' 'set calibration _ values _' 'str.set_calibration auto' 'minimum' '10'
-  spec ' ' 'command' 'command _ : value _' 'str.commands auto' 'mode raw' true
+  spec ' ' 'command' 'command _ : value _' 'str.commands num' 'mode raw' 0
   spec 'r' 'get calibration' 'get calibration _' 'str.get_calibration' 'minimum'
   spec 'r' 'is calibrated' 'is calibrated'
   spec ' ' 'save calibration' 'calibration to file'
@@ -24,7 +23,7 @@ variables _buf _line_plot _line_buf a _inverted _nr_sensors tmp buf _can_measure
   spec 'r' 'position_i2c' 'position_i2c'
   spec ' ' 'store calibration' 'store calibration'
   spec ' ' 'restore calibration' 'restore calibration'
-  spec ' ' 'neopixel' 'neopixel _ color _' 'auto color' '0'
+  spec ' ' 'neopixel' 'neopixel _ color _' 'auto color' '10'
   spec ' ' 'led mode' 'led mode _' 'str.led_modes' 'on'
   spec 'r' 'get version' 'get version'
 
@@ -32,57 +31,57 @@ to '_bar_nr' nr {
   return ('[data:join]' 'bar' nr)
 }
 
-to command cmd {
+to command cmd args {
   local 'cmd_id' 0
   if (cmd == 'mode raw') {
     cmd_id = 0
   } (cmd == 'mode calibrated') {
     cmd_id = 1
-  } (cmd == 'mode digigtal') {
-    cmd_id = 2
-  } (cmd == 'calibrate') {
-    cmd_id = 3
-  } (cmd == 'get minimum') {
-    cmd_id = 4
-  } (cmd == 'get maximum') {
-    cmd_id = 5
-  } (cmd == 'get average') {
-    cmd_id = 6
-  } (cmd == 'is calibrated') {
-    cmd_id = 7
-  } (cmd == 'print calibration') {
-    cmd_id = 8
-  } (cmd == 'set minimum') {
-    cmd_id = 9
-  } (cmd == 'set maximum') {
-    cmd_id = 10
   } (cmd == 'get version') {
-    cmd_id = 11
+    cmd_id = 2
   } (cmd == 'debug') {
+    cmd_id = 3
+  } (cmd == 'calibrate') {
+    cmd_id = 4
+  } (cmd == 'is calibrated') {
+    cmd_id = 5
+  } (cmd == 'load calibration') {
+    cmd_id = 6
+  } (cmd == 'save calibration') {
+    cmd_id = 7
+  } (cmd == 'get minimum') {
+    cmd_id = 8
+  } (cmd == 'get maximum') {
+    cmd_id = 9
+  } (cmd == 'set minimum') {
+    cmd_id = 10
+  } (cmd == 'set maximum') {
+    cmd_id = 11
+  } (cmd == 'neopixel') {
     cmd_id = 12
-  } (cmd == 'get position') {
+  } (cmd == 'set leds') {
     cmd_id = 13
   } (cmd == 'set emitter') {
     cmd_id = 14
-  } (cmd == 'save calibration') {
-    cmd_id = 15
-  } (cmd == 'load calibration') {
-    cmd_id = 16
   }
-  local 'buf' ('[data:makeList]' cmd_id)
+  if ((argOrDefault 2 'None') == 'None') {
+    local 'buf' ('[data:makeList]' cmd_id)
+  } else {
+    local 'buf' ('[data:makeList]' cmd_id args)
+  }
   '[sensors:i2cWrite]' 51 buf
 }
 
 to 'get calibration' minmax {
+  _can_measure = (booleanConstant false)
   local 'tmp_buf' (newList _nr_sensors)
   if (minmax == 'minimum') {
     command 'get minimum'
   } (minmax == 'maximum') {
     command 'get maximum'
-  } else {
-    command 'get average'
   }
   '[sensors:i2cRead]' 51 tmp_buf
+  _can_measure = (booleanConstant true)
   return tmp_buf
 }
 
@@ -107,9 +106,11 @@ to 'get position' {
 }
 
 to 'get version' {
+  _can_measure = (booleanConstant false)
   local 'tmp' (newList 2)
   command 'get version'
   '[sensors:i2cRead]' 51 tmp
+  _can_measure = (booleanConstant false)
   return tmp
 }
 
@@ -136,9 +137,11 @@ to invert inverted {
 }
 
 to 'is calibrated' {
+  _can_measure = (booleanConstant false)
   local 'buf' (newList 1)
   command 'is calibrated'
   '[sensors:i2cRead]' 51 buf
+  _can_measure = (booleanConstant true)
   return ((at 1 buf) == 1)
 }
 
@@ -153,7 +156,7 @@ to 'led mode' mode {
   } (mode == 'position') {
     led_mode = 3
   }
-  '[sensors:i2cWrite]' 51 ('[data:makeList]' 18 led_mode)
+  '[sensors:i2cWrite]' 51 ('[data:makeList]' 13 led_mode)
 }
 
 to 'load calibration' {
@@ -174,7 +177,7 @@ to neopixel nr color {
   local 'r' ((color >> 16) & 255)
   local 'g' ((color >> 8) & 255)
   local 'b' (color & 255)
-  '[sensors:i2cWrite]' 51 ('[data:makeList]' 17 (nr - 1) r g b)
+  '[sensors:i2cWrite]' 51 ('[data:makeList]' 12 (nr - 1) r g b)
 }
 
 to position_i2c {
@@ -197,6 +200,7 @@ to 'read line' {
     _line_pos = (at (_nr_sensors + 1) _line_buf)
     _line_min = (at (_nr_sensors + 2) _line_buf)
     _line_max = (at (_nr_sensors + 3) _line_buf)
+    _line_derivative = (at (_nr_sensors + 4) _line_buf)
     return _line_buf
   }
 }
@@ -233,9 +237,9 @@ to 'set calibration' minmax values {
     sayIt 'length of value array is not equal to number of sensors'
   } else {
     if (minmax == 'minimum') {
-      '[sensors:i2cWrite]' 51 ('[data:join]' ('[data:makeList]' 9) values)
-    } else {
       '[sensors:i2cWrite]' 51 ('[data:join]' ('[data:makeList]' 10) values)
+    } else {
+      '[sensors:i2cWrite]' 51 ('[data:join]' ('[data:makeList]' 11) values)
     }
   }
 }
