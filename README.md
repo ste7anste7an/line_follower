@@ -1,4 +1,4 @@
-# I²C Line-Following IR Sensor — README
+# I²C Line-Following IR Sensor
 
 **Firmware version:** `2.3`  
 **I²C address:** `0x33`  
@@ -199,4 +199,5 @@ Wire.endTransmission();
 | PB1   | ADC9  |
 
 #
+
 
