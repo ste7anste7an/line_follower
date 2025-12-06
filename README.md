@@ -1,9 +1,52 @@
 # Line follower
 
 ## ch32
-This line follower is based on the chear WCH CH32v203 MCU. This MCU can be programmed in Arduino and can use up to 10 ADC pins. Internally, these pins are multiplexed over 2 ADC units.
+This line follower is based on the cheap WCH CH32v203 MCU. This MCU can be programmed in Arduino and can use up to 10 ADC pins. Internally, these pins are multiplexed over 2 ADC units.
 
 The CH32 acts as an I2C slave. An I2C master can read all ADC values in one I2C data transfer. Furthermore, the implementation supports different modes. In raw mode, the raw ADC values (scaled down to 8 bit) can be read. After using the calibration mode, the calibrated values can be read.
+
+## I2C communciation
+The I2C address is 0x33. By default, the ch32 reads 8 ADC values.
+
+### Readings
+```I2C_Read(0x33, buf, 14)```
+
+It returns a 12 byte long array of `uint8_t` populated as follows:
+
+```[adc0] [adc1] [adc2] [adc3] [adc4] [adc5] [adc6] [adc7] [position] [minval] [maxval] [derivative] [shape]```
+
+with
+
+- `adcx` the value of the ADC reading of pin `x` between 0 and 255
+
+  When calibrated, the following values are valid:
+- `position` is the weighted position calculated from the ADC values.
+- `minval` the minimum value of all adc readings
+- `maxval` the maximum value of all adc readings
+- `derivative` the deivative of the position smooth over the last 8 values.
+- `shape` reflects the shape of the line: None, Line, Left L, Right L, T shape and Y shape.
+
+### Commands
+The following I2C commands are implemented
+
+| Cmd | Byte | Argument | Description |
+|-----|---|----------|------------|
+| CMD_SET_MODE_RAW  | 0 | |Switch to Raw mode |
+|  CMD_SET_MODE_CAL | 1 | |Switch to Calibrated mode |
+|  CMD_GET_VERSION | 2 | | Returns version as Major and Minor version| 
+|  CMD_DEBUG        |3 | [level] |Debug level (error=0, warn=1, info =2, debug =3 and verbose =4 |
+|  CMD_CALIBRATE |    4 | | Starts calibrating, stop by switching to Raw or Calibrated mode|
+|  CMD_IS_CALIBRATED | 5 | | Returns 1 when calibration has run, otherwise returns 0|
+|  CMD_LOAD_CAL          |6 | | load calibrated values from eeprom |
+|  CMD_SAVE_CAL          |7 || save calibrated values to eeprom |
+|  CMD_GET_MIN          |8 | | returns minimum calibrated values for all sensors |
+|  CMD_GET_MAX           |9 | |returns maximum calibrated values for all sensors |
+|  CMD_SET_MIN           |10 | [min_0] ... [min_7]| Sets minimum calibration values |
+|  CMD_SET_MAX           |11 | [max_0] ... [max_7]| Sets maximum calibration values |
+| CMD_NEOPIXEL          |12 | [ledbr] [r] [g] [b] [show] | sets neopixel ar position [lednr] to color [r, g, b], [show]=1 shows neopixels| 
+| CMD_LEDS              |13 | [led_mode]| sets LED mode to (OFF=0, Normal = 1, Inverted = 2, Position = 3)
+| CMD_SET_EMITTER       |14 |[ Emitter value] | optional for qtr sensors, sets emitter value betweeen 0 and 31, 0 max, 1 minimum and 31 maxium (1 step lower that 0)|
+  
 
 ## Connecting the CH32
 
@@ -11,6 +54,8 @@ The CH32 acts as an I2C slave. An I2C master can read all ADC values in one I2C 
 |------|----------|
 | PB6   | SDC      |
 | PB7   | SDA    |
+| PB3 | CTRL pin for emitter control | 
+| PB11  | NeoPixels |
 | PA9   | UART TX |
 | PA10 | UART RX |
 | PA0   | ADC0  |
@@ -74,3 +119,4 @@ typedef enum {
     MODE_INVERT //14
 } Mode;
 ```
+
