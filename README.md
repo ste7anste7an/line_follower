@@ -1,52 +1,181 @@
-# Line follower
+# I²C Line-Following IR Sensor — README
 
-## ch32
-This line follower is based on the cheap WCH CH32v203 MCU. This MCU can be programmed in Arduino and can use up to 10 ADC pins. Internally, these pins are multiplexed over 2 ADC units.
+**Firmware version:** `2.3`  
+**I²C address:** `0x33`  
+**Sensors:** `8` IR detectors  
+**Frame length:** `13 bytes` (`NUM_SENSORS + 5`)
 
-The CH32 acts as an I2C slave. An I2C master can read all ADC values in one I2C data transfer. Furthermore, the implementation supports different modes. In raw mode, the raw ADC values (scaled down to 8 bit) can be read. After using the calibration mode, the calibrated values can be read.
+---
 
-## I2C communciation
-The I2C address is 0x33. By default, the ch32 reads 8 ADC values.
+## Overview
 
-### Readings
-```I2C_Read(0x33, buf, 14)```
+This module is an **8-channel line-following IR sensor** running as an **I²C slave**.  
+Key features:
 
-It returns a 12 byte long array of `uint8_t` populated as follows:
+- Raw and calibrated sensor output modes  
+- Line position (0–255) and moving derivative  
+- Line-shape detection (straight, T, Y, L-left, L-right, none)  
+- EEPROM-backed calibration (save/load)  
+- Neopixel visual feedback (one pixel per sensor + status pixel)  
+- Optional emitter control (for Pololu QTR-style sensors)
 
-```[adc0] [adc1] [adc2] [adc3] [adc4] [adc5] [adc6] [adc7] [position] [minval] [maxval] [derivative] [shape]```
+Communication is performed by writing a single command (and optional params) to the device at address `0x33`, then reading the 13-byte frame.
 
-with
+---
 
-- `adcx` the value of the ADC reading of pin `x` between 0 and 255
+## Returned Data Frame (I²C read)
 
-  When calibrated, the following values are valid:
-- `position` is the weighted position calculated from the ADC values.
-- `minval` the minimum value of all adc readings
-- `maxval` the maximum value of all adc readings
-- `derivative` the deivative of the position smooth over the last 8 values.
-- `shape` reflects the shape of the line: None, Line, Left L, Right L, T shape and Y shape.
+Each read returns a **13-byte** buffer:
 
-### Commands
-The following I2C commands are implemented
+| Byte index | Contents |
+|------------|----------|
+| `0` - `7`  | Sensor values (raw or normalized, one per sensor) |
+| `8`        | Line position (0..255) — valid in calibrated mode |
+| `9`        | Min value (active range) |
+| `10`       | Max value (active range) |
+| `11`       | Derivative (moving-average of position change, 0..255) |
+| `12`       | Line shape classification (see table below) |
 
-| Cmd | Byte | Argument | Description |
-|-----|---|----------|------------|
-| CMD_SET_MODE_RAW  | 0 | |Switch to Raw mode |
-|  CMD_SET_MODE_CAL | 1 | |Switch to Calibrated mode |
-|  CMD_GET_VERSION | 2 | | Returns version as Major and Minor version| 
-|  CMD_DEBUG        |3 | [level] |Debug level (error=0, warn=1, info =2, debug =3 and verbose =4 |
-|  CMD_CALIBRATE |    4 | | Starts calibrating, stop by switching to Raw or Calibrated mode|
-|  CMD_IS_CALIBRATED | 5 | | Returns 1 when calibration has run, otherwise returns 0|
-|  CMD_LOAD_CAL          |6 | | load calibrated values from eeprom |
-|  CMD_SAVE_CAL          |7 || save calibrated values to eeprom |
-|  CMD_GET_MIN          |8 | | returns minimum calibrated values for all sensors |
-|  CMD_GET_MAX           |9 | |returns maximum calibrated values for all sensors |
-|  CMD_SET_MIN           |10 | [min_0] ... [min_7]| Sets minimum calibration values |
-|  CMD_SET_MAX           |11 | [max_0] ... [max_7]| Sets maximum calibration values |
-| CMD_NEOPIXEL          |12 | [ledbr] [r] [g] [b] [show] | sets neopixel ar position [lednr] to color [r, g, b], [show]=1 shows neopixels| 
-| CMD_LEDS              |13 | [led_mode]| sets LED mode to (OFF=0, Normal = 1, Inverted = 2, Position = 3)
-| CMD_SET_EMITTER       |14 |[ Emitter value] | optional for qtr sensors, sets emitter value betweeen 0 and 31, 0 max, 1 minimum and 31 maxium (1 step lower that 0)|
-  
+### Line shape encoding
+
+| Code | Shape |
+|------|-------|
+| `0`  | None |
+| `1`  | Straight |
+| `2`  | T-junction |
+| `3`  | L-left |
+| `4`  | L-right |
+| `5`  | Y-junction |
+
+---
+
+## Operating Modes
+
+| ID | Mode name | Description |
+|----|-----------|-------------|
+| `0` | `MODE_RAW` | Raw (inverted) sensor values (0..255) |
+| `1` | `MODE_CAL` | Calibrated (normalized) values with position/derivative/shape |
+| `2` | `MODE_DIG` | Not used in current firmware |
+| `3` | `MODE_CALIBRATING` | Auto-calibration running (calibration sweep) |
+
+---
+
+## Hardware pin connections for CH32
+
+| GPIO | function |
+|------|----------|
+| PB6   | SDC      |
+| PB7   | SDA    |
+| PB3 | CTRL pin for emitter control | 
+| PB11  | NeoPixels |
+| PA9   | UART TX |
+| PA10 | UART RX |
+| PA0   | ADC0  |
+| PA1   | ADC1  |
+| PA2   | ADC2  |
+| PA3   | ADC3  |
+| PA4   | ADC4  |
+| PA5   | ADC5  |
+| PA6   | ADC6  |
+| PA7   | ADC7  |
+| PB0   | ADC8  |
+| PB1   | ADC9  |
+
+
+
+## I²C Commands
+
+Write the command byte first. Some commands require additional bytes (parameters).
+
+| Cmd ID | Name | Parameters | Description |
+|--------|------|------------|-------------|
+| `0` | `CMD_SET_MODE_RAW` | none | Switch to raw output |
+| `1` | `CMD_SET_MODE_CAL` | none | Switch to calibrated output |
+| `2` | `CMD_GET_VERSION` | none | Returns version bytes in the read frame (`maj`, `min`, ...) |
+| `3` | `CMD_DEBUG` | unused | Debug-level command is commented out in firmware |
+| `4` | `CMD_CALIBRATE` | none | Start auto calibration (5 s) — enters `MODE_CALIBRATING` |
+| `5` | `CMD_IS_CALIBRATED` | none | Returns `1` or `0` (first byte of frame) |
+| `6` | `CMD_LOAD_CAL` | none | Load calibration arrays from EEPROM |
+| `7` | `CMD_SAVE_CAL` | none | Save current calibration to EEPROM |
+| `8` | `CMD_GET_MIN` | none | Read calibration `min[]` array (first bytes of frame) |
+| `9` | `CMD_GET_MAX` | none | Read calibration `max[]` array (first bytes of frame) |
+| `10` | `CMD_SET_MIN` | 8 bytes | Write `min[]` calibration values (8 bytes) |
+| `11` | `CMD_SET_MAX` | 8 bytes | Write `max[]` calibration values (8 bytes) |
+| `12` | `CMD_NEOPIXEL` | `led, r, g, b` | Set one NeoPixel color, immediate `show()` |
+| `13` | `CMD_LEDS` | `mode` | Set LED mode (`LEDS_OFF`, `LEDS_NORMAL`, `LEDS_INVERTED`, `LEDS_POSITION`) |
+| `14` | `CMD_SET_EMITTER` | `level` | Optional Pololu QTR emitter pulse control |
+
+---
+
+## LED modes
+
+| ID | Name | Meaning |
+|----|------|---------|
+| `0` | `LEDS_OFF` | All neopixels off |
+| `1` | `LEDS_NORMAL` | Brightness = sensor intensity (green when calibrated, red when not) |
+| `2` | `LEDS_INVERTED` | Inverted brightness |
+| `3` | `LEDS_POSITION` | Two LEDs interpolate to show line position |
+
+The firmware keeps a status pixel (index `NUM_SENSORS`) lit when calibration exists.
+
+---
+
+## Calibration
+
+### Auto-calibration
+
+- `CMD_CALIBRATE` puts the device into `MODE_CALIBRATING`.
+- The firmware collects min/max extremes for each sensor for ~`CAL_TIME` (5 s).
+- During calibration, the status pixel flashes.
+- After calibration, `is_calibrated` becomes `true` and the device uses these min/max for normalization.
+
+### Save/load
+
+- `CMD_SAVE_CAL` writes `calMin[]` and `calMax[]` to EEPROM (first 16 bytes).
+- `CMD_LOAD_CAL` reads them back and sets `is_calibrated = true`.
+
+### Manual set
+
+- `CMD_SET_MIN`: send 8 bytes (min per sensor).
+- `CMD_SET_MAX`: send 8 bytes (max per sensor).
+
+If both min & max have been set, calibration is considered active.
+
+---
+
+## Sensor value interpretation
+
+- **Raw** values are computed as `255 - (analogRead() >> 4)` (range 0..255).
+- **Normalized/calibrated** values are scaled to 0..255 using stored `calMin` / `calMax`.
+- **Position calculation** uses an inverted normalized value (line = dark) with a weighted average:
+  - If `sum > 0`, `pos = (255 * weighted_sum / sum - 255) / 7` → mapped into 0..255 output.
+- **Derivative**: moving average of recent `pos` changes, scaled to 0..255 (128 = neutral).
+- **Shape detection**: uses threshold `THRESHOLD_BLACK = 100` to classify sensor binary pattern.
+
+---
+
+## Line-shape detection logic (summary)
+
+- Convert each of 8 sensors to binary by: `black = value < 100`.
+- Count black sensors and analyze patterns:
+  - `T` if many center sensors black in a wide block.
+  - `Y` if particular triple patterns exist.
+  - `L-left` / `L-right` if most black sensors on one side.
+  - Otherwise `STRAIGHT` or `NONE`.
+
+---
+
+## Examples
+
+> Replace `0x33` with `MY_I2C_ADDRESS` if you changed it.
+
+### Arduino: set calibrated mode
+
+```cpp
+Wire.beginTransmission(0x33);
+Wire.write(1); // CMD_SET_MODE_CAL
+Wire.endTransmission();
+
 
 ## Connecting the CH32
 
@@ -69,54 +198,5 @@ The following I2C commands are implemented
 | PB0   | ADC8  |
 | PB1   | ADC9  |
 
-## MicroBlocks library
-
-## I2C commands
-
-### I2C Write
-
-| First byte|                  | command                                        |
-|-----------|------------------|------------------------------------------------|
-| 0x00      | MODE_VAL_RAW     | Switch to Raw Mode; raw ADC values can be read |  
-| 0x01      | MODE_VAL_CAL     | Switch to Calinbrated Mode; Calibrated values can be read |  
-| 0x02      | MODE_VAL_DIG     | Switch to Digital Mode; only 0 or 1; works only after calibration |  
-| 0x03      | MODE_CALIBRATE   | Start Calibration mode        |  
-| 0x04      | MODE_GET_MIN     | Read Minimum calibrated values                 |  
-| 0x05      | MODE_GET_MAX    | Read Maximum calibrated values                 |  
-| 0x06      | MODE_GET_AVG     | Read Averaged calibrated values                 |  
-| 0x07      | * MODE_IS_CALIBRATED     | Returns 1 when clibration has run                 |  
-| 0x08      | MODE_PRINT_CAL     | Show calibration values in Serial Port                 |  
-| 0x09      | * MODE_SAVE_CAL    | Saves calibrated values in EEPROM/FLASH                 |  
-| 0x0A      | * MODE_LOAD_CAL     | Load calibrated values from EEPROM/FLASH                 |  
-| 0x0B      | MODE_VERSION     | Returns version in 2 bytes (major, minor)                 |  
-| 0x0C      | MODE_DEBUG     | Shows extra debug output to Serial Port                 |  
-| 0x0D      | * MODE_POSITION     | Returns weighted position of line                 |  
-| 0x0E      | * MODE_INVERT     | Inverts ADC values                 |  
-
-* is not yet implemented
-* 
-### I2C Read
-In the MODE_VAL_ modes, the master can read continously a number of bytes (maximum 10 corresponding with the number of sensors used.
-
-
-
-``` C
-typedef enum {
-    MODE_VAL_RAW = 0,
-    MODE_VAL_CAL, //1
-    MODE_VAL_DIG, //2
-    MODE_CALIBRATE, //3
-    MODE_GET_MIN,// 4
-    MODE_GET_MAX,// 5
-    MODE_GET_AVG,//6
-    MODE_IS_CALIBRATED, //7 
-    MODE_PRINT_CAL, //8
-    MODE_SAVE_CAL, //9
-    MODE_LOAD_CAL, // 10
-    MODE_VERSION, //11
-    MODE_DEBUG, //12
-    MODE_POSITION, //13
-    MODE_INVERT //14
-} Mode;
-```
+#
 
