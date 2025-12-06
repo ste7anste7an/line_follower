@@ -177,27 +177,5 @@ Wire.write(1); // CMD_SET_MODE_CAL
 Wire.endTransmission();
 
 
-## Connecting the CH32
-
-| GPIO | function |
-|------|----------|
-| PB6   | SDC      |
-| PB7   | SDA    |
-| PB3 | CTRL pin for emitter control | 
-| PB11  | NeoPixels |
-| PA9   | UART TX |
-| PA10 | UART RX |
-| PA0   | ADC0  |
-| PA1   | ADC1  |
-| PA2   | ADC2  |
-| PA3   | ADC3  |
-| PA4   | ADC4  |
-| PA5   | ADC5  |
-| PA6   | ADC6  |
-| PA7   | ADC7  |
-| PB0   | ADC8  |
-| PB1   | ADC9  |
-
-#
 
 
