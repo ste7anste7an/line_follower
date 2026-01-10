@@ -74,7 +74,7 @@ script 784 76 {
 }
 
 script 982 85 {
-'set emitter level' 0
+'set emitter level' 1
 }
 
 script 459 90 {
@@ -168,7 +168,6 @@ forever {
   handle_event
   comment 'add green process here when connected to lego'
   buf = (newList 12)
-  graphIt (_line_pos - 128) (_line_derivative - 128)
   '[tft:LVGLsetval]' 'position' _line_pos
   sayIt (shape)
   process
@@ -178,6 +177,8 @@ forever {
 script 73 335 {
 'store calibration'
 }
+
+script 1070 443 (v _pup_connected)
 
 script 52 457 {
 'restore calibration'
@@ -223,6 +224,10 @@ script 123 950 {
 to inverting {}
 }
 
+script 216 1107 {
+'led mode' 'position'
+}
+
 script 92 1188 {
 'led mode' 'off'
 forever {
@@ -239,11 +244,19 @@ forever {
 }
 }
 
+script 1138 1199 {
+graphIt (_line_pos - 128) (_line_derivative - 128)
+}
+
 script 703 1506 {
 to shape {}
 }
 
 script 907 1512 (v a)
+
+script 1211 1523 {
+graphIt (at 1 _line_buf)
+}
 
 script 279 1634 {
 to line {}

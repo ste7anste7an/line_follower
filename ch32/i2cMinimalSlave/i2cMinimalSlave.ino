@@ -228,6 +228,7 @@ uint8_t detect_shape(uint8_t s[]) {
 // read raw values and store in global rawVals buffer
 void readSensors() {
   for (int i = 0; i < NUM_SENSORS; ++i) {
+    pinMode(adcPins[i], INPUT_PULLUP);  // NOT INPUT_PULLUP
     rawVals[i] = 255 - (analogRead(adcPins[i]) >> 4);
   }
 }
@@ -261,6 +262,8 @@ void doCalibrate() {
 
 // only for qtr sensor of pololu
 void setEmitter(uint8_t level) {
+  /*
+  // code for special 31 level emitter
   pinMode(CTRL_PIN, OUTPUT);
   digitalWrite(CTRL_PIN, LOW);
   delayMicroseconds(1000);  // delay 1ms to reset level
@@ -270,6 +273,14 @@ void setEmitter(uint8_t level) {
     delayMicroseconds(1);
     digitalWrite(CTRL_PIN, HIGH);
     delayMicroseconds(10);
+    
+  }
+  */
+  pinMode(CTRL_PIN, OUTPUT);
+  if (level==0) {
+    digitalWrite(CTRL_PIN, LOW);
+  } else {
+    digitalWrite(CTRL_PIN, HIGH);
   }
 }
 
@@ -623,7 +634,8 @@ uint8_t buf[NUM_SENSORS];
 void setup() {
   strip.begin();
   strip.show();  // Turn off pixels
-
+  pinMode(CTRL_PIN, OUTPUT);
+  digitalWrite(CTRL_PIN, HIGH);
   strip.setPixelColor(0, strip.Color(25, 0, 0));  // Red
   strip.show();
   delay(100);
@@ -640,6 +652,11 @@ void setup() {
   Serial.println("I2C slave @address 0x33");
   EEPROM.begin();  // setup eeprom usage
   current_mode = MODE_RAW;
+
+// remap pins
+  Wire.setSDA(PB9);
+  Wire.setSCL(PB8);
+
 
   Wire.begin(MY_I2C_ADDRESS);
   // Note: enable I2C slave functionality in /libraries/Wire/src/utility/twi.h to prevent error message for next two lines
