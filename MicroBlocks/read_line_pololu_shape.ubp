@@ -73,10 +73,6 @@ script 784 76 {
 'save calibration'
 }
 
-script 982 85 {
-'set emitter level' 1
-}
-
 script 459 90 {
 '[file:open]' 'cal_val.bin'
 }
@@ -135,6 +131,7 @@ init
 comment 'start line follower with 8 sensors and plot'
 init_line 8 true
 command 'mode raw'
+'set emitter level' 1
 init_callback
 comment 'make simple GUI for calibration etc.'
 '[tft:LVGLaddbtn]' 'Calibrate'

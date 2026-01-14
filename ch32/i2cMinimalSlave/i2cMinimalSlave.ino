@@ -328,7 +328,7 @@ bool getLinePosition(const uint8_t norm[], uint8_t &posOut, uint8_t &minOut, uin
   for (int i = 0; i < NUM_SENSORS; ++i) {
     val = 255 - norm[i];  // invert
     if (val < THRESHOLD) val = 0;
-    weighted_sum += val * (i + 1);
+    weighted_sum += val * (i );
     sum += val;
     if (val > maxOut) maxOut = val;
     if (val < minOut) minOut = val;
@@ -634,20 +634,9 @@ uint8_t buf[NUM_SENSORS];
 void setup() {
   strip.begin();
   strip.show();  // Turn off pixels
-  pinMode(CTRL_PIN, OUTPUT);
-  digitalWrite(CTRL_PIN, HIGH);
-  strip.setPixelColor(0, strip.Color(25, 0, 0));  // Red
-  strip.show();
-  delay(100);
-
-  strip.setPixelColor(0, strip.Color(0, 25, 0));  // Green
-  strip.show();
-  delay(100);
-
-  strip.setPixelColor(0, strip.Color(0, 0, 25));  // Blue
-  strip.show();
-  delay(100);
-
+  // start with IR leds off
+  setEmitter(1);
+  
   Serial.begin(115200);
   Serial.println("I2C slave @address 0x33");
   EEPROM.begin();  // setup eeprom usage
@@ -656,7 +645,6 @@ void setup() {
 // remap pins
   Wire.setSDA(PB9);
   Wire.setSCL(PB8);
-
 
   Wire.begin(MY_I2C_ADDRESS);
   // Note: enable I2C slave functionality in /libraries/Wire/src/utility/twi.h to prevent error message for next two lines
@@ -696,7 +684,7 @@ void loop() {
       flashState = !flashState;
 
       if (flashState) {
-        strip.setPixelColor(NUM_SENSORS, strip.Color(40, 0, 0));  // on
+        strip.setPixelColor(NUM_SENSORS, strip.Color(0, 0, 40));  // on
       } else {
         strip.setPixelColor(NUM_SENSORS, strip.Color(0, 0, 0));  // off
       }
