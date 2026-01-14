@@ -1,0 +1,1 @@
+python uf2conv.py %1 -f 0x699b62ec -b 0x08001000
