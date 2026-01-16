@@ -17,7 +17,7 @@ Key features:
 - Line-shape detection (straight, T, Y, L-left, L-right, none)  
 - EEPROM-backed calibration (save/load)  
 - Neopixel visual feedback (one pixel per sensor + status pixel)  
-- Optional emitter control (for Pololu QTR-style sensors)
+- Emitter switching by GPIO
 
 Communication is performed by writing a single command (and optional params) to the device at address `0x33`, then reading the 13-byte frame.
 
@@ -79,7 +79,7 @@ Each read returns a **13-byte** buffer:
 | PA6   | ADC6  |
 | PA7   | ADC7  |
 | PB0   | ADC8  |
-| PB1   | ADC9  |
+| PB1   | ADC9/BOOT0 switch  |
 
 
 
@@ -175,6 +175,7 @@ If both min & max have been set, calibration is considered active.
 Wire.beginTransmission(0x33);
 Wire.write(1); // CMD_SET_MODE_CAL
 Wire.endTransmission();
+
 
 
 
