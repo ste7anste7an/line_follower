@@ -1,0 +1,65 @@
+from pybricks.hubs import PrimeHub
+from pybricks.pupdevices import Motor, ColorSensor, UltrasonicSensor, ForceSensor
+from pybricks.parameters import Button, Color, Direction, Port, Side, Stop
+from pybricks.robotics import DriveBase
+from pybricks.tools import wait, StopWatch
+
+hub = PrimeHub()
+
+
+
+from micropup import MicroPUP
+p=MicroPUP(Port.A)
+p.add_command('line',to_hub=2,from_hub=0)
+
+CENTER = 128
+lm = Motor(Port.C, Direction.COUNTERCLOCKWISE)
+rm = Motor(Port.E)
+db = DriveBase(lm, rm, 56, 16*8)
+
+KP = 0.8
+KI = 0.0
+KD = 0.5
+
+SPEED = 100
+speed = 100
+integral = 0.0
+prev_error = 0.0
+
+watch = StopWatch()
+watch.reset()
+prev_ms = watch.time()
+
+
+while True:
+    pos, shape = p.call('line')   # pos expected ~0..255, center ~128
+
+    print(pos,speed)
+    now_ms = watch.time()
+    dt = (now_ms - prev_ms) / 1000.0  # seconds
+    if dt <= 0:
+        dt = 0.01
+    prev_ms = now_ms
+
+    # --- PID error ---
+    error = CENTER - pos  # positive means line is left of center -> steer left (depending on your robot)
+    # if abs(error)>50:
+    #     speed = SPEED * (1-(abs(error)/128)*0.8)
+    # --- Integral with anti-windup ---
+    integral += error * dt
+    integral = max(-200, min(200, integral))   # clamp integral (tune limit)
+
+    # --- Derivative ---
+    derivative = (error - prev_error) / dt
+    prev_error = error
+
+    # --- PID output ---
+    steer = KP * error + KI * integral + KD * derivative
+
+    # Optional: clamp steer to DriveBase limits (deg/s)
+    steer = max(-100, min(100, steer))
+
+    db.drive(speed, steer)
+
+    # small yield for stability
+    wait(10)
