@@ -295,18 +295,22 @@ void setEmitter(uint8_t level) {
 void show_neopixel(uint8_t buf[]) {
   if (current_leds_mode == LEDS_NORMAL) {
     for (int i = 0; i < NUM_SENSORS; i++) {
+      uint8_t intensity = (uint8_t)(buf[i] / 16);
+      if (intensity<2) intensity=0;
       if (is_calibrated)
-        strip.setPixelColor(i, strip.Color(0, (uint8_t)(buf[i] / 16), 0));  // Green
+        strip.setPixelColor(i, strip.Color(0, intensity, 0));  // Green
       else
-        strip.setPixelColor(i, strip.Color((uint8_t)(buf[i] / 16), 0, 0));  // Red
+        strip.setPixelColor(i, strip.Color(intensity, 0, 0));  // Red
     }
     strip.show();
   } else if (current_leds_mode == LEDS_INVERTED) {
     for (int i = 0; i < NUM_SENSORS; i++) {
+      uint8_t intensity = 16- (uint8_t)(buf[i] / 16);
+      if (intensity<2) intensity=0;
       if (is_calibrated)
-        strip.setPixelColor(i, strip.Color(0, 16 - (uint8_t)(buf[i] / 16), 0));  // Green
+        strip.setPixelColor(i, strip.Color(0, intensity, 0));  // Green
       else
-        strip.setPixelColor(i, strip.Color(16 - (uint8_t)(buf[i] / 16), 0, 0));  // Red
+        strip.setPixelColor(i, strip.Color(intensity, 0, 0));  // Red
     }
     strip.show();
   }
@@ -612,18 +616,18 @@ void setup() {
 
 
 
-  for (int n = 0; n < 2; n++) {
+  for (int n = 0; n < 3; n++) {
     for (int i = 0; i < NUM_SENSORS; i++) {
       strip.setPixelColor(i, strip.Color(0, 0, 40));
       strip.show();
-      delay(20);
+      delay(30);
       strip.setPixelColor(i, strip.Color(0, 0, 0));
       strip.show();
     }
     for (int i = 0; i < NUM_SENSORS; i++) {
       strip.setPixelColor(NUM_SENSORS - i - 1, strip.Color(0, 0, 40));
       strip.show();
-      delay(20);
+      delay(30);
       strip.setPixelColor(NUM_SENSORS - i - 1, strip.Color(0, 0, 0));
       strip.show();
     }
