@@ -2967,809 +2967,809 @@ END GROUP
                 0x0000000000001424       0x1c C:\Users\kidsp\AppData\Local\arduino\sketches\56F3912E23096B05111FF3397A9CF65B\sketch\ch32_line.ino.cpp.o
                 0x0000000000001424                setEmitter(unsigned char)
  .text._Z13show_neopixelPh
-                0x0000000000001440       0x9a C:\Users\kidsp\AppData\Local\arduino\sketches\56F3912E23096B05111FF3397A9CF65B\sketch\ch32_line.ino.cpp.o
+                0x0000000000001440       0x96 C:\Users\kidsp\AppData\Local\arduino\sketches\56F3912E23096B05111FF3397A9CF65B\sketch\ch32_line.ino.cpp.o
                 0x0000000000001440                show_neopixel(unsigned char*)
  .text._Z17computeNormalizedPKhPh
-                0x00000000000014da       0x54 C:\Users\kidsp\AppData\Local\arduino\sketches\56F3912E23096B05111FF3397A9CF65B\sketch\ch32_line.ino.cpp.o
-                0x00000000000014da                computeNormalized(unsigned char const*, unsigned char*)
+                0x00000000000014d6       0x54 C:\Users\kidsp\AppData\Local\arduino\sketches\56F3912E23096B05111FF3397A9CF65B\sketch\ch32_line.ino.cpp.o
+                0x00000000000014d6                computeNormalized(unsigned char const*, unsigned char*)
  .text._Z15getLinePositionPKhRhS1_S1_
-                0x000000000000152e       0x72 C:\Users\kidsp\AppData\Local\arduino\sketches\56F3912E23096B05111FF3397A9CF65B\sketch\ch32_line.ino.cpp.o
-                0x000000000000152e                getLinePosition(unsigned char const*, unsigned char&, unsigned char&, unsigned char&)
+                0x000000000000152a       0x72 C:\Users\kidsp\AppData\Local\arduino\sketches\56F3912E23096B05111FF3397A9CF65B\sketch\ch32_line.ino.cpp.o
+                0x000000000000152a                getLinePosition(unsigned char const*, unsigned char&, unsigned char&, unsigned char&)
  .text._Z30computeMovingAverageDerivativeh
-                0x00000000000015a0      0x138 C:\Users\kidsp\AppData\Local\arduino\sketches\56F3912E23096B05111FF3397A9CF65B\sketch\ch32_line.ino.cpp.o
-                0x00000000000015a0                computeMovingAverageDerivative(unsigned char)
- .text.setup    0x00000000000016d8      0x15a C:\Users\kidsp\AppData\Local\arduino\sketches\56F3912E23096B05111FF3397A9CF65B\sketch\ch32_line.ino.cpp.o
-                0x00000000000016d8                setup
- .text.loop     0x0000000000001832      0x268 C:\Users\kidsp\AppData\Local\arduino\sketches\56F3912E23096B05111FF3397A9CF65B\sketch\ch32_line.ino.cpp.o
+                0x000000000000159c      0x138 C:\Users\kidsp\AppData\Local\arduino\sketches\56F3912E23096B05111FF3397A9CF65B\sketch\ch32_line.ino.cpp.o
+                0x000000000000159c                computeMovingAverageDerivative(unsigned char)
+ .text.setup    0x00000000000016d4      0x15e C:\Users\kidsp\AppData\Local\arduino\sketches\56F3912E23096B05111FF3397A9CF65B\sketch\ch32_line.ino.cpp.o
+                0x00000000000016d4                setup
+ .text.loop     0x0000000000001832      0x264 C:\Users\kidsp\AppData\Local\arduino\sketches\56F3912E23096B05111FF3397A9CF65B\sketch\ch32_line.ino.cpp.o
                 0x0000000000001832                loop
  .text.startup._GLOBAL__sub_I_strip
-                0x0000000000001a9a       0x20 C:\Users\kidsp\AppData\Local\arduino\sketches\56F3912E23096B05111FF3397A9CF65B\sketch\ch32_line.ino.cpp.o
+                0x0000000000001a96       0x20 C:\Users\kidsp\AppData\Local\arduino\sketches\56F3912E23096B05111FF3397A9CF65B\sketch\ch32_line.ino.cpp.o
  .text.exit._GLOBAL__sub_D_strip
-                0x0000000000001aba        0xe C:\Users\kidsp\AppData\Local\arduino\sketches\56F3912E23096B05111FF3397A9CF65B\sketch\ch32_line.ino.cpp.o
+                0x0000000000001ab6        0xe C:\Users\kidsp\AppData\Local\arduino\sketches\56F3912E23096B05111FF3397A9CF65B\sketch\ch32_line.ino.cpp.o
  .text._Z12ReceiveEventi
-                0x0000000000001ac8      0x404 C:\Users\kidsp\AppData\Local\arduino\sketches\56F3912E23096B05111FF3397A9CF65B\sketch\ch32_line.ino.cpp.o
-                0x0000000000001ac8                ReceiveEvent(int)
+                0x0000000000001ac4      0x400 C:\Users\kidsp\AppData\Local\arduino\sketches\56F3912E23096B05111FF3397A9CF65B\sketch\ch32_line.ino.cpp.o
+                0x0000000000001ac4                ReceiveEvent(int)
  .text._Z12RequestEventv
-                0x0000000000001ecc       0x68 C:\Users\kidsp\AppData\Local\arduino\sketches\56F3912E23096B05111FF3397A9CF65B\sketch\ch32_line.ino.cpp.o
-                0x0000000000001ecc                RequestEvent()
+                0x0000000000001ec4       0x68 C:\Users\kidsp\AppData\Local\arduino\sketches\56F3912E23096B05111FF3397A9CF65B\sketch\ch32_line.ino.cpp.o
+                0x0000000000001ec4                RequestEvent()
  .text._ZN11EEPROMClass5beginEv
-                0x0000000000001f34       0x4e C:\Users\kidsp\AppData\Local\arduino\sketches\56F3912E23096B05111FF3397A9CF65B\libraries\EEPROM\EEPROM.cpp.o
-                0x0000000000001f34                EEPROMClass::begin()
+                0x0000000000001f2c       0x4e C:\Users\kidsp\AppData\Local\arduino\sketches\56F3912E23096B05111FF3397A9CF65B\libraries\EEPROM\EEPROM.cpp.o
+                0x0000000000001f2c                EEPROMClass::begin()
  .text._ZN11EEPROMClass4readEi
-                0x0000000000001f82       0x18 C:\Users\kidsp\AppData\Local\arduino\sketches\56F3912E23096B05111FF3397A9CF65B\libraries\EEPROM\EEPROM.cpp.o
-                0x0000000000001f82                EEPROMClass::read(int)
+                0x0000000000001f7a       0x18 C:\Users\kidsp\AppData\Local\arduino\sketches\56F3912E23096B05111FF3397A9CF65B\libraries\EEPROM\EEPROM.cpp.o
+                0x0000000000001f7a                EEPROMClass::read(int)
  .text._ZN11EEPROMClass5writeEih
-                0x0000000000001f9a       0x18 C:\Users\kidsp\AppData\Local\arduino\sketches\56F3912E23096B05111FF3397A9CF65B\libraries\EEPROM\EEPROM.cpp.o
-                0x0000000000001f9a                EEPROMClass::write(int, unsigned char)
+                0x0000000000001f92       0x18 C:\Users\kidsp\AppData\Local\arduino\sketches\56F3912E23096B05111FF3397A9CF65B\libraries\EEPROM\EEPROM.cpp.o
+                0x0000000000001f92                EEPROMClass::write(int, unsigned char)
  .text._ZN11EEPROMClass6commitEv
-                0x0000000000001fb2       0xea C:\Users\kidsp\AppData\Local\arduino\sketches\56F3912E23096B05111FF3397A9CF65B\libraries\EEPROM\EEPROM.cpp.o
-                0x0000000000001fb2                EEPROMClass::commit()
+                0x0000000000001faa       0xea C:\Users\kidsp\AppData\Local\arduino\sketches\56F3912E23096B05111FF3397A9CF65B\libraries\EEPROM\EEPROM.cpp.o
+                0x0000000000001faa                EEPROMClass::commit()
  .text._ZN11EEPROMClass3endEv
-                0x000000000000209c       0x14 C:\Users\kidsp\AppData\Local\arduino\sketches\56F3912E23096B05111FF3397A9CF65B\libraries\EEPROM\EEPROM.cpp.o
-                0x000000000000209c                EEPROMClass::end()
+                0x0000000000002094       0x14 C:\Users\kidsp\AppData\Local\arduino\sketches\56F3912E23096B05111FF3397A9CF65B\libraries\EEPROM\EEPROM.cpp.o
+                0x0000000000002094                EEPROMClass::end()
  .text.startup._GLOBAL__sub_I__ZN11EEPROMClassC2Ev
-                0x00000000000020b0       0x12 C:\Users\kidsp\AppData\Local\arduino\sketches\56F3912E23096B05111FF3397A9CF65B\libraries\EEPROM\EEPROM.cpp.o
+                0x00000000000020a8       0x12 C:\Users\kidsp\AppData\Local\arduino\sketches\56F3912E23096B05111FF3397A9CF65B\libraries\EEPROM\EEPROM.cpp.o
  .text.exit._GLOBAL__sub_D__ZN11EEPROMClassC2Ev
-                0x00000000000020c2        0xe C:\Users\kidsp\AppData\Local\arduino\sketches\56F3912E23096B05111FF3397A9CF65B\libraries\EEPROM\EEPROM.cpp.o
+                0x00000000000020ba        0xe C:\Users\kidsp\AppData\Local\arduino\sketches\56F3912E23096B05111FF3397A9CF65B\libraries\EEPROM\EEPROM.cpp.o
  .text._ZN17Adafruit_NeoPixelD2Ev
-                0x00000000000020d0       0x1e C:\Users\kidsp\AppData\Local\arduino\sketches\56F3912E23096B05111FF3397A9CF65B\libraries\Adafruit_NeoPixel\Adafruit_NeoPixel.cpp.o
-                0x00000000000020d0                Adafruit_NeoPixel::~Adafruit_NeoPixel()
-                0x00000000000020d0                Adafruit_NeoPixel::~Adafruit_NeoPixel()
+                0x00000000000020c8       0x1e C:\Users\kidsp\AppData\Local\arduino\sketches\56F3912E23096B05111FF3397A9CF65B\libraries\Adafruit_NeoPixel\Adafruit_NeoPixel.cpp.o
+                0x00000000000020c8                Adafruit_NeoPixel::~Adafruit_NeoPixel()
+                0x00000000000020c8                Adafruit_NeoPixel::~Adafruit_NeoPixel()
  .text._ZN17Adafruit_NeoPixel5beginEv
-                0x00000000000020ee       0x32 C:\Users\kidsp\AppData\Local\arduino\sketches\56F3912E23096B05111FF3397A9CF65B\libraries\Adafruit_NeoPixel\Adafruit_NeoPixel.cpp.o
-                0x00000000000020ee                Adafruit_NeoPixel::begin()
+                0x00000000000020e6       0x32 C:\Users\kidsp\AppData\Local\arduino\sketches\56F3912E23096B05111FF3397A9CF65B\libraries\Adafruit_NeoPixel\Adafruit_NeoPixel.cpp.o
+                0x00000000000020e6                Adafruit_NeoPixel::begin()
  .text._ZN17Adafruit_NeoPixel12updateLengthEt
-                0x0000000000002120       0x4c C:\Users\kidsp\AppData\Local\arduino\sketches\56F3912E23096B05111FF3397A9CF65B\libraries\Adafruit_NeoPixel\Adafruit_NeoPixel.cpp.o
-                0x0000000000002120                Adafruit_NeoPixel::updateLength(unsigned short)
+                0x0000000000002118       0x4c C:\Users\kidsp\AppData\Local\arduino\sketches\56F3912E23096B05111FF3397A9CF65B\libraries\Adafruit_NeoPixel\Adafruit_NeoPixel.cpp.o
+                0x0000000000002118                Adafruit_NeoPixel::updateLength(unsigned short)
  .text._ZN17Adafruit_NeoPixel10updateTypeEt
-                0x000000000000216c       0x54 C:\Users\kidsp\AppData\Local\arduino\sketches\56F3912E23096B05111FF3397A9CF65B\libraries\Adafruit_NeoPixel\Adafruit_NeoPixel.cpp.o
-                0x000000000000216c                Adafruit_NeoPixel::updateType(unsigned short)
+                0x0000000000002164       0x54 C:\Users\kidsp\AppData\Local\arduino\sketches\56F3912E23096B05111FF3397A9CF65B\libraries\Adafruit_NeoPixel\Adafruit_NeoPixel.cpp.o
+                0x0000000000002164                Adafruit_NeoPixel::updateType(unsigned short)
  .text._ZN17Adafruit_NeoPixel4showEv
-                0x00000000000021c0      0x316 C:\Users\kidsp\AppData\Local\arduino\sketches\56F3912E23096B05111FF3397A9CF65B\libraries\Adafruit_NeoPixel\Adafruit_NeoPixel.cpp.o
-                0x00000000000021c0                Adafruit_NeoPixel::show()
+                0x00000000000021b8      0x316 C:\Users\kidsp\AppData\Local\arduino\sketches\56F3912E23096B05111FF3397A9CF65B\libraries\Adafruit_NeoPixel\Adafruit_NeoPixel.cpp.o
+                0x00000000000021b8                Adafruit_NeoPixel::show()
  .text._ZN17Adafruit_NeoPixel6setPinEs
-                0x00000000000024d6       0xce C:\Users\kidsp\AppData\Local\arduino\sketches\56F3912E23096B05111FF3397A9CF65B\libraries\Adafruit_NeoPixel\Adafruit_NeoPixel.cpp.o
-                0x00000000000024d6                Adafruit_NeoPixel::setPin(short)
+                0x00000000000024ce       0xce C:\Users\kidsp\AppData\Local\arduino\sketches\56F3912E23096B05111FF3397A9CF65B\libraries\Adafruit_NeoPixel\Adafruit_NeoPixel.cpp.o
+                0x00000000000024ce                Adafruit_NeoPixel::setPin(short)
  .text._ZN17Adafruit_NeoPixelC2Etst
-                0x00000000000025a4       0x38 C:\Users\kidsp\AppData\Local\arduino\sketches\56F3912E23096B05111FF3397A9CF65B\libraries\Adafruit_NeoPixel\Adafruit_NeoPixel.cpp.o
-                0x00000000000025a4                Adafruit_NeoPixel::Adafruit_NeoPixel(unsigned short, short, unsigned short)
-                0x00000000000025a4                Adafruit_NeoPixel::Adafruit_NeoPixel(unsigned short, short, unsigned short)
+                0x000000000000259c       0x38 C:\Users\kidsp\AppData\Local\arduino\sketches\56F3912E23096B05111FF3397A9CF65B\libraries\Adafruit_NeoPixel\Adafruit_NeoPixel.cpp.o
+                0x000000000000259c                Adafruit_NeoPixel::Adafruit_NeoPixel(unsigned short, short, unsigned short)
+                0x000000000000259c                Adafruit_NeoPixel::Adafruit_NeoPixel(unsigned short, short, unsigned short)
  .text._ZN17Adafruit_NeoPixel13setPixelColorEtm
-                0x00000000000025dc       0x8e C:\Users\kidsp\AppData\Local\arduino\sketches\56F3912E23096B05111FF3397A9CF65B\libraries\Adafruit_NeoPixel\Adafruit_NeoPixel.cpp.o
-                0x00000000000025dc                Adafruit_NeoPixel::setPixelColor(unsigned short, unsigned long)
+                0x00000000000025d4       0x8e C:\Users\kidsp\AppData\Local\arduino\sketches\56F3912E23096B05111FF3397A9CF65B\libraries\Adafruit_NeoPixel\Adafruit_NeoPixel.cpp.o
+                0x00000000000025d4                Adafruit_NeoPixel::setPixelColor(unsigned short, unsigned long)
  .text._ZN17Adafruit_NeoPixel5clearEv
-                0x000000000000266a       0x12 C:\Users\kidsp\AppData\Local\arduino\sketches\56F3912E23096B05111FF3397A9CF65B\libraries\Adafruit_NeoPixel\Adafruit_NeoPixel.cpp.o
-                0x000000000000266a                Adafruit_NeoPixel::clear()
+                0x0000000000002662       0x12 C:\Users\kidsp\AppData\Local\arduino\sketches\56F3912E23096B05111FF3397A9CF65B\libraries\Adafruit_NeoPixel\Adafruit_NeoPixel.cpp.o
+                0x0000000000002662                Adafruit_NeoPixel::clear()
  .text._ZN5Print17availableForWriteEv
-                0x000000000000267c        0x4 C:\Users\kidsp\AppData\Local\arduino\sketches\56F3912E23096B05111FF3397A9CF65B\libraries\Wire\Wire.cpp.o
-                0x000000000000267c                Print::availableForWrite()
+                0x0000000000002674        0x4 C:\Users\kidsp\AppData\Local\arduino\sketches\56F3912E23096B05111FF3397A9CF65B\libraries\Wire\Wire.cpp.o
+                0x0000000000002674                Print::availableForWrite()
  .text._ZN7TwoWire9availableEv
-                0x0000000000002680        0xa C:\Users\kidsp\AppData\Local\arduino\sketches\56F3912E23096B05111FF3397A9CF65B\libraries\Wire\Wire.cpp.o
-                0x0000000000002680                TwoWire::available()
+                0x0000000000002678        0xa C:\Users\kidsp\AppData\Local\arduino\sketches\56F3912E23096B05111FF3397A9CF65B\libraries\Wire\Wire.cpp.o
+                0x0000000000002678                TwoWire::available()
  .text._ZN7TwoWire4readEv
-                0x000000000000268a       0x1a C:\Users\kidsp\AppData\Local\arduino\sketches\56F3912E23096B05111FF3397A9CF65B\libraries\Wire\Wire.cpp.o
-                0x000000000000268a                TwoWire::read()
+                0x0000000000002682       0x1a C:\Users\kidsp\AppData\Local\arduino\sketches\56F3912E23096B05111FF3397A9CF65B\libraries\Wire\Wire.cpp.o
+                0x0000000000002682                TwoWire::read()
  .text._ZN7TwoWire4peekEv
-                0x00000000000026a4       0x14 C:\Users\kidsp\AppData\Local\arduino\sketches\56F3912E23096B05111FF3397A9CF65B\libraries\Wire\Wire.cpp.o
-                0x00000000000026a4                TwoWire::peek()
+                0x000000000000269c       0x14 C:\Users\kidsp\AppData\Local\arduino\sketches\56F3912E23096B05111FF3397A9CF65B\libraries\Wire\Wire.cpp.o
+                0x000000000000269c                TwoWire::peek()
  .text._ZN7TwoWire16onRequestServiceEP5i2c_s
-                0x00000000000026b8       0x20 C:\Users\kidsp\AppData\Local\arduino\sketches\56F3912E23096B05111FF3397A9CF65B\libraries\Wire\Wire.cpp.o
-                0x00000000000026b8                TwoWire::onRequestService(i2c_s*)
+                0x00000000000026b0       0x20 C:\Users\kidsp\AppData\Local\arduino\sketches\56F3912E23096B05111FF3397A9CF65B\libraries\Wire\Wire.cpp.o
+                0x00000000000026b0                TwoWire::onRequestService(i2c_s*)
  .text._ZN7TwoWire5writeEh
-                0x00000000000026d8       0x6e C:\Users\kidsp\AppData\Local\arduino\sketches\56F3912E23096B05111FF3397A9CF65B\libraries\Wire\Wire.cpp.o
-                0x00000000000026d8                TwoWire::write(unsigned char)
+                0x00000000000026d0       0x6e C:\Users\kidsp\AppData\Local\arduino\sketches\56F3912E23096B05111FF3397A9CF65B\libraries\Wire\Wire.cpp.o
+                0x00000000000026d0                TwoWire::write(unsigned char)
  .text._ZN7TwoWire5writeEPKhj
-                0x0000000000002746       0x6e C:\Users\kidsp\AppData\Local\arduino\sketches\56F3912E23096B05111FF3397A9CF65B\libraries\Wire\Wire.cpp.o
-                0x0000000000002746                TwoWire::write(unsigned char const*, unsigned int)
+                0x000000000000273e       0x6e C:\Users\kidsp\AppData\Local\arduino\sketches\56F3912E23096B05111FF3397A9CF65B\libraries\Wire\Wire.cpp.o
+                0x000000000000273e                TwoWire::write(unsigned char const*, unsigned int)
  .text._ZN7TwoWireC2Ev
-                0x00000000000027b4       0x2a C:\Users\kidsp\AppData\Local\arduino\sketches\56F3912E23096B05111FF3397A9CF65B\libraries\Wire\Wire.cpp.o
-                0x00000000000027b4                TwoWire::TwoWire()
-                0x00000000000027b4                TwoWire::TwoWire()
+                0x00000000000027ac       0x2a C:\Users\kidsp\AppData\Local\arduino\sketches\56F3912E23096B05111FF3397A9CF65B\libraries\Wire\Wire.cpp.o
+                0x00000000000027ac                TwoWire::TwoWire()
+                0x00000000000027ac                TwoWire::TwoWire()
  .text._ZN7TwoWire16allocateRxBufferEj
-                0x00000000000027de       0x30 C:\Users\kidsp\AppData\Local\arduino\sketches\56F3912E23096B05111FF3397A9CF65B\libraries\Wire\Wire.cpp.o
-                0x00000000000027de                TwoWire::allocateRxBuffer(unsigned int)
+                0x00000000000027d6       0x30 C:\Users\kidsp\AppData\Local\arduino\sketches\56F3912E23096B05111FF3397A9CF65B\libraries\Wire\Wire.cpp.o
+                0x00000000000027d6                TwoWire::allocateRxBuffer(unsigned int)
  .text._ZN7TwoWire16onReceiveServiceEP5i2c_s
-                0x000000000000280e       0x54 C:\Users\kidsp\AppData\Local\arduino\sketches\56F3912E23096B05111FF3397A9CF65B\libraries\Wire\Wire.cpp.o
-                0x000000000000280e                TwoWire::onReceiveService(i2c_s*)
+                0x0000000000002806       0x54 C:\Users\kidsp\AppData\Local\arduino\sketches\56F3912E23096B05111FF3397A9CF65B\libraries\Wire\Wire.cpp.o
+                0x0000000000002806                TwoWire::onReceiveService(i2c_s*)
  .text._ZN7TwoWire13resetTxBufferEv
-                0x0000000000002862       0x18 C:\Users\kidsp\AppData\Local\arduino\sketches\56F3912E23096B05111FF3397A9CF65B\libraries\Wire\Wire.cpp.o
-                0x0000000000002862                TwoWire::resetTxBuffer()
+                0x000000000000285a       0x18 C:\Users\kidsp\AppData\Local\arduino\sketches\56F3912E23096B05111FF3397A9CF65B\libraries\Wire\Wire.cpp.o
+                0x000000000000285a                TwoWire::resetTxBuffer()
  .text._ZN7TwoWire5flushEv
-                0x000000000000287a       0x26 C:\Users\kidsp\AppData\Local\arduino\sketches\56F3912E23096B05111FF3397A9CF65B\libraries\Wire\Wire.cpp.o
-                0x000000000000287a                TwoWire::flush()
+                0x0000000000002872       0x26 C:\Users\kidsp\AppData\Local\arduino\sketches\56F3912E23096B05111FF3397A9CF65B\libraries\Wire\Wire.cpp.o
+                0x0000000000002872                TwoWire::flush()
  .text._ZN7TwoWire10recoverBusEv
-                0x00000000000028a0      0x232 C:\Users\kidsp\AppData\Local\arduino\sketches\56F3912E23096B05111FF3397A9CF65B\libraries\Wire\Wire.cpp.o
-                0x00000000000028a0                TwoWire::recoverBus()
+                0x0000000000002898      0x232 C:\Users\kidsp\AppData\Local\arduino\sketches\56F3912E23096B05111FF3397A9CF65B\libraries\Wire\Wire.cpp.o
+                0x0000000000002898                TwoWire::recoverBus()
  .text._ZN7TwoWire5beginEhbb
-                0x0000000000002ad2       0x78 C:\Users\kidsp\AppData\Local\arduino\sketches\56F3912E23096B05111FF3397A9CF65B\libraries\Wire\Wire.cpp.o
-                0x0000000000002ad2                TwoWire::begin(unsigned char, bool, bool)
+                0x0000000000002aca       0x78 C:\Users\kidsp\AppData\Local\arduino\sketches\56F3912E23096B05111FF3397A9CF65B\libraries\Wire\Wire.cpp.o
+                0x0000000000002aca                TwoWire::begin(unsigned char, bool, bool)
  .text._ZN7TwoWire5beginEibb
-                0x0000000000002b4a        0xe C:\Users\kidsp\AppData\Local\arduino\sketches\56F3912E23096B05111FF3397A9CF65B\libraries\Wire\Wire.cpp.o
-                0x0000000000002b4a                TwoWire::begin(int, bool, bool)
+                0x0000000000002b42        0xe C:\Users\kidsp\AppData\Local\arduino\sketches\56F3912E23096B05111FF3397A9CF65B\libraries\Wire\Wire.cpp.o
+                0x0000000000002b42                TwoWire::begin(int, bool, bool)
  .text._ZSt4swapISt9_Any_dataENSt9enable_ifIXsrSt6__and_IJSt6__not_ISt15__is_tuple_likeIT_EESt21is_move_constructibleIS5_ESt18is_move_assignableIS5_EEE5valueEvE4typeERS5_SF_
-                0x0000000000002b58       0x16 C:\Users\kidsp\AppData\Local\arduino\sketches\56F3912E23096B05111FF3397A9CF65B\libraries\Wire\Wire.cpp.o
-                0x0000000000002b58                std::enable_if<std::__and_<std::__not_<std::__is_tuple_like<std::_Any_data> >, std::is_move_constructible<std::_Any_data>, std::is_move_assignable<std::_Any_data> >::value, void>::type std::swap<std::_Any_data>(std::_Any_data&, std::_Any_data&)
+                0x0000000000002b50       0x16 C:\Users\kidsp\AppData\Local\arduino\sketches\56F3912E23096B05111FF3397A9CF65B\libraries\Wire\Wire.cpp.o
+                0x0000000000002b50                std::enable_if<std::__and_<std::__not_<std::__is_tuple_like<std::_Any_data> >, std::is_move_constructible<std::_Any_data>, std::is_move_assignable<std::_Any_data> >::value, void>::type std::swap<std::_Any_data>(std::_Any_data&, std::_Any_data&)
  .text._ZN7TwoWire9onReceiveESt8functionIFviEE
-                0x0000000000002b6e       0x4c C:\Users\kidsp\AppData\Local\arduino\sketches\56F3912E23096B05111FF3397A9CF65B\libraries\Wire\Wire.cpp.o
-                0x0000000000002b6e                TwoWire::onReceive(std::function<void (int)>)
+                0x0000000000002b66       0x4c C:\Users\kidsp\AppData\Local\arduino\sketches\56F3912E23096B05111FF3397A9CF65B\libraries\Wire\Wire.cpp.o
+                0x0000000000002b66                TwoWire::onReceive(std::function<void (int)>)
  .text._ZN7TwoWire9onRequestESt8functionIFvvEE
-                0x0000000000002bba       0x4c C:\Users\kidsp\AppData\Local\arduino\sketches\56F3912E23096B05111FF3397A9CF65B\libraries\Wire\Wire.cpp.o
-                0x0000000000002bba                TwoWire::onRequest(std::function<void ()>)
+                0x0000000000002bb2       0x4c C:\Users\kidsp\AppData\Local\arduino\sketches\56F3912E23096B05111FF3397A9CF65B\libraries\Wire\Wire.cpp.o
+                0x0000000000002bb2                TwoWire::onRequest(std::function<void ()>)
  .text.startup._GLOBAL__sub_I__ZN7TwoWireC2Ev
-                0x0000000000002c06       0x10 C:\Users\kidsp\AppData\Local\arduino\sketches\56F3912E23096B05111FF3397A9CF65B\libraries\Wire\Wire.cpp.o
+                0x0000000000002bfe       0x10 C:\Users\kidsp\AppData\Local\arduino\sketches\56F3912E23096B05111FF3397A9CF65B\libraries\Wire\Wire.cpp.o
  .text.exit._GLOBAL__sub_D__ZN7TwoWireC2Ev
-                0x0000000000002c16       0x24 C:\Users\kidsp\AppData\Local\arduino\sketches\56F3912E23096B05111FF3397A9CF65B\libraries\Wire\Wire.cpp.o
+                0x0000000000002c0e       0x24 C:\Users\kidsp\AppData\Local\arduino\sketches\56F3912E23096B05111FF3397A9CF65B\libraries\Wire\Wire.cpp.o
  .text.i2c_custom_init
-                0x0000000000002c3a      0x174 C:\Users\kidsp\AppData\Local\arduino\sketches\56F3912E23096B05111FF3397A9CF65B\libraries\Wire\utility\twi.c.o
-                0x0000000000002c3a                i2c_custom_init
+                0x0000000000002c32      0x174 C:\Users\kidsp\AppData\Local\arduino\sketches\56F3912E23096B05111FF3397A9CF65B\libraries\Wire\utility\twi.c.o
+                0x0000000000002c32                i2c_custom_init
  .text.i2c_ClearErrorFlags
-                0x0000000000002dae       0x3e C:\Users\kidsp\AppData\Local\arduino\sketches\56F3912E23096B05111FF3397A9CF65B\libraries\Wire\utility\twi.c.o
-                0x0000000000002dae                i2c_ClearErrorFlags
+                0x0000000000002da6       0x3e C:\Users\kidsp\AppData\Local\arduino\sketches\56F3912E23096B05111FF3397A9CF65B\libraries\Wire\utility\twi.c.o
+                0x0000000000002da6                i2c_ClearErrorFlags
  .text.i2c_ClearStopFlag
-                0x0000000000002dec       0x20 C:\Users\kidsp\AppData\Local\arduino\sketches\56F3912E23096B05111FF3397A9CF65B\libraries\Wire\utility\twi.c.o
-                0x0000000000002dec                i2c_ClearStopFlag
+                0x0000000000002de4       0x20 C:\Users\kidsp\AppData\Local\arduino\sketches\56F3912E23096B05111FF3397A9CF65B\libraries\Wire\utility\twi.c.o
+                0x0000000000002de4                i2c_ClearStopFlag
  .text.i2c_slave_process
-                0x0000000000002e0c       0x9a C:\Users\kidsp\AppData\Local\arduino\sketches\56F3912E23096B05111FF3397A9CF65B\libraries\Wire\utility\twi.c.o
-                0x0000000000002e0c                i2c_slave_process
+                0x0000000000002e04       0x9a C:\Users\kidsp\AppData\Local\arduino\sketches\56F3912E23096B05111FF3397A9CF65B\libraries\Wire\utility\twi.c.o
+                0x0000000000002e04                i2c_slave_process
  .text.i2c_slave_write
-                0x0000000000002ea6       0x68 C:\Users\kidsp\AppData\Local\arduino\sketches\56F3912E23096B05111FF3397A9CF65B\libraries\Wire\utility\twi.c.o
-                0x0000000000002ea6                i2c_slave_write
+                0x0000000000002e9e       0x68 C:\Users\kidsp\AppData\Local\arduino\sketches\56F3912E23096B05111FF3397A9CF65B\libraries\Wire\utility\twi.c.o
+                0x0000000000002e9e                i2c_slave_write
  .text.i2c_attachSlaveRxEvent
-                0x0000000000002f0e        0x4 C:\Users\kidsp\AppData\Local\arduino\sketches\56F3912E23096B05111FF3397A9CF65B\libraries\Wire\utility\twi.c.o
-                0x0000000000002f0e                i2c_attachSlaveRxEvent
+                0x0000000000002f06        0x4 C:\Users\kidsp\AppData\Local\arduino\sketches\56F3912E23096B05111FF3397A9CF65B\libraries\Wire\utility\twi.c.o
+                0x0000000000002f06                i2c_attachSlaveRxEvent
  .text.i2c_attachSlaveTxEvent
-                0x0000000000002f12        0x4 C:\Users\kidsp\AppData\Local\arduino\sketches\56F3912E23096B05111FF3397A9CF65B\libraries\Wire\utility\twi.c.o
-                0x0000000000002f12                i2c_attachSlaveTxEvent
+                0x0000000000002f0a        0x4 C:\Users\kidsp\AppData\Local\arduino\sketches\56F3912E23096B05111FF3397A9CF65B\libraries\Wire\utility\twi.c.o
+                0x0000000000002f0a                i2c_attachSlaveTxEvent
  .text.I2C1_EV_IRQHandler
-                0x0000000000002f16       0x16 C:\Users\kidsp\AppData\Local\arduino\sketches\56F3912E23096B05111FF3397A9CF65B\libraries\Wire\utility\twi.c.o
-                0x0000000000002f16                I2C1_EV_IRQHandler
+                0x0000000000002f0e       0x18 C:\Users\kidsp\AppData\Local\arduino\sketches\56F3912E23096B05111FF3397A9CF65B\libraries\Wire\utility\twi.c.o
+                0x0000000000002f0e                I2C1_EV_IRQHandler
  .text.I2C1_ER_IRQHandler
-                0x0000000000002f2c        0xe C:\Users\kidsp\AppData\Local\arduino\sketches\56F3912E23096B05111FF3397A9CF65B\libraries\Wire\utility\twi.c.o
-                0x0000000000002f2c                I2C1_ER_IRQHandler
+                0x0000000000002f26       0x12 C:\Users\kidsp\AppData\Local\arduino\sketches\56F3912E23096B05111FF3397A9CF65B\libraries\Wire\utility\twi.c.o
+                0x0000000000002f26                I2C1_ER_IRQHandler
  .text.I2C2_EV_IRQHandler
-                0x0000000000002f3a       0x18 C:\Users\kidsp\AppData\Local\arduino\sketches\56F3912E23096B05111FF3397A9CF65B\libraries\Wire\utility\twi.c.o
-                0x0000000000002f3a                I2C2_EV_IRQHandler
+                0x0000000000002f38       0x18 C:\Users\kidsp\AppData\Local\arduino\sketches\56F3912E23096B05111FF3397A9CF65B\libraries\Wire\utility\twi.c.o
+                0x0000000000002f38                I2C2_EV_IRQHandler
  .text.I2C2_ER_IRQHandler
-                0x0000000000002f52        0xe C:\Users\kidsp\AppData\Local\arduino\sketches\56F3912E23096B05111FF3397A9CF65B\libraries\Wire\utility\twi.c.o
-                0x0000000000002f52                I2C2_ER_IRQHandler
+                0x0000000000002f50        0xe C:\Users\kidsp\AppData\Local\arduino\sketches\56F3912E23096B05111FF3397A9CF65B\libraries\Wire\utility\twi.c.o
+                0x0000000000002f50                I2C2_ER_IRQHandler
  .text._ZN5Print5flushEv
-                0x0000000000002f60        0x2 C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(HardwareSerial.cpp.o)
-                0x0000000000002f60                Print::flush()
+                0x0000000000002f5e        0x2 C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(HardwareSerial.cpp.o)
+                0x0000000000002f5e                Print::flush()
  .text._ZN14HardwareSerial9availableEv
-                0x0000000000002f62        0x4 C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(HardwareSerial.cpp.o)
-                0x0000000000002f62                HardwareSerial::available()
-                0x0000000000002f62                HardwareSerial::peek()
+                0x0000000000002f60        0x4 C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(HardwareSerial.cpp.o)
+                0x0000000000002f60                HardwareSerial::available()
+                0x0000000000002f60                HardwareSerial::peek()
  .text._ZN14HardwareSerial5writeEh
-                0x0000000000002f66       0x1a C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(HardwareSerial.cpp.o)
-                0x0000000000002f66                HardwareSerial::write(unsigned char)
+                0x0000000000002f64       0x1a C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(HardwareSerial.cpp.o)
+                0x0000000000002f64                HardwareSerial::write(unsigned char)
  .text._ZN14HardwareSerial4readEv
-                0x0000000000002f80       0x1e C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(HardwareSerial.cpp.o)
-                0x0000000000002f80                HardwareSerial::read()
+                0x0000000000002f7e       0x1e C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(HardwareSerial.cpp.o)
+                0x0000000000002f7e                HardwareSerial::read()
  .text._ZN14HardwareSerial5writeEPKhj
-                0x0000000000002f9e       0x10 C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(HardwareSerial.cpp.o)
-                0x0000000000002f9e                HardwareSerial::write(unsigned char const*, unsigned int)
+                0x0000000000002f9c       0x10 C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(HardwareSerial.cpp.o)
+                0x0000000000002f9c                HardwareSerial::write(unsigned char const*, unsigned int)
  .text._ZN14HardwareSerial5beginEmh
-                0x0000000000002fae       0x68 C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(HardwareSerial.cpp.o)
-                0x0000000000002fae                HardwareSerial::begin(unsigned long, unsigned char)
+                0x0000000000002fac       0x68 C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(HardwareSerial.cpp.o)
+                0x0000000000002fac                HardwareSerial::begin(unsigned long, unsigned char)
  .text._ZN14HardwareSerial5setRxEm
-                0x0000000000003016       0x5a C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(HardwareSerial.cpp.o)
-                0x0000000000003016                HardwareSerial::setRx(unsigned long)
+                0x0000000000003014       0x5a C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(HardwareSerial.cpp.o)
+                0x0000000000003014                HardwareSerial::setRx(unsigned long)
  .text._ZN14HardwareSerial5setTxEm
-                0x0000000000003070       0x5a C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(HardwareSerial.cpp.o)
-                0x0000000000003070                HardwareSerial::setTx(unsigned long)
+                0x000000000000306e       0x5a C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(HardwareSerial.cpp.o)
+                0x000000000000306e                HardwareSerial::setTx(unsigned long)
  .text._ZN14HardwareSerialC2EPv
-                0x00000000000030ca       0x3c C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(HardwareSerial.cpp.o)
-                0x00000000000030ca                HardwareSerial::HardwareSerial(void*)
-                0x00000000000030ca                HardwareSerial::HardwareSerial(void*)
+                0x00000000000030c8       0x3c C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(HardwareSerial.cpp.o)
+                0x00000000000030c8                HardwareSerial::HardwareSerial(void*)
+                0x00000000000030c8                HardwareSerial::HardwareSerial(void*)
  .text.startup._GLOBAL__sub_I__ZN14HardwareSerialC2EPv
-                0x0000000000003106       0x16 C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(HardwareSerial.cpp.o)
+                0x0000000000003104       0x16 C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(HardwareSerial.cpp.o)
  .text._ZNSt8functionIFvvEEaSEDn.isra.3
-                0x000000000000311c       0x1e C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(HardwareTimer.cpp.o)
+                0x000000000000311a       0x1e C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(HardwareTimer.cpp.o)
  .text._Z15get_timer_indexP11TIM_TypeDef
-                0x000000000000313a       0x44 C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(HardwareTimer.cpp.o)
-                0x000000000000313a                get_timer_index(TIM_TypeDef*)
+                0x0000000000003138       0x44 C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(HardwareTimer.cpp.o)
+                0x0000000000003138                get_timer_index(TIM_TypeDef*)
  .text._ZN13HardwareTimerD2Ev
-                0x000000000000317e       0x3e C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(HardwareTimer.cpp.o)
-                0x000000000000317e                HardwareTimer::~HardwareTimer()
-                0x000000000000317e                HardwareTimer::~HardwareTimer()
+                0x000000000000317c       0x3e C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(HardwareTimer.cpp.o)
+                0x000000000000317c                HardwareTimer::~HardwareTimer()
+                0x000000000000317c                HardwareTimer::~HardwareTimer()
  .text._ZN13HardwareTimer5setupEP11TIM_TypeDef
-                0x00000000000031bc       0xb0 C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(HardwareTimer.cpp.o)
-                0x00000000000031bc                HardwareTimer::setup(TIM_TypeDef*)
+                0x00000000000031ba       0xb0 C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(HardwareTimer.cpp.o)
+                0x00000000000031ba                HardwareTimer::setup(TIM_TypeDef*)
  .text._ZN13HardwareTimerC2EP11TIM_TypeDef
-                0x000000000000326c       0x4a C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(HardwareTimer.cpp.o)
-                0x000000000000326c                HardwareTimer::HardwareTimer(TIM_TypeDef*)
-                0x000000000000326c                HardwareTimer::HardwareTimer(TIM_TypeDef*)
+                0x000000000000326a       0x4a C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(HardwareTimer.cpp.o)
+                0x000000000000326a                HardwareTimer::HardwareTimer(TIM_TypeDef*)
+                0x000000000000326a                HardwareTimer::HardwareTimer(TIM_TypeDef*)
  .text._ZNKSt8functionIFvvEEclEv
-                0x00000000000032b6       0x14 C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(HardwareTimer.cpp.o)
-                0x00000000000032b6                std::function<void ()>::operator()() const
+                0x00000000000032b4       0x14 C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(HardwareTimer.cpp.o)
+                0x00000000000032b4                std::function<void ()>::operator()() const
  .text._ZN13HardwareTimer14updateCallbackEP17TIM_HandleTypeDef
-                0x00000000000032ca       0x3c C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(HardwareTimer.cpp.o)
-                0x00000000000032ca                HardwareTimer::updateCallback(TIM_HandleTypeDef*)
+                0x00000000000032c8       0x3c C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(HardwareTimer.cpp.o)
+                0x00000000000032c8                HardwareTimer::updateCallback(TIM_HandleTypeDef*)
  .text.TIM1_UP_IRQHandler
-                0x0000000000003306       0x10 C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(HardwareTimer.cpp.o)
-                0x0000000000003306                TIM1_UP_IRQHandler
+                0x0000000000003304       0x10 C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(HardwareTimer.cpp.o)
+                0x0000000000003304                TIM1_UP_IRQHandler
  .text._ZN13HardwareTimer22captureCompareCallbackEP17TIM_HandleTypeDef
-                0x0000000000003316       0x9a C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(HardwareTimer.cpp.o)
-                0x0000000000003316                HardwareTimer::captureCompareCallback(TIM_HandleTypeDef*)
+                0x0000000000003314       0x9a C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(HardwareTimer.cpp.o)
+                0x0000000000003314                HardwareTimer::captureCompareCallback(TIM_HandleTypeDef*)
  .text.TIM1_CC_IRQHandler
-                0x00000000000033b0       0x10 C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(HardwareTimer.cpp.o)
-                0x00000000000033b0                TIM1_CC_IRQHandler
+                0x00000000000033ae       0x10 C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(HardwareTimer.cpp.o)
+                0x00000000000033ae                TIM1_CC_IRQHandler
  .text.TIM2_IRQHandler
-                0x00000000000033c0       0x22 C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(HardwareTimer.cpp.o)
-                0x00000000000033c0                TIM2_IRQHandler
+                0x00000000000033be       0x22 C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(HardwareTimer.cpp.o)
+                0x00000000000033be                TIM2_IRQHandler
  .text.TIM3_IRQHandler
-                0x00000000000033e2       0x22 C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(HardwareTimer.cpp.o)
-                0x00000000000033e2                TIM3_IRQHandler
+                0x00000000000033e0       0x22 C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(HardwareTimer.cpp.o)
+                0x00000000000033e0                TIM3_IRQHandler
  .text.TIM4_IRQHandler
-                0x0000000000003404       0x22 C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(HardwareTimer.cpp.o)
-                0x0000000000003404                TIM4_IRQHandler
+                0x0000000000003402       0x22 C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(HardwareTimer.cpp.o)
+                0x0000000000003402                TIM4_IRQHandler
  .text._ZN5Print5writeEPKc
-                0x0000000000003426       0x28 C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(Print.cpp.o)
-                0x0000000000003426                Print::write(char const*)
+                0x0000000000003424       0x28 C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(Print.cpp.o)
+                0x0000000000003424                Print::write(char const*)
  .text._ZN5Print7printlnEv
-                0x000000000000344e       0x14 C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(Print.cpp.o)
-                0x000000000000344e                Print::println()
+                0x000000000000344c       0x14 C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(Print.cpp.o)
+                0x000000000000344c                Print::println()
  .text._ZN5Print7printlnEPKc
-                0x0000000000003462       0x18 C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(Print.cpp.o)
-                0x0000000000003462                Print::println(char const*)
- .text._write   0x000000000000347a       0x2e C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(Print.cpp.o)
-                0x000000000000347a                _write
+                0x0000000000003460       0x18 C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(Print.cpp.o)
+                0x0000000000003460                Print::println(char const*)
+ .text._write   0x0000000000003478       0x2e C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(Print.cpp.o)
+                0x0000000000003478                _write
  .text._ZN5Print6printfEPKcz
-                0x00000000000034a8       0x1e C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(Print.cpp.o)
-                0x00000000000034a8                Print::printf(char const*, ...)
+                0x00000000000034a6       0x1e C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(Print.cpp.o)
+                0x00000000000034a6                Print::printf(char const*, ...)
  .text._ZN6Stream9timedReadEv
-                0x00000000000034c6       0x2c C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(Stream.cpp.o)
-                0x00000000000034c6                Stream::timedRead()
+                0x00000000000034c4       0x2c C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(Stream.cpp.o)
+                0x00000000000034c4                Stream::timedRead()
  .text._ZN6Stream9readBytesEPcj
-                0x00000000000034f2       0x32 C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(Stream.cpp.o)
-                0x00000000000034f2                Stream::readBytes(char*, unsigned int)
+                0x00000000000034f0       0x32 C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(Stream.cpp.o)
+                0x00000000000034f0                Stream::readBytes(char*, unsigned int)
  .text._ZN6Stream14readBytesUntilEcPcj
-                0x0000000000003524       0x32 C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(Stream.cpp.o)
-                0x0000000000003524                Stream::readBytesUntil(char, char*, unsigned int)
+                0x0000000000003522       0x32 C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(Stream.cpp.o)
+                0x0000000000003522                Stream::readBytesUntil(char, char*, unsigned int)
  .text.pre_init
-                0x0000000000003556        0xa C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(board.c.o)
-                0x0000000000003556                pre_init
+                0x0000000000003554        0xa C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(board.c.o)
+                0x0000000000003554                pre_init
  .text.set_GPIO_Port_Clock
-                0x0000000000003560       0x6c C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(PortNames.c.o)
-                0x0000000000003560                set_GPIO_Port_Clock
+                0x000000000000355e       0x6c C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(PortNames.c.o)
+                0x000000000000355e                set_GPIO_Port_Clock
  .text.get_adc_channel
-                0x00000000000035cc       0x2a C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(analog.cpp.o)
-                0x00000000000035cc                get_adc_channel
+                0x00000000000035ca       0x2a C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(analog.cpp.o)
+                0x00000000000035ca                get_adc_channel
  .text.get_adc_internal_channel
-                0x00000000000035f6       0x1a C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(analog.cpp.o)
-                0x00000000000035f6                get_adc_internal_channel
+                0x00000000000035f4       0x1a C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(analog.cpp.o)
+                0x00000000000035f4                get_adc_internal_channel
  .text.ADC_Clock_EN
-                0x0000000000003610       0x48 C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(analog.cpp.o)
-                0x0000000000003610                ADC_Clock_EN
+                0x000000000000360e       0x48 C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(analog.cpp.o)
+                0x000000000000360e                ADC_Clock_EN
  .text.ADC_Stop
-                0x0000000000003658        0xc C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(analog.cpp.o)
-                0x0000000000003658                ADC_Stop
+                0x0000000000003656        0xc C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(analog.cpp.o)
+                0x0000000000003656                ADC_Stop
  .text.adc_read_value
-                0x0000000000003664       0xbc C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(analog.cpp.o)
-                0x0000000000003664                adc_read_value
+                0x0000000000003662       0xbc C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(analog.cpp.o)
+                0x0000000000003662                adc_read_value
  .text.pwm_stop
-                0x0000000000003720       0x6a C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(analog.cpp.o)
-                0x0000000000003720                pwm_stop
- .text.GetTick  0x000000000000378a        0xa C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(clock.c.o)
-                0x000000000000378a                GetTick
+                0x000000000000371e       0x6a C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(analog.cpp.o)
+                0x000000000000371e                pwm_stop
+ .text.GetTick  0x0000000000003788        0xa C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(clock.c.o)
+                0x0000000000003788                GetTick
  .text.noOsSystickHandler
-                0x0000000000003794        0x2 C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(clock.c.o)
-                0x0000000000003794                osSystickHandler
-                0x0000000000003794                noOsSystickHandler
+                0x0000000000003792        0x2 C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(clock.c.o)
+                0x0000000000003792                osSystickHandler
+                0x0000000000003792                noOsSystickHandler
  .text.getCurrentMillis
-                0x0000000000003796        0xc C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(clock.c.o)
-                0x0000000000003796                getCurrentMillis
+                0x0000000000003794        0xc C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(clock.c.o)
+                0x0000000000003794                getCurrentMillis
  .text.getCurrentMicros
-                0x00000000000037a2       0x9a C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(clock.c.o)
-                0x00000000000037a2                getCurrentMicros
+                0x00000000000037a0       0x9a C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(clock.c.o)
+                0x00000000000037a0                getCurrentMicros
  .text.SysTick_Handler
-                0x000000000000383c       0x2c C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(clock.c.o)
-                0x000000000000383c                SysTick_Handler
+                0x000000000000383a       0x2c C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(clock.c.o)
+                0x000000000000383a                SysTick_Handler
  .text.systick_init
-                0x0000000000003868       0x40 C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(hw_config.c.o)
-                0x0000000000003868                systick_init
+                0x0000000000003866       0x40 C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(hw_config.c.o)
+                0x0000000000003866                systick_init
  .text.hw_config_init
-                0x00000000000038a8        0xc C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(hw_config.c.o)
-                0x00000000000038a8                hw_config_init
+                0x00000000000038a6        0xc C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(hw_config.c.o)
+                0x00000000000038a6                hw_config_init
  .text._Z19_gpio_exti_callbackt
-                0x00000000000038b4       0x2e C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(interrupt.cpp.o)
-                0x00000000000038b4                _gpio_exti_callback(unsigned short)
+                0x00000000000038b2       0x2e C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(interrupt.cpp.o)
+                0x00000000000038b2                _gpio_exti_callback(unsigned short)
  .text.EXTI0_IRQHandler
-                0x00000000000038e2        0xe C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(interrupt.cpp.o)
-                0x00000000000038e2                EXTI0_IRQHandler
+                0x00000000000038e0        0xe C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(interrupt.cpp.o)
+                0x00000000000038e0                EXTI0_IRQHandler
  .text.EXTI1_IRQHandler
-                0x00000000000038f0        0xe C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(interrupt.cpp.o)
-                0x00000000000038f0                EXTI1_IRQHandler
+                0x00000000000038ee        0xe C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(interrupt.cpp.o)
+                0x00000000000038ee                EXTI1_IRQHandler
  .text.EXTI2_IRQHandler
-                0x00000000000038fe        0xe C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(interrupt.cpp.o)
-                0x00000000000038fe                EXTI2_IRQHandler
+                0x00000000000038fc        0xe C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(interrupt.cpp.o)
+                0x00000000000038fc                EXTI2_IRQHandler
  .text.EXTI3_IRQHandler
-                0x000000000000390c        0xe C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(interrupt.cpp.o)
-                0x000000000000390c                EXTI3_IRQHandler
+                0x000000000000390a        0xe C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(interrupt.cpp.o)
+                0x000000000000390a                EXTI3_IRQHandler
  .text.EXTI4_IRQHandler
-                0x000000000000391a        0xe C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(interrupt.cpp.o)
-                0x000000000000391a                EXTI4_IRQHandler
+                0x0000000000003918        0xe C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(interrupt.cpp.o)
+                0x0000000000003918                EXTI4_IRQHandler
  .text.EXTI9_5_IRQHandler
-                0x0000000000003928       0x30 C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(interrupt.cpp.o)
-                0x0000000000003928                EXTI9_5_IRQHandler
+                0x0000000000003926       0x30 C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(interrupt.cpp.o)
+                0x0000000000003926                EXTI9_5_IRQHandler
  .text.EXTI15_10_IRQHandler
-                0x0000000000003958       0x30 C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(interrupt.cpp.o)
-                0x0000000000003958                EXTI15_10_IRQHandler
+                0x0000000000003956       0x30 C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(interrupt.cpp.o)
+                0x0000000000003956                EXTI15_10_IRQHandler
  .text.ADC_DeInit
-                0x0000000000003988       0x40 C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(ch32yyxx_adc.c.o)
-                0x0000000000003988                ADC_DeInit
+                0x0000000000003986       0x40 C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(ch32yyxx_adc.c.o)
+                0x0000000000003986                ADC_DeInit
  .text.ADC_Init
-                0x00000000000039c8       0x56 C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(ch32yyxx_adc.c.o)
-                0x00000000000039c8                ADC_Init
- .text.ADC_Cmd  0x0000000000003a1e       0x10 C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(ch32yyxx_adc.c.o)
-                0x0000000000003a1e                ADC_Cmd
+                0x00000000000039c6       0x56 C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(ch32yyxx_adc.c.o)
+                0x00000000000039c6                ADC_Init
+ .text.ADC_Cmd  0x0000000000003a1c       0x10 C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(ch32yyxx_adc.c.o)
+                0x0000000000003a1c                ADC_Cmd
  .text.ADC_SoftwareStartConvCmd
-                0x0000000000003a2e       0x18 C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(ch32yyxx_adc.c.o)
-                0x0000000000003a2e                ADC_SoftwareStartConvCmd
+                0x0000000000003a2c       0x18 C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(ch32yyxx_adc.c.o)
+                0x0000000000003a2c                ADC_SoftwareStartConvCmd
  .text.ADC_RegularChannelConfig
-                0x0000000000003a46       0xb8 C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(ch32yyxx_adc.c.o)
-                0x0000000000003a46                ADC_RegularChannelConfig
+                0x0000000000003a44       0xb8 C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(ch32yyxx_adc.c.o)
+                0x0000000000003a44                ADC_RegularChannelConfig
  .text.ADC_GetFlagStatus
-                0x0000000000003afe        0xa C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(ch32yyxx_adc.c.o)
-                0x0000000000003afe                ADC_GetFlagStatus
- .text._sbrk    0x0000000000003b08       0x26 C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(ch32yyxx_debug.c.o)
-                0x0000000000003b08                _sbrk
- .text._fini    0x0000000000003b2e        0x2 C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(ch32yyxx_debug.c.o)
-                0x0000000000003b2e                _fini
- .text._init    0x0000000000003b30        0x2 C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(ch32yyxx_debug.c.o)
-                0x0000000000003b30                _init
+                0x0000000000003afc        0xa C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(ch32yyxx_adc.c.o)
+                0x0000000000003afc                ADC_GetFlagStatus
+ .text._sbrk    0x0000000000003b06       0x26 C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(ch32yyxx_debug.c.o)
+                0x0000000000003b06                _sbrk
+ .text._fini    0x0000000000003b2c        0x2 C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(ch32yyxx_debug.c.o)
+                0x0000000000003b2c                _fini
+ .text._init    0x0000000000003b2e        0x2 C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(ch32yyxx_debug.c.o)
+                0x0000000000003b2e                _init
  .text.EXTI_GetITStatus
-                0x0000000000003b32       0x1e C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(ch32yyxx_exti.c.o)
-                0x0000000000003b32                EXTI_GetITStatus
+                0x0000000000003b30       0x1e C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(ch32yyxx_exti.c.o)
+                0x0000000000003b30                EXTI_GetITStatus
  .text.EXTI_ClearITPendingBit
-                0x0000000000003b50        0xa C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(ch32yyxx_exti.c.o)
-                0x0000000000003b50                EXTI_ClearITPendingBit
+                0x0000000000003b4e        0xa C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(ch32yyxx_exti.c.o)
+                0x0000000000003b4e                EXTI_ClearITPendingBit
  .text.GPIO_Init
-                0x0000000000003b5a       0xf2 C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(ch32yyxx_gpio.c.o)
-                0x0000000000003b5a                GPIO_Init
+                0x0000000000003b58       0xf2 C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(ch32yyxx_gpio.c.o)
+                0x0000000000003b58                GPIO_Init
  .text.GPIO_ReadInputDataBit
-                0x0000000000003c4c       0x1a C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(ch32yyxx_gpio.c.o)
-                0x0000000000003c4c                GPIO_ReadInputDataBit
+                0x0000000000003c4a       0x1a C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(ch32yyxx_gpio.c.o)
+                0x0000000000003c4a                GPIO_ReadInputDataBit
  .text.GPIO_SetBits
-                0x0000000000003c66       0x14 C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(ch32yyxx_gpio.c.o)
-                0x0000000000003c66                GPIO_SetBits
+                0x0000000000003c64       0x14 C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(ch32yyxx_gpio.c.o)
+                0x0000000000003c64                GPIO_SetBits
  .text.GPIO_ResetBits
-                0x0000000000003c7a       0x14 C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(ch32yyxx_gpio.c.o)
-                0x0000000000003c7a                GPIO_ResetBits
+                0x0000000000003c78       0x14 C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(ch32yyxx_gpio.c.o)
+                0x0000000000003c78                GPIO_ResetBits
  .text.GPIO_PinRemapConfig
-                0x0000000000003c8e       0xe0 C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(ch32yyxx_gpio.c.o)
-                0x0000000000003c8e                GPIO_PinRemapConfig
+                0x0000000000003c8c       0xe0 C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(ch32yyxx_gpio.c.o)
+                0x0000000000003c8c                GPIO_PinRemapConfig
  .text.I2C_Init
-                0x0000000000003d6e       0xf2 C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(ch32yyxx_i2c.c.o)
-                0x0000000000003d6e                I2C_Init
- .text.I2C_Cmd  0x0000000000003e60       0x18 C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(ch32yyxx_i2c.c.o)
-                0x0000000000003e60                I2C_Cmd
+                0x0000000000003d6c       0xf2 C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(ch32yyxx_i2c.c.o)
+                0x0000000000003d6c                I2C_Init
+ .text.I2C_Cmd  0x0000000000003e5e       0x18 C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(ch32yyxx_i2c.c.o)
+                0x0000000000003e5e                I2C_Cmd
  .text.I2C_SendData
-                0x0000000000003e78        0x4 C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(ch32yyxx_i2c.c.o)
-                0x0000000000003e78                I2C_SendData
+                0x0000000000003e76        0x4 C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(ch32yyxx_i2c.c.o)
+                0x0000000000003e76                I2C_SendData
  .text.I2C_ReceiveData
-                0x0000000000003e7c        0x8 C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(ch32yyxx_i2c.c.o)
-                0x0000000000003e7c                I2C_ReceiveData
+                0x0000000000003e7a        0x8 C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(ch32yyxx_i2c.c.o)
+                0x0000000000003e7a                I2C_ReceiveData
  .text.I2C_CheckEvent
-                0x0000000000003e84       0x16 C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(ch32yyxx_i2c.c.o)
-                0x0000000000003e84                I2C_CheckEvent
+                0x0000000000003e82       0x16 C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(ch32yyxx_i2c.c.o)
+                0x0000000000003e82                I2C_CheckEvent
  .text.I2C_GetLastEvent
-                0x0000000000003e9a        0xe C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(ch32yyxx_i2c.c.o)
-                0x0000000000003e9a                I2C_GetLastEvent
+                0x0000000000003e98        0xe C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(ch32yyxx_i2c.c.o)
+                0x0000000000003e98                I2C_GetLastEvent
  .text.I2C_GetFlagStatus
-                0x0000000000003ea8       0x32 C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(ch32yyxx_i2c.c.o)
-                0x0000000000003ea8                I2C_GetFlagStatus
+                0x0000000000003ea6       0x32 C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(ch32yyxx_i2c.c.o)
+                0x0000000000003ea6                I2C_GetFlagStatus
  .text.I2C_ClearFlag
-                0x0000000000003eda        0xc C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(ch32yyxx_i2c.c.o)
-                0x0000000000003eda                I2C_ClearFlag
+                0x0000000000003ed8        0xc C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(ch32yyxx_i2c.c.o)
+                0x0000000000003ed8                I2C_ClearFlag
  .text.NMI_Handler
-                0x0000000000003ee6        0x4 C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(ch32yyxx_it.c.o)
-                0x0000000000003ee6                NMI_Handler
+                0x0000000000003ee4        0x4 C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(ch32yyxx_it.c.o)
+                0x0000000000003ee4                NMI_Handler
  .text.HardFault_Handler
-                0x0000000000003eea        0x2 C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(ch32yyxx_it.c.o)
-                0x0000000000003eea                HardFault_Handler
+                0x0000000000003ee8        0x2 C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(ch32yyxx_it.c.o)
+                0x0000000000003ee8                HardFault_Handler
  .text.Ecall_U_Mode_Handler
-                0x0000000000003eec        0x2 C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(ch32yyxx_it.c.o)
-                0x0000000000003eec                Ecall_U_Mode_Handler
+                0x0000000000003eea        0x2 C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(ch32yyxx_it.c.o)
+                0x0000000000003eea                Ecall_U_Mode_Handler
  .text.Ecall_M_Mode_Handler
-                0x0000000000003eee        0x2 C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(ch32yyxx_it.c.o)
-                0x0000000000003eee                Ecall_M_Mode_Handler
+                0x0000000000003eec        0x2 C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(ch32yyxx_it.c.o)
+                0x0000000000003eec                Ecall_M_Mode_Handler
  .text.RCC_ADCCLKConfig
-                0x0000000000003ef0       0x12 C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(ch32yyxx_rcc.c.o)
-                0x0000000000003ef0                RCC_ADCCLKConfig
+                0x0000000000003eee       0x12 C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(ch32yyxx_rcc.c.o)
+                0x0000000000003eee                RCC_ADCCLKConfig
  .text.RCC_GetClocksFreq
-                0x0000000000003f02       0xbe C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(ch32yyxx_rcc.c.o)
-                0x0000000000003f02                RCC_GetClocksFreq
+                0x0000000000003f00       0xbe C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(ch32yyxx_rcc.c.o)
+                0x0000000000003f00                RCC_GetClocksFreq
  .text.RCC_APB2PeriphClockCmd
-                0x0000000000003fc0       0x1e C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(ch32yyxx_rcc.c.o)
-                0x0000000000003fc0                RCC_APB2PeriphClockCmd
+                0x0000000000003fbe       0x1e C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(ch32yyxx_rcc.c.o)
+                0x0000000000003fbe                RCC_APB2PeriphClockCmd
  .text.RCC_APB1PeriphClockCmd
-                0x0000000000003fde       0x1e C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(ch32yyxx_rcc.c.o)
-                0x0000000000003fde                RCC_APB1PeriphClockCmd
+                0x0000000000003fdc       0x1e C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(ch32yyxx_rcc.c.o)
+                0x0000000000003fdc                RCC_APB1PeriphClockCmd
  .text.RCC_APB2PeriphResetCmd
-                0x0000000000003ffc       0x1e C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(ch32yyxx_rcc.c.o)
-                0x0000000000003ffc                RCC_APB2PeriphResetCmd
+                0x0000000000003ffa       0x1e C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(ch32yyxx_rcc.c.o)
+                0x0000000000003ffa                RCC_APB2PeriphResetCmd
  .text.RCC_APB1PeriphResetCmd
-                0x000000000000401a       0x1e C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(ch32yyxx_rcc.c.o)
-                0x000000000000401a                RCC_APB1PeriphResetCmd
+                0x0000000000004018       0x1e C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(ch32yyxx_rcc.c.o)
+                0x0000000000004018                RCC_APB1PeriphResetCmd
  .text.TIM_TimeBaseInit
-                0x0000000000004038       0x6a C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(ch32yyxx_tim.c.o)
-                0x0000000000004038                TIM_TimeBaseInit
+                0x0000000000004036       0x6a C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(ch32yyxx_tim.c.o)
+                0x0000000000004036                TIM_TimeBaseInit
  .text.TIM_ARRPreloadConfig
-                0x00000000000040a2       0x1a C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(ch32yyxx_tim.c.o)
-                0x00000000000040a2                TIM_ARRPreloadConfig
+                0x00000000000040a0       0x1a C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(ch32yyxx_tim.c.o)
+                0x00000000000040a0                TIM_ARRPreloadConfig
  .text.TIM_GetITStatus
-                0x00000000000040bc       0x18 C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(ch32yyxx_tim.c.o)
-                0x00000000000040bc                TIM_GetITStatus
+                0x00000000000040ba       0x18 C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(ch32yyxx_tim.c.o)
+                0x00000000000040ba                TIM_GetITStatus
  .text.TIM_ClearITPendingBit
-                0x00000000000040d4        0xc C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(ch32yyxx_tim.c.o)
-                0x00000000000040d4                TIM_ClearITPendingBit
+                0x00000000000040d2        0xc C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(ch32yyxx_tim.c.o)
+                0x00000000000040d2                TIM_ClearITPendingBit
  .text.USART_Init
-                0x00000000000040e0       0xbc C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(ch32yyxx_usart.c.o)
-                0x00000000000040e0                USART_Init
+                0x00000000000040de       0xbc C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(ch32yyxx_usart.c.o)
+                0x00000000000040de                USART_Init
  .text.USART_Cmd
-                0x000000000000419c       0x16 C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(ch32yyxx_usart.c.o)
-                0x000000000000419c                USART_Cmd
+                0x000000000000419a       0x16 C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(ch32yyxx_usart.c.o)
+                0x000000000000419a                USART_Cmd
  .text.USART_SendData
-                0x00000000000041b2        0x8 C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(ch32yyxx_usart.c.o)
-                0x00000000000041b2                USART_SendData
+                0x00000000000041b0        0x8 C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(ch32yyxx_usart.c.o)
+                0x00000000000041b0                USART_SendData
  .text.USART_ReceiveData
-                0x00000000000041ba        0x8 C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(ch32yyxx_usart.c.o)
-                0x00000000000041ba                USART_ReceiveData
+                0x00000000000041b8        0x8 C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(ch32yyxx_usart.c.o)
+                0x00000000000041b8                USART_ReceiveData
  .text.USART_HalfDuplexCmd
-                0x00000000000041c2       0x18 C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(ch32yyxx_usart.c.o)
-                0x00000000000041c2                USART_HalfDuplexCmd
+                0x00000000000041c0       0x18 C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(ch32yyxx_usart.c.o)
+                0x00000000000041c0                USART_HalfDuplexCmd
  .text.USART_GetFlagStatus
-                0x00000000000041da        0xa C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(ch32yyxx_usart.c.o)
-                0x00000000000041da                USART_GetFlagStatus
+                0x00000000000041d8        0xa C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(ch32yyxx_usart.c.o)
+                0x00000000000041d8                USART_GetFlagStatus
  .text.SystemInit
-                0x00000000000041e4       0xa8 C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(system_ch32yyxx.c.o)
-                0x00000000000041e4                SystemInit
+                0x00000000000041e2       0xa8 C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(system_ch32yyxx.c.o)
+                0x00000000000041e2                SystemInit
  .text.pin_in_pinmap
-                0x000000000000428c       0x1e C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(pinmap.c.o)
-                0x000000000000428c                pin_in_pinmap
+                0x000000000000428a       0x1e C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(pinmap.c.o)
+                0x000000000000428a                pin_in_pinmap
  .text.pin_function
-                0x00000000000042aa      0x2f8 C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(pinmap.c.o)
-                0x00000000000042aa                pin_function
+                0x00000000000042a8      0x2f8 C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(pinmap.c.o)
+                0x00000000000042a8                pin_function
  .text.pinmap_pinout
-                0x00000000000045a2       0x26 C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(pinmap.c.o)
-                0x00000000000045a2                pinmap_pinout
+                0x00000000000045a0       0x26 C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(pinmap.c.o)
+                0x00000000000045a0                pinmap_pinout
  .text.pinmap_find_peripheral
-                0x00000000000045c8       0x18 C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(pinmap.c.o)
-                0x00000000000045c8                pinmap_find_peripheral
+                0x00000000000045c6       0x18 C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(pinmap.c.o)
+                0x00000000000045c6                pinmap_find_peripheral
  .text.pinmap_peripheral
-                0x00000000000045e0       0x16 C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(pinmap.c.o)
-                0x00000000000045e0                pinmap_peripheral
+                0x00000000000045de       0x16 C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(pinmap.c.o)
+                0x00000000000045de                pinmap_peripheral
  .text.pinmap_find_function
-                0x00000000000045f6       0x18 C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(pinmap.c.o)
-                0x00000000000045f6                pinmap_find_function
+                0x00000000000045f4       0x18 C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(pinmap.c.o)
+                0x00000000000045f4                pinmap_find_function
  .text.pinmap_function
-                0x000000000000460e       0x16 C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(pinmap.c.o)
-                0x000000000000460e                pinmap_function
+                0x000000000000460c       0x16 C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(pinmap.c.o)
+                0x000000000000460c                pinmap_function
  .text.pinmap_merge_peripheral
-                0x0000000000004624       0x12 C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(pinmap.c.o)
-                0x0000000000004624                pinmap_merge_peripheral
+                0x0000000000004622       0x12 C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(pinmap.c.o)
+                0x0000000000004622                pinmap_merge_peripheral
  .text.vector_handler
-                0x0000000000004636       0x6c C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(startup_ch32yyxx.S.o)
-                0x000000000000463e                Break_Point_Handler
-                0x0000000000004642                SW_Handler
-                0x0000000000004644                WWDG_IRQHandler
-                0x0000000000004646                PVD_IRQHandler
-                0x0000000000004648                TAMPER_IRQHandler
-                0x000000000000464a                RTC_IRQHandler
-                0x000000000000464c                FLASH_IRQHandler
-                0x000000000000464e                RCC_IRQHandler
-                0x000000000000465a                DMA1_Channel1_IRQHandler
-                0x000000000000465c                DMA1_Channel2_IRQHandler
-                0x000000000000465e                DMA1_Channel3_IRQHandler
-                0x0000000000004660                DMA1_Channel4_IRQHandler
-                0x0000000000004662                DMA1_Channel5_IRQHandler
-                0x0000000000004664                DMA1_Channel6_IRQHandler
-                0x0000000000004666                DMA1_Channel7_IRQHandler
-                0x0000000000004668                ADC1_2_IRQHandler
-                0x000000000000466a                USB_HP_CAN1_TX_IRQHandler
-                0x000000000000466c                USB_LP_CAN1_RX0_IRQHandler
-                0x000000000000466e                CAN1_RX1_IRQHandler
-                0x0000000000004670                CAN1_SCE_IRQHandler
-                0x0000000000004674                TIM1_BRK_IRQHandler
-                0x0000000000004678                TIM1_TRG_COM_IRQHandler
-                0x000000000000468a                SPI1_IRQHandler
-                0x000000000000468c                SPI2_IRQHandler
-                0x000000000000468e                USART1_IRQHandler
-                0x0000000000004690                USART2_IRQHandler
-                0x0000000000004692                USART3_IRQHandler
-                0x0000000000004696                RTCAlarm_IRQHandler
-                0x0000000000004698                USBWakeUp_IRQHandler
-                0x000000000000469a                USBHD_IRQHandler
-                0x000000000000469c                USBHDWakeUp_IRQHandler
-                0x000000000000469e                UART4_IRQHandler
-                0x00000000000046a0                DMA1_Channel8_IRQHandler
+                0x0000000000004634       0x6c C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(startup_ch32yyxx.S.o)
+                0x000000000000463c                Break_Point_Handler
+                0x0000000000004640                SW_Handler
+                0x0000000000004642                WWDG_IRQHandler
+                0x0000000000004644                PVD_IRQHandler
+                0x0000000000004646                TAMPER_IRQHandler
+                0x0000000000004648                RTC_IRQHandler
+                0x000000000000464a                FLASH_IRQHandler
+                0x000000000000464c                RCC_IRQHandler
+                0x0000000000004658                DMA1_Channel1_IRQHandler
+                0x000000000000465a                DMA1_Channel2_IRQHandler
+                0x000000000000465c                DMA1_Channel3_IRQHandler
+                0x000000000000465e                DMA1_Channel4_IRQHandler
+                0x0000000000004660                DMA1_Channel5_IRQHandler
+                0x0000000000004662                DMA1_Channel6_IRQHandler
+                0x0000000000004664                DMA1_Channel7_IRQHandler
+                0x0000000000004666                ADC1_2_IRQHandler
+                0x0000000000004668                USB_HP_CAN1_TX_IRQHandler
+                0x000000000000466a                USB_LP_CAN1_RX0_IRQHandler
+                0x000000000000466c                CAN1_RX1_IRQHandler
+                0x000000000000466e                CAN1_SCE_IRQHandler
+                0x0000000000004672                TIM1_BRK_IRQHandler
+                0x0000000000004676                TIM1_TRG_COM_IRQHandler
+                0x0000000000004688                SPI1_IRQHandler
+                0x000000000000468a                SPI2_IRQHandler
+                0x000000000000468c                USART1_IRQHandler
+                0x000000000000468e                USART2_IRQHandler
+                0x0000000000004690                USART3_IRQHandler
+                0x0000000000004694                RTCAlarm_IRQHandler
+                0x0000000000004696                USBWakeUp_IRQHandler
+                0x0000000000004698                USBHD_IRQHandler
+                0x000000000000469a                USBHDWakeUp_IRQHandler
+                0x000000000000469c                UART4_IRQHandler
+                0x000000000000469e                DMA1_Channel8_IRQHandler
  .text.handle_reset
-                0x00000000000046a2       0x96 C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(startup_ch32yyxx.S.o)
-                0x00000000000046a2                handle_reset
+                0x00000000000046a0       0x96 C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(startup_ch32yyxx.S.o)
+                0x00000000000046a0                handle_reset
  .text.get_timer_obj
-                0x0000000000004738        0x4 C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(timer.c.o)
-                0x0000000000004738                get_timer_obj
+                0x0000000000004736        0x4 C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(timer.c.o)
+                0x0000000000004736                get_timer_obj
  .text.enableTimerClock
-                0x000000000000473c       0x78 C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(timer.c.o)
-                0x000000000000473c                enableTimerClock
+                0x000000000000473a       0x78 C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(timer.c.o)
+                0x000000000000473a                enableTimerClock
  .text.disableTimerClock
-                0x00000000000047b4       0x78 C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(timer.c.o)
-                0x00000000000047b4                disableTimerClock
+                0x00000000000047b2       0x78 C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(timer.c.o)
+                0x00000000000047b2                disableTimerClock
  .text.uart_init.part.0
-                0x000000000000482c      0x19a C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(uart.c.o)
+                0x000000000000482a      0x19a C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(uart.c.o)
  .text.uart_init
-                0x00000000000049c6       0x10 C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(uart.c.o)
-                0x00000000000049c6                uart_init
+                0x00000000000049c4       0x10 C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(uart.c.o)
+                0x00000000000049c4                uart_init
  .text.uart_debug_init
-                0x00000000000049d6       0x3a C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(uart.c.o)
-                0x00000000000049d6                uart_debug_init
+                0x00000000000049d4       0x3a C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(uart.c.o)
+                0x00000000000049d4                uart_debug_init
  .text.serial_rx_active
-                0x0000000000004a10       0x26 C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(uart.c.o)
-                0x0000000000004a10                serial_rx_active
+                0x0000000000004a0e       0x26 C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(uart.c.o)
+                0x0000000000004a0e                serial_rx_active
  .text.serial_tx_active
-                0x0000000000004a36       0x26 C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(uart.c.o)
-                0x0000000000004a36                serial_tx_active
+                0x0000000000004a34       0x26 C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(uart.c.o)
+                0x0000000000004a34                serial_tx_active
  .text.uart_debug_write
-                0x0000000000004a5c       0xfc C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(uart.c.o)
-                0x0000000000004a5c                uart_debug_write
+                0x0000000000004a5a       0xfc C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(uart.c.o)
+                0x0000000000004a5a                uart_debug_write
  .text.uart_getc
-                0x0000000000004b58       0x36 C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(uart.c.o)
-                0x0000000000004b58                uart_getc
- .text.__empty  0x0000000000004b8e        0x2 C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(hooks.c.o)
-                0x0000000000004b8e                yield
+                0x0000000000004b56       0x36 C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(uart.c.o)
+                0x0000000000004b56                uart_getc
+ .text.__empty  0x0000000000004b8c        0x2 C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(hooks.c.o)
+                0x0000000000004b8c                yield
  .text.startup.main
-                0x0000000000004b90       0x12 C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(main.cpp.o)
-                0x0000000000004b90                main
+                0x0000000000004b8e       0x12 C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(main.cpp.o)
+                0x0000000000004b8e                main
  .text.pinNametoDigitalPin
-                0x0000000000004ba2       0x3c C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(pins_arduino.cpp.o)
-                0x0000000000004ba2                pinNametoDigitalPin
+                0x0000000000004ba0       0x3c C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(pins_arduino.cpp.o)
+                0x0000000000004ba0                pinNametoDigitalPin
  .text.analogInputToPinName
-                0x0000000000004bde      0x126 C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(pins_arduino.cpp.o)
-                0x0000000000004bde                analogInputToPinName
+                0x0000000000004bdc      0x126 C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(pins_arduino.cpp.o)
+                0x0000000000004bdc                analogInputToPinName
  .text.mapResolution
-                0x0000000000004d04       0x30 C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(wiring_analog.c.o)
+                0x0000000000004d02       0x30 C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(wiring_analog.c.o)
  .text.analogRead
-                0x0000000000004d34       0x2a C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(wiring_analog.c.o)
-                0x0000000000004d34                analogRead
- .text.pinMode  0x0000000000004d5e       0xd0 C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(wiring_digital.c.o)
-                0x0000000000004d5e                pinMode
+                0x0000000000004d32       0x2a C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(wiring_analog.c.o)
+                0x0000000000004d32                analogRead
+ .text.pinMode  0x0000000000004d5c       0xd0 C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(wiring_digital.c.o)
+                0x0000000000004d5c                pinMode
  .text.digitalWrite
-                0x0000000000004e2e       0x96 C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(wiring_digital.c.o)
-                0x0000000000004e2e                digitalWrite
+                0x0000000000004e2c       0x96 C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(wiring_digital.c.o)
+                0x0000000000004e2c                digitalWrite
  .text.digitalRead
-                0x0000000000004ec4       0x7e C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(wiring_digital.c.o)
-                0x0000000000004ec4                digitalRead
- .text.millis   0x0000000000004f42        0xc C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(wiring_time.c.o)
-                0x0000000000004f42                millis
- .text.micros   0x0000000000004f4e        0xc C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(wiring_time.c.o)
-                0x0000000000004f4e                micros
- .text.delay    0x0000000000004f5a       0x22 C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(wiring_time.c.o)
-                0x0000000000004f5a                delay
- .text._Znwj    0x0000000000004f7c       0x24 c:/users/kidsp/appdata/local/arduino15/packages/wch/tools/riscv-none-embed-gcc/8.2.0/bin/../lib/gcc/riscv-none-embed/8.2.0/../../../../riscv-none-embed/lib/rv32imacxw/ilp32\libstdc++_nano.a(new_op.o)
-                0x0000000000004f7c                operator new(unsigned int)
- .text._Znaj    0x0000000000004fa0        0x4 c:/users/kidsp/appdata/local/arduino15/packages/wch/tools/riscv-none-embed-gcc/8.2.0/bin/../lib/gcc/riscv-none-embed/8.2.0/../../../../riscv-none-embed/lib/rv32imacxw/ilp32\libstdc++_nano.a(new_opv.o)
-                0x0000000000004fa0                operator new[](unsigned int)
- .text._ZdlPvj  0x0000000000004fa4        0x2 c:/users/kidsp/appdata/local/arduino15/packages/wch/tools/riscv-none-embed-gcc/8.2.0/bin/../lib/gcc/riscv-none-embed/8.2.0/../../../../riscv-none-embed/lib/rv32imacxw/ilp32\libstdc++_nano.a(del_ops.o)
-                0x0000000000004fa4                operator delete(void*, unsigned int)
+                0x0000000000004ec2       0x7e C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(wiring_digital.c.o)
+                0x0000000000004ec2                digitalRead
+ .text.millis   0x0000000000004f40        0xc C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(wiring_time.c.o)
+                0x0000000000004f40                millis
+ .text.micros   0x0000000000004f4c        0xc C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(wiring_time.c.o)
+                0x0000000000004f4c                micros
+ .text.delay    0x0000000000004f58       0x22 C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(wiring_time.c.o)
+                0x0000000000004f58                delay
+ .text._Znwj    0x0000000000004f7a       0x24 c:/users/kidsp/appdata/local/arduino15/packages/wch/tools/riscv-none-embed-gcc/8.2.0/bin/../lib/gcc/riscv-none-embed/8.2.0/../../../../riscv-none-embed/lib/rv32imacxw/ilp32\libstdc++_nano.a(new_op.o)
+                0x0000000000004f7a                operator new(unsigned int)
+ .text._Znaj    0x0000000000004f9e        0x4 c:/users/kidsp/appdata/local/arduino15/packages/wch/tools/riscv-none-embed-gcc/8.2.0/bin/../lib/gcc/riscv-none-embed/8.2.0/../../../../riscv-none-embed/lib/rv32imacxw/ilp32\libstdc++_nano.a(new_opv.o)
+                0x0000000000004f9e                operator new[](unsigned int)
+ .text._ZdlPvj  0x0000000000004fa2        0x2 c:/users/kidsp/appdata/local/arduino15/packages/wch/tools/riscv-none-embed-gcc/8.2.0/bin/../lib/gcc/riscv-none-embed/8.2.0/../../../../riscv-none-embed/lib/rv32imacxw/ilp32\libstdc++_nano.a(del_ops.o)
+                0x0000000000004fa2                operator delete(void*, unsigned int)
  .text._ZSt15get_new_handlerv
-                0x0000000000004fa6        0xc c:/users/kidsp/appdata/local/arduino15/packages/wch/tools/riscv-none-embed-gcc/8.2.0/bin/../lib/gcc/riscv-none-embed/8.2.0/../../../../riscv-none-embed/lib/rv32imacxw/ilp32\libstdc++_nano.a(new_handler.o)
-                0x0000000000004fa6                std::get_new_handler()
+                0x0000000000004fa4        0xc c:/users/kidsp/appdata/local/arduino15/packages/wch/tools/riscv-none-embed-gcc/8.2.0/bin/../lib/gcc/riscv-none-embed/8.2.0/../../../../riscv-none-embed/lib/rv32imacxw/ilp32\libstdc++_nano.a(new_handler.o)
+                0x0000000000004fa4                std::get_new_handler()
  .text.unlikely._ZSt25__throw_bad_function_callv
-                0x0000000000004fb2        0x6 c:/users/kidsp/appdata/local/arduino15/packages/wch/tools/riscv-none-embed-gcc/8.2.0/bin/../lib/gcc/riscv-none-embed/8.2.0/../../../../riscv-none-embed/lib/rv32imacxw/ilp32\libstdc++_nano.a(functional.o)
-                0x0000000000004fb2                std::__throw_bad_function_call()
- .text._ZdlPv   0x0000000000004fb8        0x2 c:/users/kidsp/appdata/local/arduino15/packages/wch/tools/riscv-none-embed-gcc/8.2.0/bin/../lib/gcc/riscv-none-embed/8.2.0/../../../../riscv-none-embed/lib/rv32imacxw/ilp32\libstdc++_nano.a(del_op.o)
-                0x0000000000004fb8                operator delete(void*)
- .text.floorf   0x0000000000004fba       0xcc c:/users/kidsp/appdata/local/arduino15/packages/wch/tools/riscv-none-embed-gcc/8.2.0/bin/../lib/gcc/riscv-none-embed/8.2.0/../../../../riscv-none-embed/lib/rv32imacxw/ilp32\libm.a(lib_a-sf_floor.o)
-                0x0000000000004fba                floorf
- .text.lroundf  0x0000000000005086       0x78 c:/users/kidsp/appdata/local/arduino15/packages/wch/tools/riscv-none-embed-gcc/8.2.0/bin/../lib/gcc/riscv-none-embed/8.2.0/../../../../riscv-none-embed/lib/rv32imacxw/ilp32\libm.a(lib_a-sf_lround.o)
-                0x0000000000005086                lroundf
- .text.abort    0x00000000000050fe        0xe c:/users/kidsp/appdata/local/arduino15/packages/wch/tools/riscv-none-embed-gcc/8.2.0/bin/../lib/gcc/riscv-none-embed/8.2.0/../../../../riscv-none-embed/lib/rv32imacxw/ilp32\libc_nano.a(lib_a-abort.o)
-                0x00000000000050fe                abort
- .text.atexit   0x000000000000510c        0xa c:/users/kidsp/appdata/local/arduino15/packages/wch/tools/riscv-none-embed-gcc/8.2.0/bin/../lib/gcc/riscv-none-embed/8.2.0/../../../../riscv-none-embed/lib/rv32imacxw/ilp32\libc_nano.a(lib_a-atexit.o)
-                0x000000000000510c                atexit
+                0x0000000000004fb0        0x6 c:/users/kidsp/appdata/local/arduino15/packages/wch/tools/riscv-none-embed-gcc/8.2.0/bin/../lib/gcc/riscv-none-embed/8.2.0/../../../../riscv-none-embed/lib/rv32imacxw/ilp32\libstdc++_nano.a(functional.o)
+                0x0000000000004fb0                std::__throw_bad_function_call()
+ .text._ZdlPv   0x0000000000004fb6        0x2 c:/users/kidsp/appdata/local/arduino15/packages/wch/tools/riscv-none-embed-gcc/8.2.0/bin/../lib/gcc/riscv-none-embed/8.2.0/../../../../riscv-none-embed/lib/rv32imacxw/ilp32\libstdc++_nano.a(del_op.o)
+                0x0000000000004fb6                operator delete(void*)
+ .text.floorf   0x0000000000004fb8       0xcc c:/users/kidsp/appdata/local/arduino15/packages/wch/tools/riscv-none-embed-gcc/8.2.0/bin/../lib/gcc/riscv-none-embed/8.2.0/../../../../riscv-none-embed/lib/rv32imacxw/ilp32\libm.a(lib_a-sf_floor.o)
+                0x0000000000004fb8                floorf
+ .text.lroundf  0x0000000000005084       0x78 c:/users/kidsp/appdata/local/arduino15/packages/wch/tools/riscv-none-embed-gcc/8.2.0/bin/../lib/gcc/riscv-none-embed/8.2.0/../../../../riscv-none-embed/lib/rv32imacxw/ilp32\libm.a(lib_a-sf_lround.o)
+                0x0000000000005084                lroundf
+ .text.abort    0x00000000000050fc        0xe c:/users/kidsp/appdata/local/arduino15/packages/wch/tools/riscv-none-embed-gcc/8.2.0/bin/../lib/gcc/riscv-none-embed/8.2.0/../../../../riscv-none-embed/lib/rv32imacxw/ilp32\libc_nano.a(lib_a-abort.o)
+                0x00000000000050fc                abort
+ .text.atexit   0x000000000000510a        0xa c:/users/kidsp/appdata/local/arduino15/packages/wch/tools/riscv-none-embed-gcc/8.2.0/bin/../lib/gcc/riscv-none-embed/8.2.0/../../../../riscv-none-embed/lib/rv32imacxw/ilp32\libc_nano.a(lib_a-atexit.o)
+                0x000000000000510a                atexit
  .text.__libc_fini_array
-                0x0000000000005116       0x3a c:/users/kidsp/appdata/local/arduino15/packages/wch/tools/riscv-none-embed-gcc/8.2.0/bin/../lib/gcc/riscv-none-embed/8.2.0/../../../../riscv-none-embed/lib/rv32imacxw/ilp32\libc_nano.a(lib_a-fini.o)
-                0x0000000000005116                __libc_fini_array
+                0x0000000000005114       0x3a c:/users/kidsp/appdata/local/arduino15/packages/wch/tools/riscv-none-embed-gcc/8.2.0/bin/../lib/gcc/riscv-none-embed/8.2.0/../../../../riscv-none-embed/lib/rv32imacxw/ilp32\libc_nano.a(lib_a-fini.o)
+                0x0000000000005114                __libc_fini_array
  .text.__libc_init_array
-                0x0000000000005150       0x6e c:/users/kidsp/appdata/local/arduino15/packages/wch/tools/riscv-none-embed-gcc/8.2.0/bin/../lib/gcc/riscv-none-embed/8.2.0/../../../../riscv-none-embed/lib/rv32imacxw/ilp32\libc_nano.a(lib_a-init.o)
-                0x0000000000005150                __libc_init_array
- .text.malloc   0x00000000000051be        0xa c:/users/kidsp/appdata/local/arduino15/packages/wch/tools/riscv-none-embed-gcc/8.2.0/bin/../lib/gcc/riscv-none-embed/8.2.0/../../../../riscv-none-embed/lib/rv32imacxw/ilp32\libc_nano.a(lib_a-malloc.o)
-                0x00000000000051be                malloc
- .text.free     0x00000000000051c8        0xa c:/users/kidsp/appdata/local/arduino15/packages/wch/tools/riscv-none-embed-gcc/8.2.0/bin/../lib/gcc/riscv-none-embed/8.2.0/../../../../riscv-none-embed/lib/rv32imacxw/ilp32\libc_nano.a(lib_a-malloc.o)
-                0x00000000000051c8                free
- .text.memcpy   0x00000000000051d2       0xb2 c:/users/kidsp/appdata/local/arduino15/packages/wch/tools/riscv-none-embed-gcc/8.2.0/bin/../lib/gcc/riscv-none-embed/8.2.0/../../../../riscv-none-embed/lib/rv32imacxw/ilp32\libc_nano.a(lib_a-memcpy.o)
-                0x00000000000051d2                memcpy
- .text.memmove  0x0000000000005284       0x46 c:/users/kidsp/appdata/local/arduino15/packages/wch/tools/riscv-none-embed-gcc/8.2.0/bin/../lib/gcc/riscv-none-embed/8.2.0/../../../../riscv-none-embed/lib/rv32imacxw/ilp32\libc_nano.a(lib_a-memmove.o)
-                0x0000000000005284                memmove
- .text._free_r  0x00000000000052ca       0xa4 c:/users/kidsp/appdata/local/arduino15/packages/wch/tools/riscv-none-embed-gcc/8.2.0/bin/../lib/gcc/riscv-none-embed/8.2.0/../../../../riscv-none-embed/lib/rv32imacxw/ilp32\libc_nano.a(lib_a-nano-freer.o)
-                0x00000000000052ca                _free_r
+                0x000000000000514e       0x6e c:/users/kidsp/appdata/local/arduino15/packages/wch/tools/riscv-none-embed-gcc/8.2.0/bin/../lib/gcc/riscv-none-embed/8.2.0/../../../../riscv-none-embed/lib/rv32imacxw/ilp32\libc_nano.a(lib_a-init.o)
+                0x000000000000514e                __libc_init_array
+ .text.malloc   0x00000000000051bc        0xa c:/users/kidsp/appdata/local/arduino15/packages/wch/tools/riscv-none-embed-gcc/8.2.0/bin/../lib/gcc/riscv-none-embed/8.2.0/../../../../riscv-none-embed/lib/rv32imacxw/ilp32\libc_nano.a(lib_a-malloc.o)
+                0x00000000000051bc                malloc
+ .text.free     0x00000000000051c6        0xa c:/users/kidsp/appdata/local/arduino15/packages/wch/tools/riscv-none-embed-gcc/8.2.0/bin/../lib/gcc/riscv-none-embed/8.2.0/../../../../riscv-none-embed/lib/rv32imacxw/ilp32\libc_nano.a(lib_a-malloc.o)
+                0x00000000000051c6                free
+ .text.memcpy   0x00000000000051d0       0xb2 c:/users/kidsp/appdata/local/arduino15/packages/wch/tools/riscv-none-embed-gcc/8.2.0/bin/../lib/gcc/riscv-none-embed/8.2.0/../../../../riscv-none-embed/lib/rv32imacxw/ilp32\libc_nano.a(lib_a-memcpy.o)
+                0x00000000000051d0                memcpy
+ .text.memmove  0x0000000000005282       0x46 c:/users/kidsp/appdata/local/arduino15/packages/wch/tools/riscv-none-embed-gcc/8.2.0/bin/../lib/gcc/riscv-none-embed/8.2.0/../../../../riscv-none-embed/lib/rv32imacxw/ilp32\libc_nano.a(lib_a-memmove.o)
+                0x0000000000005282                memmove
+ .text._free_r  0x00000000000052c8       0xa4 c:/users/kidsp/appdata/local/arduino15/packages/wch/tools/riscv-none-embed-gcc/8.2.0/bin/../lib/gcc/riscv-none-embed/8.2.0/../../../../riscv-none-embed/lib/rv32imacxw/ilp32\libc_nano.a(lib_a-nano-freer.o)
+                0x00000000000052c8                _free_r
  .text._malloc_r
-                0x000000000000536e       0xce c:/users/kidsp/appdata/local/arduino15/packages/wch/tools/riscv-none-embed-gcc/8.2.0/bin/../lib/gcc/riscv-none-embed/8.2.0/../../../../riscv-none-embed/lib/rv32imacxw/ilp32\libc_nano.a(lib_a-nano-mallocr.o)
-                0x000000000000536e                _malloc_r
- .text.realloc  0x000000000000543c        0xc c:/users/kidsp/appdata/local/arduino15/packages/wch/tools/riscv-none-embed-gcc/8.2.0/bin/../lib/gcc/riscv-none-embed/8.2.0/../../../../riscv-none-embed/lib/rv32imacxw/ilp32\libc_nano.a(lib_a-realloc.o)
-                0x000000000000543c                realloc
- .text._sbrk_r  0x0000000000005448       0x2a c:/users/kidsp/appdata/local/arduino15/packages/wch/tools/riscv-none-embed-gcc/8.2.0/bin/../lib/gcc/riscv-none-embed/8.2.0/../../../../riscv-none-embed/lib/rv32imacxw/ilp32\libc_nano.a(lib_a-sbrkr.o)
-                0x0000000000005448                _sbrk_r
+                0x000000000000536c       0xce c:/users/kidsp/appdata/local/arduino15/packages/wch/tools/riscv-none-embed-gcc/8.2.0/bin/../lib/gcc/riscv-none-embed/8.2.0/../../../../riscv-none-embed/lib/rv32imacxw/ilp32\libc_nano.a(lib_a-nano-mallocr.o)
+                0x000000000000536c                _malloc_r
+ .text.realloc  0x000000000000543a        0xc c:/users/kidsp/appdata/local/arduino15/packages/wch/tools/riscv-none-embed-gcc/8.2.0/bin/../lib/gcc/riscv-none-embed/8.2.0/../../../../riscv-none-embed/lib/rv32imacxw/ilp32\libc_nano.a(lib_a-realloc.o)
+                0x000000000000543a                realloc
+ .text._sbrk_r  0x0000000000005446       0x2a c:/users/kidsp/appdata/local/arduino15/packages/wch/tools/riscv-none-embed-gcc/8.2.0/bin/../lib/gcc/riscv-none-embed/8.2.0/../../../../riscv-none-embed/lib/rv32imacxw/ilp32\libc_nano.a(lib_a-sbrkr.o)
+                0x0000000000005446                _sbrk_r
  .text._raise_r
-                0x0000000000005472       0x62 c:/users/kidsp/appdata/local/arduino15/packages/wch/tools/riscv-none-embed-gcc/8.2.0/bin/../lib/gcc/riscv-none-embed/8.2.0/../../../../riscv-none-embed/lib/rv32imacxw/ilp32\libc_nano.a(lib_a-signal.o)
-                0x0000000000005472                _raise_r
- .text.raise    0x00000000000054d4        0xc c:/users/kidsp/appdata/local/arduino15/packages/wch/tools/riscv-none-embed-gcc/8.2.0/bin/../lib/gcc/riscv-none-embed/8.2.0/../../../../riscv-none-embed/lib/rv32imacxw/ilp32\libc_nano.a(lib_a-signal.o)
-                0x00000000000054d4                raise
- .text._kill_r  0x00000000000054e0       0x2c c:/users/kidsp/appdata/local/arduino15/packages/wch/tools/riscv-none-embed-gcc/8.2.0/bin/../lib/gcc/riscv-none-embed/8.2.0/../../../../riscv-none-embed/lib/rv32imacxw/ilp32\libc_nano.a(lib_a-signalr.o)
-                0x00000000000054e0                _kill_r
+                0x0000000000005470       0x62 c:/users/kidsp/appdata/local/arduino15/packages/wch/tools/riscv-none-embed-gcc/8.2.0/bin/../lib/gcc/riscv-none-embed/8.2.0/../../../../riscv-none-embed/lib/rv32imacxw/ilp32\libc_nano.a(lib_a-signal.o)
+                0x0000000000005470                _raise_r
+ .text.raise    0x00000000000054d2        0xc c:/users/kidsp/appdata/local/arduino15/packages/wch/tools/riscv-none-embed-gcc/8.2.0/bin/../lib/gcc/riscv-none-embed/8.2.0/../../../../riscv-none-embed/lib/rv32imacxw/ilp32\libc_nano.a(lib_a-signal.o)
+                0x00000000000054d2                raise
+ .text._kill_r  0x00000000000054de       0x2c c:/users/kidsp/appdata/local/arduino15/packages/wch/tools/riscv-none-embed-gcc/8.2.0/bin/../lib/gcc/riscv-none-embed/8.2.0/../../../../riscv-none-embed/lib/rv32imacxw/ilp32\libc_nano.a(lib_a-signalr.o)
+                0x00000000000054de                _kill_r
  .text._getpid_r
-                0x000000000000550c        0x4 c:/users/kidsp/appdata/local/arduino15/packages/wch/tools/riscv-none-embed-gcc/8.2.0/bin/../lib/gcc/riscv-none-embed/8.2.0/../../../../riscv-none-embed/lib/rv32imacxw/ilp32\libc_nano.a(lib_a-signalr.o)
-                0x000000000000550c                _getpid_r
- .text.strlen   0x0000000000005510       0x12 c:/users/kidsp/appdata/local/arduino15/packages/wch/tools/riscv-none-embed-gcc/8.2.0/bin/../lib/gcc/riscv-none-embed/8.2.0/../../../../riscv-none-embed/lib/rv32imacxw/ilp32\libc_nano.a(lib_a-strlen.o)
-                0x0000000000005510                strlen
+                0x000000000000550a        0x4 c:/users/kidsp/appdata/local/arduino15/packages/wch/tools/riscv-none-embed-gcc/8.2.0/bin/../lib/gcc/riscv-none-embed/8.2.0/../../../../riscv-none-embed/lib/rv32imacxw/ilp32\libc_nano.a(lib_a-signalr.o)
+                0x000000000000550a                _getpid_r
+ .text.strlen   0x000000000000550e       0x12 c:/users/kidsp/appdata/local/arduino15/packages/wch/tools/riscv-none-embed-gcc/8.2.0/bin/../lib/gcc/riscv-none-embed/8.2.0/../../../../riscv-none-embed/lib/rv32imacxw/ilp32\libc_nano.a(lib_a-strlen.o)
+                0x000000000000550e                strlen
  .text._vdprintf_r
-                0x0000000000005522       0x7c c:/users/kidsp/appdata/local/arduino15/packages/wch/tools/riscv-none-embed-gcc/8.2.0/bin/../lib/gcc/riscv-none-embed/8.2.0/../../../../riscv-none-embed/lib/rv32imacxw/ilp32\libc_nano.a(lib_a-vdprintf.o)
-                0x0000000000005522                _vdiprintf_r
-                0x0000000000005522                _vdprintf_r
+                0x0000000000005520       0x7c c:/users/kidsp/appdata/local/arduino15/packages/wch/tools/riscv-none-embed-gcc/8.2.0/bin/../lib/gcc/riscv-none-embed/8.2.0/../../../../riscv-none-embed/lib/rv32imacxw/ilp32\libc_nano.a(lib_a-vdprintf.o)
+                0x0000000000005520                _vdiprintf_r
+                0x0000000000005520                _vdprintf_r
  .text.vdprintf
-                0x000000000000559e       0x10 c:/users/kidsp/appdata/local/arduino15/packages/wch/tools/riscv-none-embed-gcc/8.2.0/bin/../lib/gcc/riscv-none-embed/8.2.0/../../../../riscv-none-embed/lib/rv32imacxw/ilp32\libc_nano.a(lib_a-vdprintf.o)
-                0x000000000000559e                vdprintf
-                0x000000000000559e                vdiprintf
+                0x000000000000559c       0x10 c:/users/kidsp/appdata/local/arduino15/packages/wch/tools/riscv-none-embed-gcc/8.2.0/bin/../lib/gcc/riscv-none-embed/8.2.0/../../../../riscv-none-embed/lib/rv32imacxw/ilp32\libc_nano.a(lib_a-vdprintf.o)
+                0x000000000000559c                vdprintf
+                0x000000000000559c                vdiprintf
  .text._write_r
-                0x00000000000055ae       0x2e c:/users/kidsp/appdata/local/arduino15/packages/wch/tools/riscv-none-embed-gcc/8.2.0/bin/../lib/gcc/riscv-none-embed/8.2.0/../../../../riscv-none-embed/lib/rv32imacxw/ilp32\libc_nano.a(lib_a-writer.o)
-                0x00000000000055ae                _write_r
+                0x00000000000055ac       0x2e c:/users/kidsp/appdata/local/arduino15/packages/wch/tools/riscv-none-embed-gcc/8.2.0/bin/../lib/gcc/riscv-none-embed/8.2.0/../../../../riscv-none-embed/lib/rv32imacxw/ilp32\libc_nano.a(lib_a-writer.o)
+                0x00000000000055ac                _write_r
  .text.__register_exitproc
-                0x00000000000055dc       0x7c c:/users/kidsp/appdata/local/arduino15/packages/wch/tools/riscv-none-embed-gcc/8.2.0/bin/../lib/gcc/riscv-none-embed/8.2.0/../../../../riscv-none-embed/lib/rv32imacxw/ilp32\libc_nano.a(lib_a-__atexit.o)
-                0x00000000000055dc                __register_exitproc
+                0x00000000000055da       0x7c c:/users/kidsp/appdata/local/arduino15/packages/wch/tools/riscv-none-embed-gcc/8.2.0/bin/../lib/gcc/riscv-none-embed/8.2.0/../../../../riscv-none-embed/lib/rv32imacxw/ilp32\libc_nano.a(lib_a-__atexit.o)
+                0x00000000000055da                __register_exitproc
  .text.startup.register_fini
-                0x0000000000005658       0x18 c:/users/kidsp/appdata/local/arduino15/packages/wch/tools/riscv-none-embed-gcc/8.2.0/bin/../lib/gcc/riscv-none-embed/8.2.0/../../../../riscv-none-embed/lib/rv32imacxw/ilp32\libc_nano.a(lib_a-__call_atexit.o)
- .text.std      0x0000000000005670       0x66 c:/users/kidsp/appdata/local/arduino15/packages/wch/tools/riscv-none-embed-gcc/8.2.0/bin/../lib/gcc/riscv-none-embed/8.2.0/../../../../riscv-none-embed/lib/rv32imacxw/ilp32\libc_nano.a(lib_a-findfp.o)
+                0x0000000000005656       0x18 c:/users/kidsp/appdata/local/arduino15/packages/wch/tools/riscv-none-embed-gcc/8.2.0/bin/../lib/gcc/riscv-none-embed/8.2.0/../../../../riscv-none-embed/lib/rv32imacxw/ilp32\libc_nano.a(lib_a-__call_atexit.o)
+ .text.std      0x000000000000566e       0x66 c:/users/kidsp/appdata/local/arduino15/packages/wch/tools/riscv-none-embed-gcc/8.2.0/bin/../lib/gcc/riscv-none-embed/8.2.0/../../../../riscv-none-embed/lib/rv32imacxw/ilp32\libc_nano.a(lib_a-findfp.o)
  .text._cleanup_r
-                0x00000000000056d6        0xa c:/users/kidsp/appdata/local/arduino15/packages/wch/tools/riscv-none-embed-gcc/8.2.0/bin/../lib/gcc/riscv-none-embed/8.2.0/../../../../riscv-none-embed/lib/rv32imacxw/ilp32\libc_nano.a(lib_a-findfp.o)
-                0x00000000000056d6                _cleanup_r
+                0x00000000000056d4        0xa c:/users/kidsp/appdata/local/arduino15/packages/wch/tools/riscv-none-embed-gcc/8.2.0/bin/../lib/gcc/riscv-none-embed/8.2.0/../../../../riscv-none-embed/lib/rv32imacxw/ilp32\libc_nano.a(lib_a-findfp.o)
+                0x00000000000056d4                _cleanup_r
  .text.__sfmoreglue
-                0x00000000000056e0       0x48 c:/users/kidsp/appdata/local/arduino15/packages/wch/tools/riscv-none-embed-gcc/8.2.0/bin/../lib/gcc/riscv-none-embed/8.2.0/../../../../riscv-none-embed/lib/rv32imacxw/ilp32\libc_nano.a(lib_a-findfp.o)
-                0x00000000000056e0                __sfmoreglue
- .text.__sinit  0x0000000000005728       0x6c c:/users/kidsp/appdata/local/arduino15/packages/wch/tools/riscv-none-embed-gcc/8.2.0/bin/../lib/gcc/riscv-none-embed/8.2.0/../../../../riscv-none-embed/lib/rv32imacxw/ilp32\libc_nano.a(lib_a-findfp.o)
-                0x0000000000005728                __sinit
- .text.__sfp    0x0000000000005794       0xa0 c:/users/kidsp/appdata/local/arduino15/packages/wch/tools/riscv-none-embed-gcc/8.2.0/bin/../lib/gcc/riscv-none-embed/8.2.0/../../../../riscv-none-embed/lib/rv32imacxw/ilp32\libc_nano.a(lib_a-findfp.o)
-                0x0000000000005794                __sfp
+                0x00000000000056de       0x48 c:/users/kidsp/appdata/local/arduino15/packages/wch/tools/riscv-none-embed-gcc/8.2.0/bin/../lib/gcc/riscv-none-embed/8.2.0/../../../../riscv-none-embed/lib/rv32imacxw/ilp32\libc_nano.a(lib_a-findfp.o)
+                0x00000000000056de                __sfmoreglue
+ .text.__sinit  0x0000000000005726       0x6c c:/users/kidsp/appdata/local/arduino15/packages/wch/tools/riscv-none-embed-gcc/8.2.0/bin/../lib/gcc/riscv-none-embed/8.2.0/../../../../riscv-none-embed/lib/rv32imacxw/ilp32\libc_nano.a(lib_a-findfp.o)
+                0x0000000000005726                __sinit
+ .text.__sfp    0x0000000000005792       0xa0 c:/users/kidsp/appdata/local/arduino15/packages/wch/tools/riscv-none-embed-gcc/8.2.0/bin/../lib/gcc/riscv-none-embed/8.2.0/../../../../riscv-none-embed/lib/rv32imacxw/ilp32\libc_nano.a(lib_a-findfp.o)
+                0x0000000000005792                __sfp
  .text._fwalk_reent
-                0x0000000000005834       0x6a c:/users/kidsp/appdata/local/arduino15/packages/wch/tools/riscv-none-embed-gcc/8.2.0/bin/../lib/gcc/riscv-none-embed/8.2.0/../../../../riscv-none-embed/lib/rv32imacxw/ilp32\libc_nano.a(lib_a-fwalk.o)
-                0x0000000000005834                _fwalk_reent
+                0x0000000000005832       0x6a c:/users/kidsp/appdata/local/arduino15/packages/wch/tools/riscv-none-embed-gcc/8.2.0/bin/../lib/gcc/riscv-none-embed/8.2.0/../../../../riscv-none-embed/lib/rv32imacxw/ilp32\libc_nano.a(lib_a-fwalk.o)
+                0x0000000000005832                _fwalk_reent
  .text.__malloc_lock
-                0x000000000000589e        0x2 c:/users/kidsp/appdata/local/arduino15/packages/wch/tools/riscv-none-embed-gcc/8.2.0/bin/../lib/gcc/riscv-none-embed/8.2.0/../../../../riscv-none-embed/lib/rv32imacxw/ilp32\libc_nano.a(lib_a-mlock.o)
-                0x000000000000589e                __malloc_lock
+                0x000000000000589c        0x2 c:/users/kidsp/appdata/local/arduino15/packages/wch/tools/riscv-none-embed-gcc/8.2.0/bin/../lib/gcc/riscv-none-embed/8.2.0/../../../../riscv-none-embed/lib/rv32imacxw/ilp32\libc_nano.a(lib_a-mlock.o)
+                0x000000000000589c                __malloc_lock
  .text.__malloc_unlock
-                0x00000000000058a0        0x2 c:/users/kidsp/appdata/local/arduino15/packages/wch/tools/riscv-none-embed-gcc/8.2.0/bin/../lib/gcc/riscv-none-embed/8.2.0/../../../../riscv-none-embed/lib/rv32imacxw/ilp32\libc_nano.a(lib_a-mlock.o)
-                0x00000000000058a0                __malloc_unlock
+                0x000000000000589e        0x2 c:/users/kidsp/appdata/local/arduino15/packages/wch/tools/riscv-none-embed-gcc/8.2.0/bin/../lib/gcc/riscv-none-embed/8.2.0/../../../../riscv-none-embed/lib/rv32imacxw/ilp32\libc_nano.a(lib_a-mlock.o)
+                0x000000000000589e                __malloc_unlock
  .text._realloc_r
-                0x00000000000058a2       0x58 c:/users/kidsp/appdata/local/arduino15/packages/wch/tools/riscv-none-embed-gcc/8.2.0/bin/../lib/gcc/riscv-none-embed/8.2.0/../../../../riscv-none-embed/lib/rv32imacxw/ilp32\libc_nano.a(lib_a-nano-reallocr.o)
-                0x00000000000058a2                _realloc_r
- .text.__sread  0x00000000000058fa       0x2e c:/users/kidsp/appdata/local/arduino15/packages/wch/tools/riscv-none-embed-gcc/8.2.0/bin/../lib/gcc/riscv-none-embed/8.2.0/../../../../riscv-none-embed/lib/rv32imacxw/ilp32\libc_nano.a(lib_a-stdio.o)
-                0x00000000000058fa                __sread
+                0x00000000000058a0       0x58 c:/users/kidsp/appdata/local/arduino15/packages/wch/tools/riscv-none-embed-gcc/8.2.0/bin/../lib/gcc/riscv-none-embed/8.2.0/../../../../riscv-none-embed/lib/rv32imacxw/ilp32\libc_nano.a(lib_a-nano-reallocr.o)
+                0x00000000000058a0                _realloc_r
+ .text.__sread  0x00000000000058f8       0x2e c:/users/kidsp/appdata/local/arduino15/packages/wch/tools/riscv-none-embed-gcc/8.2.0/bin/../lib/gcc/riscv-none-embed/8.2.0/../../../../riscv-none-embed/lib/rv32imacxw/ilp32\libc_nano.a(lib_a-stdio.o)
+                0x00000000000058f8                __sread
  .text.__swrite
-                0x0000000000005928       0x4a c:/users/kidsp/appdata/local/arduino15/packages/wch/tools/riscv-none-embed-gcc/8.2.0/bin/../lib/gcc/riscv-none-embed/8.2.0/../../../../riscv-none-embed/lib/rv32imacxw/ilp32\libc_nano.a(lib_a-stdio.o)
-                0x0000000000005928                __swrite
- .text.__sseek  0x0000000000005972       0x30 c:/users/kidsp/appdata/local/arduino15/packages/wch/tools/riscv-none-embed-gcc/8.2.0/bin/../lib/gcc/riscv-none-embed/8.2.0/../../../../riscv-none-embed/lib/rv32imacxw/ilp32\libc_nano.a(lib_a-stdio.o)
-                0x0000000000005972                __sseek
+                0x0000000000005926       0x4a c:/users/kidsp/appdata/local/arduino15/packages/wch/tools/riscv-none-embed-gcc/8.2.0/bin/../lib/gcc/riscv-none-embed/8.2.0/../../../../riscv-none-embed/lib/rv32imacxw/ilp32\libc_nano.a(lib_a-stdio.o)
+                0x0000000000005926                __swrite
+ .text.__sseek  0x0000000000005970       0x30 c:/users/kidsp/appdata/local/arduino15/packages/wch/tools/riscv-none-embed-gcc/8.2.0/bin/../lib/gcc/riscv-none-embed/8.2.0/../../../../riscv-none-embed/lib/rv32imacxw/ilp32\libc_nano.a(lib_a-stdio.o)
+                0x0000000000005970                __sseek
  .text.__sclose
-                0x00000000000059a2        0x6 c:/users/kidsp/appdata/local/arduino15/packages/wch/tools/riscv-none-embed-gcc/8.2.0/bin/../lib/gcc/riscv-none-embed/8.2.0/../../../../riscv-none-embed/lib/rv32imacxw/ilp32\libc_nano.a(lib_a-stdio.o)
-                0x00000000000059a2                __sclose
+                0x00000000000059a0        0x6 c:/users/kidsp/appdata/local/arduino15/packages/wch/tools/riscv-none-embed-gcc/8.2.0/bin/../lib/gcc/riscv-none-embed/8.2.0/../../../../riscv-none-embed/lib/rv32imacxw/ilp32\libc_nano.a(lib_a-stdio.o)
+                0x00000000000059a0                __sclose
  .text._vasnprintf_r
-                0x00000000000059a8       0x60 c:/users/kidsp/appdata/local/arduino15/packages/wch/tools/riscv-none-embed-gcc/8.2.0/bin/../lib/gcc/riscv-none-embed/8.2.0/../../../../riscv-none-embed/lib/rv32imacxw/ilp32\libc_nano.a(lib_a-vasnprintf.o)
-                0x00000000000059a8                _vasnprintf_r
-                0x00000000000059a8                _vasniprintf_r
+                0x00000000000059a6       0x60 c:/users/kidsp/appdata/local/arduino15/packages/wch/tools/riscv-none-embed-gcc/8.2.0/bin/../lib/gcc/riscv-none-embed/8.2.0/../../../../riscv-none-embed/lib/rv32imacxw/ilp32\libc_nano.a(lib_a-vasnprintf.o)
+                0x00000000000059a6                _vasnprintf_r
+                0x00000000000059a6                _vasniprintf_r
  .text._close_r
-                0x0000000000005a08       0x2a c:/users/kidsp/appdata/local/arduino15/packages/wch/tools/riscv-none-embed-gcc/8.2.0/bin/../lib/gcc/riscv-none-embed/8.2.0/../../../../riscv-none-embed/lib/rv32imacxw/ilp32\libc_nano.a(lib_a-closer.o)
-                0x0000000000005a08                _close_r
+                0x0000000000005a06       0x2a c:/users/kidsp/appdata/local/arduino15/packages/wch/tools/riscv-none-embed-gcc/8.2.0/bin/../lib/gcc/riscv-none-embed/8.2.0/../../../../riscv-none-embed/lib/rv32imacxw/ilp32\libc_nano.a(lib_a-closer.o)
+                0x0000000000005a06                _close_r
  .text.__sflush_r
-                0x0000000000005a32      0x132 c:/users/kidsp/appdata/local/arduino15/packages/wch/tools/riscv-none-embed-gcc/8.2.0/bin/../lib/gcc/riscv-none-embed/8.2.0/../../../../riscv-none-embed/lib/rv32imacxw/ilp32\libc_nano.a(lib_a-fflush.o)
-                0x0000000000005a32                __sflush_r
+                0x0000000000005a30      0x132 c:/users/kidsp/appdata/local/arduino15/packages/wch/tools/riscv-none-embed-gcc/8.2.0/bin/../lib/gcc/riscv-none-embed/8.2.0/../../../../riscv-none-embed/lib/rv32imacxw/ilp32\libc_nano.a(lib_a-fflush.o)
+                0x0000000000005a30                __sflush_r
  .text._fflush_r
-                0x0000000000005b64       0x68 c:/users/kidsp/appdata/local/arduino15/packages/wch/tools/riscv-none-embed-gcc/8.2.0/bin/../lib/gcc/riscv-none-embed/8.2.0/../../../../riscv-none-embed/lib/rv32imacxw/ilp32\libc_nano.a(lib_a-fflush.o)
-                0x0000000000005b64                _fflush_r
+                0x0000000000005b62       0x68 c:/users/kidsp/appdata/local/arduino15/packages/wch/tools/riscv-none-embed-gcc/8.2.0/bin/../lib/gcc/riscv-none-embed/8.2.0/../../../../riscv-none-embed/lib/rv32imacxw/ilp32\libc_nano.a(lib_a-fflush.o)
+                0x0000000000005b62                _fflush_r
  .text._lseek_r
-                0x0000000000005bcc       0x2e c:/users/kidsp/appdata/local/arduino15/packages/wch/tools/riscv-none-embed-gcc/8.2.0/bin/../lib/gcc/riscv-none-embed/8.2.0/../../../../riscv-none-embed/lib/rv32imacxw/ilp32\libc_nano.a(lib_a-lseekr.o)
-                0x0000000000005bcc                _lseek_r
+                0x0000000000005bca       0x2e c:/users/kidsp/appdata/local/arduino15/packages/wch/tools/riscv-none-embed-gcc/8.2.0/bin/../lib/gcc/riscv-none-embed/8.2.0/../../../../riscv-none-embed/lib/rv32imacxw/ilp32\libc_nano.a(lib_a-lseekr.o)
+                0x0000000000005bca                _lseek_r
  .text._malloc_usable_size_r
-                0x0000000000005bfa       0x14 c:/users/kidsp/appdata/local/arduino15/packages/wch/tools/riscv-none-embed-gcc/8.2.0/bin/../lib/gcc/riscv-none-embed/8.2.0/../../../../riscv-none-embed/lib/rv32imacxw/ilp32\libc_nano.a(lib_a-nano-msizer.o)
-                0x0000000000005bfa                _malloc_usable_size_r
+                0x0000000000005bf8       0x14 c:/users/kidsp/appdata/local/arduino15/packages/wch/tools/riscv-none-embed-gcc/8.2.0/bin/../lib/gcc/riscv-none-embed/8.2.0/../../../../riscv-none-embed/lib/rv32imacxw/ilp32\libc_nano.a(lib_a-nano-msizer.o)
+                0x0000000000005bf8                _malloc_usable_size_r
  .text.__ssputs_r
-                0x0000000000005c0e       0xe4 c:/users/kidsp/appdata/local/arduino15/packages/wch/tools/riscv-none-embed-gcc/8.2.0/bin/../lib/gcc/riscv-none-embed/8.2.0/../../../../riscv-none-embed/lib/rv32imacxw/ilp32\libc_nano.a(lib_a-nano-svfprintf.o)
-                0x0000000000005c0e                __ssputs_r
+                0x0000000000005c0c       0xe4 c:/users/kidsp/appdata/local/arduino15/packages/wch/tools/riscv-none-embed-gcc/8.2.0/bin/../lib/gcc/riscv-none-embed/8.2.0/../../../../riscv-none-embed/lib/rv32imacxw/ilp32\libc_nano.a(lib_a-nano-svfprintf.o)
+                0x0000000000005c0c                __ssputs_r
  .text._svfprintf_r
-                0x0000000000005cf2      0x264 c:/users/kidsp/appdata/local/arduino15/packages/wch/tools/riscv-none-embed-gcc/8.2.0/bin/../lib/gcc/riscv-none-embed/8.2.0/../../../../riscv-none-embed/lib/rv32imacxw/ilp32\libc_nano.a(lib_a-nano-svfprintf.o)
-                0x0000000000005cf2                _svfiprintf_r
-                0x0000000000005cf2                _svfprintf_r
+                0x0000000000005cf0      0x264 c:/users/kidsp/appdata/local/arduino15/packages/wch/tools/riscv-none-embed-gcc/8.2.0/bin/../lib/gcc/riscv-none-embed/8.2.0/../../../../riscv-none-embed/lib/rv32imacxw/ilp32\libc_nano.a(lib_a-nano-svfprintf.o)
+                0x0000000000005cf0                _svfiprintf_r
+                0x0000000000005cf0                _svfprintf_r
  .text._printf_common
-                0x0000000000005f56      0x10c c:/users/kidsp/appdata/local/arduino15/packages/wch/tools/riscv-none-embed-gcc/8.2.0/bin/../lib/gcc/riscv-none-embed/8.2.0/../../../../riscv-none-embed/lib/rv32imacxw/ilp32\libc_nano.a(lib_a-nano-vfprintf_i.o)
-                0x0000000000005f56                _printf_common
+                0x0000000000005f54      0x10c c:/users/kidsp/appdata/local/arduino15/packages/wch/tools/riscv-none-embed-gcc/8.2.0/bin/../lib/gcc/riscv-none-embed/8.2.0/../../../../riscv-none-embed/lib/rv32imacxw/ilp32\libc_nano.a(lib_a-nano-vfprintf_i.o)
+                0x0000000000005f54                _printf_common
  .text._printf_i
-                0x0000000000006062      0x2a2 c:/users/kidsp/appdata/local/arduino15/packages/wch/tools/riscv-none-embed-gcc/8.2.0/bin/../lib/gcc/riscv-none-embed/8.2.0/../../../../riscv-none-embed/lib/rv32imacxw/ilp32\libc_nano.a(lib_a-nano-vfprintf_i.o)
-                0x0000000000006062                _printf_i
- .text._read_r  0x0000000000006304       0x2e c:/users/kidsp/appdata/local/arduino15/packages/wch/tools/riscv-none-embed-gcc/8.2.0/bin/../lib/gcc/riscv-none-embed/8.2.0/../../../../riscv-none-embed/lib/rv32imacxw/ilp32\libc_nano.a(lib_a-readr.o)
-                0x0000000000006304                _read_r
- .text.memchr   0x0000000000006332       0x18 c:/users/kidsp/appdata/local/arduino15/packages/wch/tools/riscv-none-embed-gcc/8.2.0/bin/../lib/gcc/riscv-none-embed/8.2.0/../../../../riscv-none-embed/lib/rv32imacxw/ilp32\libc_nano.a(lib_a-memchr.o)
-                0x0000000000006332                memchr
+                0x0000000000006060      0x2a2 c:/users/kidsp/appdata/local/arduino15/packages/wch/tools/riscv-none-embed-gcc/8.2.0/bin/../lib/gcc/riscv-none-embed/8.2.0/../../../../riscv-none-embed/lib/rv32imacxw/ilp32\libc_nano.a(lib_a-nano-vfprintf_i.o)
+                0x0000000000006060                _printf_i
+ .text._read_r  0x0000000000006302       0x2e c:/users/kidsp/appdata/local/arduino15/packages/wch/tools/riscv-none-embed-gcc/8.2.0/bin/../lib/gcc/riscv-none-embed/8.2.0/../../../../riscv-none-embed/lib/rv32imacxw/ilp32\libc_nano.a(lib_a-readr.o)
+                0x0000000000006302                _read_r
+ .text.memchr   0x0000000000006330       0x18 c:/users/kidsp/appdata/local/arduino15/packages/wch/tools/riscv-none-embed-gcc/8.2.0/bin/../lib/gcc/riscv-none-embed/8.2.0/../../../../riscv-none-embed/lib/rv32imacxw/ilp32\libc_nano.a(lib_a-memchr.o)
+                0x0000000000006330                memchr
  .text.__udivdi3
-                0x000000000000634a      0x392 c:/users/kidsp/appdata/local/arduino15/packages/wch/tools/riscv-none-embed-gcc/8.2.0/bin/../lib/gcc/riscv-none-embed/8.2.0/rv32imacxw/ilp32\libgcc.a(_udivdi3.o)
-                0x000000000000634a                __udivdi3
+                0x0000000000006348      0x392 c:/users/kidsp/appdata/local/arduino15/packages/wch/tools/riscv-none-embed-gcc/8.2.0/bin/../lib/gcc/riscv-none-embed/8.2.0/rv32imacxw/ilp32\libgcc.a(_udivdi3.o)
+                0x0000000000006348                __udivdi3
  .text.__muldf3
-                0x00000000000066dc      0x4b8 c:/users/kidsp/appdata/local/arduino15/packages/wch/tools/riscv-none-embed-gcc/8.2.0/bin/../lib/gcc/riscv-none-embed/8.2.0/rv32imacxw/ilp32\libgcc.a(muldf3.o)
-                0x00000000000066dc                __muldf3
+                0x00000000000066da      0x4b8 c:/users/kidsp/appdata/local/arduino15/packages/wch/tools/riscv-none-embed-gcc/8.2.0/bin/../lib/gcc/riscv-none-embed/8.2.0/rv32imacxw/ilp32\libgcc.a(muldf3.o)
+                0x00000000000066da                __muldf3
  .text.__subdf3
-                0x0000000000006b94      0x73e c:/users/kidsp/appdata/local/arduino15/packages/wch/tools/riscv-none-embed-gcc/8.2.0/bin/../lib/gcc/riscv-none-embed/8.2.0/rv32imacxw/ilp32\libgcc.a(subdf3.o)
-                0x0000000000006b94                __subdf3
+                0x0000000000006b92      0x73e c:/users/kidsp/appdata/local/arduino15/packages/wch/tools/riscv-none-embed-gcc/8.2.0/bin/../lib/gcc/riscv-none-embed/8.2.0/rv32imacxw/ilp32\libgcc.a(subdf3.o)
+                0x0000000000006b92                __subdf3
  .text.__fixdfsi
-                0x00000000000072d2       0x68 c:/users/kidsp/appdata/local/arduino15/packages/wch/tools/riscv-none-embed-gcc/8.2.0/bin/../lib/gcc/riscv-none-embed/8.2.0/rv32imacxw/ilp32\libgcc.a(fixdfsi.o)
-                0x00000000000072d2                __fixdfsi
+                0x00000000000072d0       0x68 c:/users/kidsp/appdata/local/arduino15/packages/wch/tools/riscv-none-embed-gcc/8.2.0/bin/../lib/gcc/riscv-none-embed/8.2.0/rv32imacxw/ilp32\libgcc.a(fixdfsi.o)
+                0x00000000000072d0                __fixdfsi
  .text.__floatsidf
-                0x000000000000733a       0x72 c:/users/kidsp/appdata/local/arduino15/packages/wch/tools/riscv-none-embed-gcc/8.2.0/bin/../lib/gcc/riscv-none-embed/8.2.0/rv32imacxw/ilp32\libgcc.a(floatsidf.o)
-                0x000000000000733a                __floatsidf
+                0x0000000000007338       0x72 c:/users/kidsp/appdata/local/arduino15/packages/wch/tools/riscv-none-embed-gcc/8.2.0/bin/../lib/gcc/riscv-none-embed/8.2.0/rv32imacxw/ilp32\libgcc.a(floatsidf.o)
+                0x0000000000007338                __floatsidf
  .text.__addsf3
-                0x00000000000073ac      0x36a c:/users/kidsp/appdata/local/arduino15/packages/wch/tools/riscv-none-embed-gcc/8.2.0/bin/../lib/gcc/riscv-none-embed/8.2.0/rv32imacxw/ilp32\libgcc.a(addsf3.o)
-                0x00000000000073ac                __addsf3
+                0x00000000000073aa      0x36a c:/users/kidsp/appdata/local/arduino15/packages/wch/tools/riscv-none-embed-gcc/8.2.0/bin/../lib/gcc/riscv-none-embed/8.2.0/rv32imacxw/ilp32\libgcc.a(addsf3.o)
+                0x00000000000073aa                __addsf3
  .text.__divsf3
-                0x0000000000007716      0x2b2 c:/users/kidsp/appdata/local/arduino15/packages/wch/tools/riscv-none-embed-gcc/8.2.0/bin/../lib/gcc/riscv-none-embed/8.2.0/rv32imacxw/ilp32\libgcc.a(divsf3.o)
-                0x0000000000007716                __divsf3
- .text.__gesf2  0x00000000000079c8       0x86 c:/users/kidsp/appdata/local/arduino15/packages/wch/tools/riscv-none-embed-gcc/8.2.0/bin/../lib/gcc/riscv-none-embed/8.2.0/rv32imacxw/ilp32\libgcc.a(gesf2.o)
-                0x00000000000079c8                __gesf2
-                0x00000000000079c8                __gtsf2
- .text.__lesf2  0x0000000000007a4e       0x8c c:/users/kidsp/appdata/local/arduino15/packages/wch/tools/riscv-none-embed-gcc/8.2.0/bin/../lib/gcc/riscv-none-embed/8.2.0/rv32imacxw/ilp32\libgcc.a(lesf2.o)
-                0x0000000000007a4e                __ltsf2
-                0x0000000000007a4e                __lesf2
+                0x0000000000007714      0x2b2 c:/users/kidsp/appdata/local/arduino15/packages/wch/tools/riscv-none-embed-gcc/8.2.0/bin/../lib/gcc/riscv-none-embed/8.2.0/rv32imacxw/ilp32\libgcc.a(divsf3.o)
+                0x0000000000007714                __divsf3
+ .text.__gesf2  0x00000000000079c6       0x86 c:/users/kidsp/appdata/local/arduino15/packages/wch/tools/riscv-none-embed-gcc/8.2.0/bin/../lib/gcc/riscv-none-embed/8.2.0/rv32imacxw/ilp32\libgcc.a(gesf2.o)
+                0x00000000000079c6                __gesf2
+                0x00000000000079c6                __gtsf2
+ .text.__lesf2  0x0000000000007a4c       0x8c c:/users/kidsp/appdata/local/arduino15/packages/wch/tools/riscv-none-embed-gcc/8.2.0/bin/../lib/gcc/riscv-none-embed/8.2.0/rv32imacxw/ilp32\libgcc.a(lesf2.o)
+                0x0000000000007a4c                __ltsf2
+                0x0000000000007a4c                __lesf2
  .text.__mulsf3
-                0x0000000000007ada      0x294 c:/users/kidsp/appdata/local/arduino15/packages/wch/tools/riscv-none-embed-gcc/8.2.0/bin/../lib/gcc/riscv-none-embed/8.2.0/rv32imacxw/ilp32\libgcc.a(mulsf3.o)
-                0x0000000000007ada                __mulsf3
+                0x0000000000007ad8      0x294 c:/users/kidsp/appdata/local/arduino15/packages/wch/tools/riscv-none-embed-gcc/8.2.0/bin/../lib/gcc/riscv-none-embed/8.2.0/rv32imacxw/ilp32\libgcc.a(mulsf3.o)
+                0x0000000000007ad8                __mulsf3
  .text.__subsf3
-                0x0000000000007d6e      0x388 c:/users/kidsp/appdata/local/arduino15/packages/wch/tools/riscv-none-embed-gcc/8.2.0/bin/../lib/gcc/riscv-none-embed/8.2.0/rv32imacxw/ilp32\libgcc.a(subsf3.o)
-                0x0000000000007d6e                __subsf3
+                0x0000000000007d6c      0x388 c:/users/kidsp/appdata/local/arduino15/packages/wch/tools/riscv-none-embed-gcc/8.2.0/bin/../lib/gcc/riscv-none-embed/8.2.0/rv32imacxw/ilp32\libgcc.a(subsf3.o)
+                0x0000000000007d6c                __subsf3
  .text.__fixsfsi
-                0x00000000000080f6       0x62 c:/users/kidsp/appdata/local/arduino15/packages/wch/tools/riscv-none-embed-gcc/8.2.0/bin/../lib/gcc/riscv-none-embed/8.2.0/rv32imacxw/ilp32\libgcc.a(fixsfsi.o)
-                0x00000000000080f6                __fixsfsi
+                0x00000000000080f4       0x62 c:/users/kidsp/appdata/local/arduino15/packages/wch/tools/riscv-none-embed-gcc/8.2.0/bin/../lib/gcc/riscv-none-embed/8.2.0/rv32imacxw/ilp32\libgcc.a(fixsfsi.o)
+                0x00000000000080f4                __fixsfsi
  .text.__floatsisf
-                0x0000000000008158       0xc6 c:/users/kidsp/appdata/local/arduino15/packages/wch/tools/riscv-none-embed-gcc/8.2.0/bin/../lib/gcc/riscv-none-embed/8.2.0/rv32imacxw/ilp32\libgcc.a(floatsisf.o)
-                0x0000000000008158                __floatsisf
+                0x0000000000008156       0xc6 c:/users/kidsp/appdata/local/arduino15/packages/wch/tools/riscv-none-embed-gcc/8.2.0/bin/../lib/gcc/riscv-none-embed/8.2.0/rv32imacxw/ilp32\libgcc.a(floatsisf.o)
+                0x0000000000008156                __floatsisf
  .text.__floatunsisf
-                0x000000000000821e       0xce c:/users/kidsp/appdata/local/arduino15/packages/wch/tools/riscv-none-embed-gcc/8.2.0/bin/../lib/gcc/riscv-none-embed/8.2.0/rv32imacxw/ilp32\libgcc.a(floatunsisf.o)
-                0x000000000000821e                __floatunsisf
+                0x000000000000821c       0xce c:/users/kidsp/appdata/local/arduino15/packages/wch/tools/riscv-none-embed-gcc/8.2.0/bin/../lib/gcc/riscv-none-embed/8.2.0/rv32imacxw/ilp32\libgcc.a(floatunsisf.o)
+                0x000000000000821c                __floatunsisf
  .text.__extendsfdf2
-                0x00000000000082ec       0xac c:/users/kidsp/appdata/local/arduino15/packages/wch/tools/riscv-none-embed-gcc/8.2.0/bin/../lib/gcc/riscv-none-embed/8.2.0/rv32imacxw/ilp32\libgcc.a(extendsfdf2.o)
-                0x00000000000082ec                __extendsfdf2
+                0x00000000000082ea       0xac c:/users/kidsp/appdata/local/arduino15/packages/wch/tools/riscv-none-embed-gcc/8.2.0/bin/../lib/gcc/riscv-none-embed/8.2.0/rv32imacxw/ilp32\libgcc.a(extendsfdf2.o)
+                0x00000000000082ea                __extendsfdf2
  .text.__truncdfsf2
-                0x0000000000008398      0x16a c:/users/kidsp/appdata/local/arduino15/packages/wch/tools/riscv-none-embed-gcc/8.2.0/bin/../lib/gcc/riscv-none-embed/8.2.0/rv32imacxw/ilp32\libgcc.a(truncdfsf2.o)
-                0x0000000000008398                __truncdfsf2
+                0x0000000000008396      0x16a c:/users/kidsp/appdata/local/arduino15/packages/wch/tools/riscv-none-embed-gcc/8.2.0/bin/../lib/gcc/riscv-none-embed/8.2.0/rv32imacxw/ilp32\libgcc.a(truncdfsf2.o)
+                0x0000000000008396                __truncdfsf2
  .text.__clzsi2
-                0x0000000000008502       0x6e c:/users/kidsp/appdata/local/arduino15/packages/wch/tools/riscv-none-embed-gcc/8.2.0/bin/../lib/gcc/riscv-none-embed/8.2.0/rv32imacxw/ilp32\libgcc.a(_clzsi2.o)
-                0x0000000000008502                __clzsi2
- .text._close   0x0000000000008570        0xc c:/users/kidsp/appdata/local/arduino15/packages/wch/tools/riscv-none-embed-gcc/8.2.0/bin/../lib/gcc/riscv-none-embed/8.2.0/../../../../riscv-none-embed/lib/rv32imacxw/ilp32\libnosys.a(close.o)
-                0x0000000000008570                _close
- .text._getpid  0x000000000000857c        0xc c:/users/kidsp/appdata/local/arduino15/packages/wch/tools/riscv-none-embed-gcc/8.2.0/bin/../lib/gcc/riscv-none-embed/8.2.0/../../../../riscv-none-embed/lib/rv32imacxw/ilp32\libnosys.a(getpid.o)
-                0x000000000000857c                _getpid
- .text._kill    0x0000000000008588        0xc c:/users/kidsp/appdata/local/arduino15/packages/wch/tools/riscv-none-embed-gcc/8.2.0/bin/../lib/gcc/riscv-none-embed/8.2.0/../../../../riscv-none-embed/lib/rv32imacxw/ilp32\libnosys.a(kill.o)
-                0x0000000000008588                _kill
- .text._lseek   0x0000000000008594        0xc c:/users/kidsp/appdata/local/arduino15/packages/wch/tools/riscv-none-embed-gcc/8.2.0/bin/../lib/gcc/riscv-none-embed/8.2.0/../../../../riscv-none-embed/lib/rv32imacxw/ilp32\libnosys.a(lseek.o)
-                0x0000000000008594                _lseek
- .text._read    0x00000000000085a0        0xc c:/users/kidsp/appdata/local/arduino15/packages/wch/tools/riscv-none-embed-gcc/8.2.0/bin/../lib/gcc/riscv-none-embed/8.2.0/../../../../riscv-none-embed/lib/rv32imacxw/ilp32\libnosys.a(read.o)
-                0x00000000000085a0                _read
- .text._exit    0x00000000000085ac        0x2 c:/users/kidsp/appdata/local/arduino15/packages/wch/tools/riscv-none-embed-gcc/8.2.0/bin/../lib/gcc/riscv-none-embed/8.2.0/../../../../riscv-none-embed/lib/rv32imacxw/ilp32\libnosys.a(_exit.o)
-                0x00000000000085ac                _exit
+                0x0000000000008500       0x6e c:/users/kidsp/appdata/local/arduino15/packages/wch/tools/riscv-none-embed-gcc/8.2.0/bin/../lib/gcc/riscv-none-embed/8.2.0/rv32imacxw/ilp32\libgcc.a(_clzsi2.o)
+                0x0000000000008500                __clzsi2
+ .text._close   0x000000000000856e        0xc c:/users/kidsp/appdata/local/arduino15/packages/wch/tools/riscv-none-embed-gcc/8.2.0/bin/../lib/gcc/riscv-none-embed/8.2.0/../../../../riscv-none-embed/lib/rv32imacxw/ilp32\libnosys.a(close.o)
+                0x000000000000856e                _close
+ .text._getpid  0x000000000000857a        0xc c:/users/kidsp/appdata/local/arduino15/packages/wch/tools/riscv-none-embed-gcc/8.2.0/bin/../lib/gcc/riscv-none-embed/8.2.0/../../../../riscv-none-embed/lib/rv32imacxw/ilp32\libnosys.a(getpid.o)
+                0x000000000000857a                _getpid
+ .text._kill    0x0000000000008586        0xc c:/users/kidsp/appdata/local/arduino15/packages/wch/tools/riscv-none-embed-gcc/8.2.0/bin/../lib/gcc/riscv-none-embed/8.2.0/../../../../riscv-none-embed/lib/rv32imacxw/ilp32\libnosys.a(kill.o)
+                0x0000000000008586                _kill
+ .text._lseek   0x0000000000008592        0xc c:/users/kidsp/appdata/local/arduino15/packages/wch/tools/riscv-none-embed-gcc/8.2.0/bin/../lib/gcc/riscv-none-embed/8.2.0/../../../../riscv-none-embed/lib/rv32imacxw/ilp32\libnosys.a(lseek.o)
+                0x0000000000008592                _lseek
+ .text._read    0x000000000000859e        0xc c:/users/kidsp/appdata/local/arduino15/packages/wch/tools/riscv-none-embed-gcc/8.2.0/bin/../lib/gcc/riscv-none-embed/8.2.0/../../../../riscv-none-embed/lib/rv32imacxw/ilp32\libnosys.a(read.o)
+                0x000000000000859e                _read
+ .text._exit    0x00000000000085aa        0x2 c:/users/kidsp/appdata/local/arduino15/packages/wch/tools/riscv-none-embed-gcc/8.2.0/bin/../lib/gcc/riscv-none-embed/8.2.0/../../../../riscv-none-embed/lib/rv32imacxw/ilp32\libnosys.a(_exit.o)
+                0x00000000000085aa                _exit
  *(.rodata)
  *(.rodata*)
- *fill*         0x00000000000085ae        0x2 
+ *fill*         0x00000000000085ac        0x0 
  .rodata._Z12ReceiveEventi
-                0x00000000000085b0       0x3c C:\Users\kidsp\AppData\Local\arduino\sketches\56F3912E23096B05111FF3397A9CF65B\sketch\ch32_line.ino.cpp.o
+                0x00000000000085ac       0x3c C:\Users\kidsp\AppData\Local\arduino\sketches\56F3912E23096B05111FF3397A9CF65B\sketch\ch32_line.ino.cpp.o
  .rodata._Z12ReceiveEventi.str1.4
-                0x00000000000085ec      0x193 C:\Users\kidsp\AppData\Local\arduino\sketches\56F3912E23096B05111FF3397A9CF65B\sketch\ch32_line.ino.cpp.o
- *fill*         0x000000000000877f        0x1 
+                0x00000000000085e8      0x193 C:\Users\kidsp\AppData\Local\arduino\sketches\56F3912E23096B05111FF3397A9CF65B\sketch\ch32_line.ino.cpp.o
+ *fill*         0x000000000000877b        0x1 
  .rodata._Z12RequestEventv.str1.4
-                0x0000000000008780       0x11 C:\Users\kidsp\AppData\Local\arduino\sketches\56F3912E23096B05111FF3397A9CF65B\sketch\ch32_line.ino.cpp.o
- *fill*         0x0000000000008791        0x3 
+                0x000000000000877c       0x11 C:\Users\kidsp\AppData\Local\arduino\sketches\56F3912E23096B05111FF3397A9CF65B\sketch\ch32_line.ino.cpp.o
+ *fill*         0x000000000000878d        0x3 
  .rodata._Z13initCalibratev.str1.4
-                0x0000000000008794       0x22 C:\Users\kidsp\AppData\Local\arduino\sketches\56F3912E23096B05111FF3397A9CF65B\sketch\ch32_line.ino.cpp.o
- *fill*         0x00000000000087b6        0x2 
+                0x0000000000008790       0x22 C:\Users\kidsp\AppData\Local\arduino\sketches\56F3912E23096B05111FF3397A9CF65B\sketch\ch32_line.ino.cpp.o
+ *fill*         0x00000000000087b2        0x2 
  .rodata._Z30computeMovingAverageDerivativeh.cst4
-                0x00000000000087b8        0xc C:\Users\kidsp\AppData\Local\arduino\sketches\56F3912E23096B05111FF3397A9CF65B\sketch\ch32_line.ino.cpp.o
+                0x00000000000087b4        0xc C:\Users\kidsp\AppData\Local\arduino\sketches\56F3912E23096B05111FF3397A9CF65B\sketch\ch32_line.ino.cpp.o
  .rodata.loop.cst4
-                0x00000000000087c4        0x4 C:\Users\kidsp\AppData\Local\arduino\sketches\56F3912E23096B05111FF3397A9CF65B\sketch\ch32_line.ino.cpp.o
- *fill*         0x00000000000087c8        0x0 
+                0x00000000000087c0        0x4 C:\Users\kidsp\AppData\Local\arduino\sketches\56F3912E23096B05111FF3397A9CF65B\sketch\ch32_line.ino.cpp.o
+ *fill*         0x00000000000087c4        0x4 
  .rodata.loop.cst8
                 0x00000000000087c8       0x18 C:\Users\kidsp\AppData\Local\arduino\sketches\56F3912E23096B05111FF3397A9CF65B\sketch\ch32_line.ino.cpp.o
  .rodata.loop.str1.4
@@ -4033,44 +4033,42 @@ END GROUP
  *fill*         0x000000002000015c        0x4 
                 0x0000000020000960                PROVIDE (__global_pointer$ = (. + 0x800))
  *(.sdata .sdata.*)
- .sdata.current_leds_mode
-                0x0000000020000160        0x4 C:\Users\kidsp\AppData\Local\arduino\sketches\56F3912E23096B05111FF3397A9CF65B\sketch\ch32_line.ino.cpp.o
-                0x0000000020000160                current_leds_mode
  .sdata._nCounterER1.5342
-                0x0000000020000164        0x4 C:\Users\kidsp\AppData\Local\arduino\sketches\56F3912E23096B05111FF3397A9CF65B\libraries\Wire\utility\twi.c.o
+                0x0000000020000160        0x4 C:\Users\kidsp\AppData\Local\arduino\sketches\56F3912E23096B05111FF3397A9CF65B\libraries\Wire\utility\twi.c.o
  .sdata._nCounterER2.5355
-                0x0000000020000168        0x4 C:\Users\kidsp\AppData\Local\arduino\sketches\56F3912E23096B05111FF3397A9CF65B\libraries\Wire\utility\twi.c.o
+                0x0000000020000164        0x4 C:\Users\kidsp\AppData\Local\arduino\sketches\56F3912E23096B05111FF3397A9CF65B\libraries\Wire\utility\twi.c.o
  .sdata._nCounterEV1.5336
-                0x000000002000016c        0x4 C:\Users\kidsp\AppData\Local\arduino\sketches\56F3912E23096B05111FF3397A9CF65B\libraries\Wire\utility\twi.c.o
+                0x0000000020000168        0x4 C:\Users\kidsp\AppData\Local\arduino\sketches\56F3912E23096B05111FF3397A9CF65B\libraries\Wire\utility\twi.c.o
  .sdata._nCounterEV2.5349
-                0x0000000020000170        0x4 C:\Users\kidsp\AppData\Local\arduino\sketches\56F3912E23096B05111FF3397A9CF65B\libraries\Wire\utility\twi.c.o
+                0x000000002000016c        0x4 C:\Users\kidsp\AppData\Local\arduino\sketches\56F3912E23096B05111FF3397A9CF65B\libraries\Wire\utility\twi.c.o
  .sdata._ZL13g_current_pin
-                0x0000000020000174        0x4 C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(analog.cpp.o)
+                0x0000000020000170        0x4 C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(analog.cpp.o)
  .sdata.curbrk.4571
-                0x0000000020000178        0x4 C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(ch32yyxx_debug.c.o)
+                0x0000000020000174        0x4 C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(ch32yyxx_debug.c.o)
  .sdata.ADCPrescTable
-                0x000000002000017c        0x4 C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(ch32yyxx_rcc.c.o)
+                0x0000000020000178        0x4 C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(ch32yyxx_rcc.c.o)
  .sdata.SystemCoreClock
-                0x0000000020000180        0x4 C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(system_ch32yyxx.c.o)
-                0x0000000020000180                SystemCoreClock
+                0x000000002000017c        0x4 C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(system_ch32yyxx.c.o)
+                0x000000002000017c                SystemCoreClock
  .sdata._internalReadResolution
-                0x0000000020000184        0x4 C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(wiring_analog.c.o)
+                0x0000000020000180        0x4 C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(wiring_analog.c.o)
  .sdata._readResolution
-                0x0000000020000188        0x4 C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(wiring_analog.c.o)
+                0x0000000020000184        0x4 C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(wiring_analog.c.o)
  .sdata._impure_ptr
-                0x000000002000018c        0x4 c:/users/kidsp/appdata/local/arduino15/packages/wch/tools/riscv-none-embed-gcc/8.2.0/bin/../lib/gcc/riscv-none-embed/8.2.0/../../../../riscv-none-embed/lib/rv32imacxw/ilp32\libc_nano.a(lib_a-impure.o)
-                0x000000002000018c                _impure_ptr
+                0x0000000020000188        0x4 c:/users/kidsp/appdata/local/arduino15/packages/wch/tools/riscv-none-embed-gcc/8.2.0/bin/../lib/gcc/riscv-none-embed/8.2.0/../../../../riscv-none-embed/lib/rv32imacxw/ilp32\libc_nano.a(lib_a-impure.o)
+                0x0000000020000188                _impure_ptr
  *(.sdata2.*)
  .sdata2.CSWTCH.56
-                0x0000000020000190        0x4 C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(HardwareSerial.cpp.o)
+                0x000000002000018c        0x4 C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(HardwareSerial.cpp.o)
  .sdata2.CSWTCH.57
-                0x0000000020000194        0x6 C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(HardwareSerial.cpp.o)
- *fill*         0x000000002000019a        0x2 
+                0x0000000020000190        0x6 C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(HardwareSerial.cpp.o)
+ *fill*         0x0000000020000196        0x2 
  .sdata2._global_impure_ptr
-                0x000000002000019c        0x4 c:/users/kidsp/appdata/local/arduino15/packages/wch/tools/riscv-none-embed-gcc/8.2.0/bin/../lib/gcc/riscv-none-embed/8.2.0/../../../../riscv-none-embed/lib/rv32imacxw/ilp32\libc_nano.a(lib_a-impure.o)
-                0x000000002000019c                _global_impure_ptr
+                0x0000000020000198        0x4 c:/users/kidsp/appdata/local/arduino15/packages/wch/tools/riscv-none-embed-gcc/8.2.0/bin/../lib/gcc/riscv-none-embed/8.2.0/../../../../riscv-none-embed/lib/rv32imacxw/ilp32\libc_nano.a(lib_a-impure.o)
+                0x0000000020000198                _global_impure_ptr
  *(.gnu.linkonce.s.*)
                 0x00000000200001a0                . = ALIGN (0x8)
+ *fill*         0x000000002000019c        0x4 
  *(.srodata.cst16)
  *(.srodata.cst8)
  *(.srodata.cst4)
@@ -4079,7 +4077,7 @@ END GROUP
                 0x00000000200001a0                . = ALIGN (0x4)
                 0x00000000200001a0                PROVIDE (_edata = .)
 
-.bss            0x00000000200001a0      0x2a0 load address 0x00000000000092d4
+.bss            0x00000000200001a0      0x2a8 load address 0x00000000000092d4
                 0x00000000200001a0                . = ALIGN (0x4)
                 0x00000000200001a0                PROVIDE (_sbss = .)
  *(.sbss*)
@@ -4104,96 +4102,100 @@ END GROUP
  *fill*         0x00000000200001b1        0x3 
  .sbss.count    0x00000000200001b4        0x4 C:\Users\kidsp\AppData\Local\arduino\sketches\56F3912E23096B05111FF3397A9CF65B\sketch\ch32_line.ino.cpp.o
                 0x00000000200001b4                count
- .sbss.current_mode
+ .sbss.current_leds_mode
                 0x00000000200001b8        0x4 C:\Users\kidsp\AppData\Local\arduino\sketches\56F3912E23096B05111FF3397A9CF65B\sketch\ch32_line.ino.cpp.o
-                0x00000000200001b8                current_mode
+                0x00000000200001b8                current_leds_mode
+ .sbss.current_mode
+                0x00000000200001bc        0x4 C:\Users\kidsp\AppData\Local\arduino\sketches\56F3912E23096B05111FF3397A9CF65B\sketch\ch32_line.ino.cpp.o
+                0x00000000200001bc                current_mode
  .sbss.is_calibrated
-                0x00000000200001bc        0x1 C:\Users\kidsp\AppData\Local\arduino\sketches\56F3912E23096B05111FF3397A9CF65B\sketch\ch32_line.ino.cpp.o
-                0x00000000200001bc                is_calibrated
+                0x00000000200001c0        0x1 C:\Users\kidsp\AppData\Local\arduino\sketches\56F3912E23096B05111FF3397A9CF65B\sketch\ch32_line.ino.cpp.o
+                0x00000000200001c0                is_calibrated
  .sbss.lastCalPinState
-                0x00000000200001bd        0x1 C:\Users\kidsp\AppData\Local\arduino\sketches\56F3912E23096B05111FF3397A9CF65B\sketch\ch32_line.ino.cpp.o
-                0x00000000200001bd                lastCalPinState
- *fill*         0x00000000200001be        0x2 
+                0x00000000200001c1        0x1 C:\Users\kidsp\AppData\Local\arduino\sketches\56F3912E23096B05111FF3397A9CF65B\sketch\ch32_line.ino.cpp.o
+                0x00000000200001c1                lastCalPinState
+ *fill*         0x00000000200001c2        0x2 
  .sbss.load_cal
-                0x00000000200001c0        0x2 C:\Users\kidsp\AppData\Local\arduino\sketches\56F3912E23096B05111FF3397A9CF65B\sketch\ch32_line.ino.cpp.o
-                0x00000000200001c0                load_cal
- .sbss.maxval   0x00000000200001c2        0x1 C:\Users\kidsp\AppData\Local\arduino\sketches\56F3912E23096B05111FF3397A9CF65B\sketch\ch32_line.ino.cpp.o
-                0x00000000200001c2                maxval
- .sbss.minval   0x00000000200001c3        0x1 C:\Users\kidsp\AppData\Local\arduino\sketches\56F3912E23096B05111FF3397A9CF65B\sketch\ch32_line.ino.cpp.o
-                0x00000000200001c3                minval
- .sbss.nr       0x00000000200001c4        0x4 C:\Users\kidsp\AppData\Local\arduino\sketches\56F3912E23096B05111FF3397A9CF65B\sketch\ch32_line.ino.cpp.o
-                0x00000000200001c4                nr
- .sbss.pos      0x00000000200001c8        0x1 C:\Users\kidsp\AppData\Local\arduino\sketches\56F3912E23096B05111FF3397A9CF65B\sketch\ch32_line.ino.cpp.o
-                0x00000000200001c8                pos
- *fill*         0x00000000200001c9        0x3 
- .sbss.t0       0x00000000200001cc        0x4 C:\Users\kidsp\AppData\Local\arduino\sketches\56F3912E23096B05111FF3397A9CF65B\sketch\ch32_line.ino.cpp.o
-                0x00000000200001cc                t0
+                0x00000000200001c4        0x2 C:\Users\kidsp\AppData\Local\arduino\sketches\56F3912E23096B05111FF3397A9CF65B\sketch\ch32_line.ino.cpp.o
+                0x00000000200001c4                load_cal
+ .sbss.maxval   0x00000000200001c6        0x1 C:\Users\kidsp\AppData\Local\arduino\sketches\56F3912E23096B05111FF3397A9CF65B\sketch\ch32_line.ino.cpp.o
+                0x00000000200001c6                maxval
+ .sbss.minval   0x00000000200001c7        0x1 C:\Users\kidsp\AppData\Local\arduino\sketches\56F3912E23096B05111FF3397A9CF65B\sketch\ch32_line.ino.cpp.o
+                0x00000000200001c7                minval
+ .sbss.nr       0x00000000200001c8        0x4 C:\Users\kidsp\AppData\Local\arduino\sketches\56F3912E23096B05111FF3397A9CF65B\sketch\ch32_line.ino.cpp.o
+                0x00000000200001c8                nr
+ .sbss.pos      0x00000000200001cc        0x1 C:\Users\kidsp\AppData\Local\arduino\sketches\56F3912E23096B05111FF3397A9CF65B\sketch\ch32_line.ino.cpp.o
+                0x00000000200001cc                pos
+ *fill*         0x00000000200001cd        0x3 
+ .sbss.t0       0x00000000200001d0        0x4 C:\Users\kidsp\AppData\Local\arduino\sketches\56F3912E23096B05111FF3397A9CF65B\sketch\ch32_line.ino.cpp.o
+                0x00000000200001d0                t0
  .sbss.t_cal_on
-                0x00000000200001d0        0x4 C:\Users\kidsp\AppData\Local\arduino\sketches\56F3912E23096B05111FF3397A9CF65B\sketch\ch32_line.ino.cpp.o
-                0x00000000200001d0                t_cal_on
- .sbss.t_cal_stop
                 0x00000000200001d4        0x4 C:\Users\kidsp\AppData\Local\arduino\sketches\56F3912E23096B05111FF3397A9CF65B\sketch\ch32_line.ino.cpp.o
-                0x00000000200001d4                t_cal_stop
+                0x00000000200001d4                t_cal_on
+ .sbss.t_cal_stop
+                0x00000000200001d8        0x4 C:\Users\kidsp\AppData\Local\arduino\sketches\56F3912E23096B05111FF3397A9CF65B\sketch\ch32_line.ino.cpp.o
+                0x00000000200001d8                t_cal_stop
  .sbss.i2c_handles
-                0x00000000200001d8        0x8 C:\Users\kidsp\AppData\Local\arduino\sketches\56F3912E23096B05111FF3397A9CF65B\libraries\Wire\utility\twi.c.o
- .sbss.msTick   0x00000000200001e0        0x8 C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(clock.c.o)
-                0x00000000200001e0                msTick
+                0x00000000200001dc        0x8 C:\Users\kidsp\AppData\Local\arduino\sketches\56F3912E23096B05111FF3397A9CF65B\libraries\Wire\utility\twi.c.o
+ *fill*         0x00000000200001e4        0x4 
+ .sbss.msTick   0x00000000200001e8        0x8 C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(clock.c.o)
+                0x00000000200001e8                msTick
  .sbss.MCU_Version
-                0x00000000200001e8        0x1 C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(ch32yyxx_gpio.c.o)
-                0x00000000200001e8                MCU_Version
- *fill*         0x00000000200001e9        0x3 
+                0x00000000200001f0        0x1 C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(ch32yyxx_gpio.c.o)
+                0x00000000200001f0                MCU_Version
+ *fill*         0x00000000200001f1        0x3 
  .sbss._ZN12_GLOBAL__N_113__new_handlerE
-                0x00000000200001ec        0x4 c:/users/kidsp/appdata/local/arduino15/packages/wch/tools/riscv-none-embed-gcc/8.2.0/bin/../lib/gcc/riscv-none-embed/8.2.0/../../../../riscv-none-embed/lib/rv32imacxw/ilp32\libstdc++_nano.a(new_handler.o)
+                0x00000000200001f4        0x4 c:/users/kidsp/appdata/local/arduino15/packages/wch/tools/riscv-none-embed-gcc/8.2.0/bin/../lib/gcc/riscv-none-embed/8.2.0/../../../../riscv-none-embed/lib/rv32imacxw/ilp32\libstdc++_nano.a(new_handler.o)
  .sbss.__malloc_free_list
-                0x00000000200001f0        0x4 c:/users/kidsp/appdata/local/arduino15/packages/wch/tools/riscv-none-embed-gcc/8.2.0/bin/../lib/gcc/riscv-none-embed/8.2.0/../../../../riscv-none-embed/lib/rv32imacxw/ilp32\libc_nano.a(lib_a-nano-mallocr.o)
-                0x00000000200001f0                __malloc_free_list
+                0x00000000200001f8        0x4 c:/users/kidsp/appdata/local/arduino15/packages/wch/tools/riscv-none-embed-gcc/8.2.0/bin/../lib/gcc/riscv-none-embed/8.2.0/../../../../riscv-none-embed/lib/rv32imacxw/ilp32\libc_nano.a(lib_a-nano-mallocr.o)
+                0x00000000200001f8                __malloc_free_list
  .sbss.__malloc_sbrk_start
-                0x00000000200001f4        0x4 c:/users/kidsp/appdata/local/arduino15/packages/wch/tools/riscv-none-embed-gcc/8.2.0/bin/../lib/gcc/riscv-none-embed/8.2.0/../../../../riscv-none-embed/lib/rv32imacxw/ilp32\libc_nano.a(lib_a-nano-mallocr.o)
-                0x00000000200001f4                __malloc_sbrk_start
+                0x00000000200001fc        0x4 c:/users/kidsp/appdata/local/arduino15/packages/wch/tools/riscv-none-embed-gcc/8.2.0/bin/../lib/gcc/riscv-none-embed/8.2.0/../../../../riscv-none-embed/lib/rv32imacxw/ilp32\libc_nano.a(lib_a-nano-mallocr.o)
+                0x00000000200001fc                __malloc_sbrk_start
  .sbss._global_atexit
-                0x00000000200001f8        0x4 c:/users/kidsp/appdata/local/arduino15/packages/wch/tools/riscv-none-embed-gcc/8.2.0/bin/../lib/gcc/riscv-none-embed/8.2.0/../../../../riscv-none-embed/lib/rv32imacxw/ilp32\libc_nano.a(lib_a-__call_atexit.o)
-                0x00000000200001f8                _global_atexit
+                0x0000000020000200        0x4 c:/users/kidsp/appdata/local/arduino15/packages/wch/tools/riscv-none-embed-gcc/8.2.0/bin/../lib/gcc/riscv-none-embed/8.2.0/../../../../riscv-none-embed/lib/rv32imacxw/ilp32\libc_nano.a(lib_a-__call_atexit.o)
+                0x0000000020000200                _global_atexit
  *(.gnu.linkonce.sb.*)
  *(.bss*)
  .bss._ZZ30computeMovingAverageDerivativehE12derivHistory
-                0x00000000200001fc       0x20 C:\Users\kidsp\AppData\Local\arduino\sketches\56F3912E23096B05111FF3397A9CF65B\sketch\ch32_line.ino.cpp.o
- .bss.calMax    0x000000002000021c        0xd C:\Users\kidsp\AppData\Local\arduino\sketches\56F3912E23096B05111FF3397A9CF65B\sketch\ch32_line.ino.cpp.o
-                0x000000002000021c                calMax
- *fill*         0x0000000020000229        0x3 
- .bss.calMin    0x000000002000022c        0xd C:\Users\kidsp\AppData\Local\arduino\sketches\56F3912E23096B05111FF3397A9CF65B\sketch\ch32_line.ino.cpp.o
-                0x000000002000022c                calMin
- *fill*         0x0000000020000239        0x3 
- .bss.norm      0x000000002000023c        0xd C:\Users\kidsp\AppData\Local\arduino\sketches\56F3912E23096B05111FF3397A9CF65B\sketch\ch32_line.ino.cpp.o
-                0x000000002000023c                norm
- *fill*         0x0000000020000249        0x3 
- .bss.rawVals   0x000000002000024c        0xd C:\Users\kidsp\AppData\Local\arduino\sketches\56F3912E23096B05111FF3397A9CF65B\sketch\ch32_line.ino.cpp.o
-                0x000000002000024c                rawVals
- *fill*         0x0000000020000259        0x3 
- .bss.strip     0x000000002000025c       0x20 C:\Users\kidsp\AppData\Local\arduino\sketches\56F3912E23096B05111FF3397A9CF65B\sketch\ch32_line.ino.cpp.o
-                0x000000002000025c                strip
- .bss.EEPROM    0x000000002000027c        0xc C:\Users\kidsp\AppData\Local\arduino\sketches\56F3912E23096B05111FF3397A9CF65B\libraries\EEPROM\EEPROM.cpp.o
-                0x000000002000027c                EEPROM
- .bss.Wire      0x0000000020000288       0xa8 C:\Users\kidsp\AppData\Local\arduino\sketches\56F3912E23096B05111FF3397A9CF65B\libraries\Wire\Wire.cpp.o
-                0x0000000020000288                Wire
- .bss.Serial1   0x0000000020000330       0x48 C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(HardwareSerial.cpp.o)
-                0x0000000020000330                Serial1
+                0x0000000020000204       0x20 C:\Users\kidsp\AppData\Local\arduino\sketches\56F3912E23096B05111FF3397A9CF65B\sketch\ch32_line.ino.cpp.o
+ .bss.calMax    0x0000000020000224        0xd C:\Users\kidsp\AppData\Local\arduino\sketches\56F3912E23096B05111FF3397A9CF65B\sketch\ch32_line.ino.cpp.o
+                0x0000000020000224                calMax
+ *fill*         0x0000000020000231        0x3 
+ .bss.calMin    0x0000000020000234        0xd C:\Users\kidsp\AppData\Local\arduino\sketches\56F3912E23096B05111FF3397A9CF65B\sketch\ch32_line.ino.cpp.o
+                0x0000000020000234                calMin
+ *fill*         0x0000000020000241        0x3 
+ .bss.norm      0x0000000020000244        0xd C:\Users\kidsp\AppData\Local\arduino\sketches\56F3912E23096B05111FF3397A9CF65B\sketch\ch32_line.ino.cpp.o
+                0x0000000020000244                norm
+ *fill*         0x0000000020000251        0x3 
+ .bss.rawVals   0x0000000020000254        0xd C:\Users\kidsp\AppData\Local\arduino\sketches\56F3912E23096B05111FF3397A9CF65B\sketch\ch32_line.ino.cpp.o
+                0x0000000020000254                rawVals
+ *fill*         0x0000000020000261        0x3 
+ .bss.strip     0x0000000020000264       0x20 C:\Users\kidsp\AppData\Local\arduino\sketches\56F3912E23096B05111FF3397A9CF65B\sketch\ch32_line.ino.cpp.o
+                0x0000000020000264                strip
+ .bss.EEPROM    0x0000000020000284        0xc C:\Users\kidsp\AppData\Local\arduino\sketches\56F3912E23096B05111FF3397A9CF65B\libraries\EEPROM\EEPROM.cpp.o
+                0x0000000020000284                EEPROM
+ .bss.Wire      0x0000000020000290       0xa8 C:\Users\kidsp\AppData\Local\arduino\sketches\56F3912E23096B05111FF3397A9CF65B\libraries\Wire\Wire.cpp.o
+                0x0000000020000290                Wire
+ .bss.Serial1   0x0000000020000338       0x48 C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(HardwareSerial.cpp.o)
+                0x0000000020000338                Serial1
  .bss.HardwareTimer_Handle
-                0x0000000020000378       0x14 C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(HardwareTimer.cpp.o)
-                0x0000000020000378                HardwareTimer_Handle
+                0x0000000020000380       0x14 C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(HardwareTimer.cpp.o)
+                0x0000000020000380                HardwareTimer_Handle
  .bss.uart_handlers
-                0x000000002000038c       0x10 C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(uart.c.o)
+                0x0000000020000394       0x10 C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(uart.c.o)
  .bss.g_anOutputPinConfigured
-                0x000000002000039c       0x14 C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(wiring_analog.c.o)
-                0x000000002000039c                g_anOutputPinConfigured
+                0x00000000200003a4       0x14 C:\Users\kidsp\AppData\Local\arduino\cores\2b5686054c6ab046b9bd52399061f729\core.a(wiring_analog.c.o)
+                0x00000000200003a4                g_anOutputPinConfigured
  .bss._global_atexit0
-                0x00000000200003b0       0x8c c:/users/kidsp/appdata/local/arduino15/packages/wch/tools/riscv-none-embed-gcc/8.2.0/bin/../lib/gcc/riscv-none-embed/8.2.0/../../../../riscv-none-embed/lib/rv32imacxw/ilp32\libc_nano.a(lib_a-__atexit.o)
+                0x00000000200003b8       0x8c c:/users/kidsp/appdata/local/arduino15/packages/wch/tools/riscv-none-embed-gcc/8.2.0/bin/../lib/gcc/riscv-none-embed/8.2.0/../../../../riscv-none-embed/lib/rv32imacxw/ilp32\libc_nano.a(lib_a-__atexit.o)
  *(.gnu.linkonce.b.*)
  *(COMMON*)
- COMMON         0x000000002000043c        0x4 c:/users/kidsp/appdata/local/arduino15/packages/wch/tools/riscv-none-embed-gcc/8.2.0/bin/../lib/gcc/riscv-none-embed/8.2.0/../../../../riscv-none-embed/lib/rv32imacxw/ilp32\libc_nano.a(lib_a-reent.o)
-                0x000000002000043c                errno
-                0x0000000020000440                . = ALIGN (0x4)
-                0x0000000020000440                PROVIDE (_ebss = .)
-                0x0000000020000440                PROVIDE (_end = _ebss)
+ COMMON         0x0000000020000444        0x4 c:/users/kidsp/appdata/local/arduino15/packages/wch/tools/riscv-none-embed-gcc/8.2.0/bin/../lib/gcc/riscv-none-embed/8.2.0/../../../../riscv-none-embed/lib/rv32imacxw/ilp32\libc_nano.a(lib_a-reent.o)
+                0x0000000020000444                errno
+                0x0000000020000448                . = ALIGN (0x4)
+                0x0000000020000448                PROVIDE (_ebss = .)
+                0x0000000020000448                PROVIDE (_end = _ebss)
                 [!provide]                        PROVIDE (end = .)
 
 .stack          0x0000000020004800      0x800

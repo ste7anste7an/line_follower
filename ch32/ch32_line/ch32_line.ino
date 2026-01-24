@@ -103,7 +103,7 @@ typedef enum {
 
 
 Modes current_mode = MODE_RAW;
-LedsMode current_leds_mode = LEDS_NORMAL;
+LedsMode current_leds_mode = LEDS_OFF;
 bool is_calibrated = false;
 bool inverted = true;
 int nr = 0;
@@ -598,7 +598,7 @@ void setup() {
   strip.begin();
   strip.show();  // Turn off pixels
   // start with IR leds off
-  setEmitter(1);
+  setEmitter(0);
   pinMode(CALLIBRATE_PIN, INPUT_PULLDOWN);
   Serial.begin(115200);
   Serial.println("I2C slave @address 0x33");
@@ -618,20 +618,21 @@ void setup() {
 
   for (int n = 0; n < 3; n++) {
     for (int i = 0; i < NUM_SENSORS; i++) {
-      strip.setPixelColor(i, strip.Color(0, 0, 40));
+      strip.setPixelColor(i, strip.Color(0, 0, 10));
       strip.show();
       delay(30);
       strip.setPixelColor(i, strip.Color(0, 0, 0));
       strip.show();
     }
     for (int i = 0; i < NUM_SENSORS; i++) {
-      strip.setPixelColor(NUM_SENSORS - i - 1, strip.Color(0, 0, 40));
+      strip.setPixelColor(NUM_SENSORS - i - 1, strip.Color(0, 0, 10));
       strip.show();
       delay(30);
       strip.setPixelColor(NUM_SENSORS - i - 1, strip.Color(0, 0, 0));
       strip.show();
     }
   }
+  strip.clear();
 }
 
 
