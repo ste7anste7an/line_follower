@@ -76,53 +76,53 @@ to switch {
   }
 }
 
-script 194 50 ('is calibrated')
+script 192 50 ('is calibrated')
 
-script 57 59 ('read line')
+script 55 59 ('read line')
 
-script 784 76 {
+script 782 76 {
 'save calibration'
 }
 
-script 459 90 {
+script 457 90 {
 '[file:open]' 'cal_val.bin'
 }
 
-script 195 98 ('get calibration' 'minimum')
+script 193 98 ('get calibration' 'minimum')
 
-script 785 127 {
+script 783 127 {
 'load calibration'
 }
 
-script 191 139 ('get calibration' 'maximum')
+script 189 139 ('get calibration' 'maximum')
 
-script 461 143 ('[file:readBytes]' 8 'cal_val.bin')
+script 459 143 ('[file:readBytes]' 8 'cal_val.bin')
 
-script 183 185 {
+script 181 185 {
 command 'save calibration'
 }
 
-script 496 202 {
+script 494 202 {
 '[file:close]' 'cal_val.bin'
 }
 
-script 735 205 (v _line_buf)
+script 733 205 (v _line_buf)
 
-script 1026 211 (v _line_min)
+script 1024 211 (v _line_min)
 
-script 900 212 (v _line_pos)
+script 898 212 (v _line_pos)
 
-script 1136 213 (v _line_max)
+script 1134 213 (v _line_max)
 
-script 279 233 {
+script 277 233 {
 'led mode' 'position'
 }
 
-script 60 234 ('get version')
+script 58 234 ('get version')
 
-script 70 274 ('is calibrated')
+script 68 274 ('is calibrated')
 
-script 281 290 {
+script 279 290 {
 whenCondition calibrate
 comment 'start calibration for 10 seconds'
 command 'calibrate'
@@ -136,7 +136,7 @@ if ('[tft:LVGLgetval]' 'cal_val') {
 calibrate = (booleanConstant false)
 }
 
-script 625 290 {
+script 623 290 {
 whenStarted
 init
 comment 'start line follower with 8 sensors and plot'
@@ -189,61 +189,61 @@ forever {
 }
 }
 
-script 73 335 {
+script 71 335 {
 'store calibration'
 }
 
-script 1070 443 (v _pup_connected)
+script 1068 443 (v _pup_connected)
 
-script 52 457 {
+script 50 457 {
 'restore calibration'
 }
 
-script 320 659 {
+script 318 659 {
 to Calibrate {}
 }
 
-script 123 696 {
+script 121 696 {
 to switch {}
 }
 
-script 123 696 {
+script 121 696 {
 to switch {}
 }
 
-script 123 696 {
+script 121 696 {
 to switch {}
 }
 
-script 123 696 {
+script 121 696 {
 to switch {}
 }
 
-script 390 894 {
+script 388 894 {
 to Load {}
 }
 
-script 390 894 {
+script 388 894 {
 to Load {}
 }
 
-script 390 894 {
+script 388 894 {
 to Load {}
 }
 
-script 390 894 {
+script 388 894 {
 to Load {}
 }
 
-script 123 950 {
+script 121 950 {
 to inverting {}
 }
 
-script 216 1107 {
+script 214 1107 {
 'led mode' 'position'
 }
 
-script 92 1188 {
+script 90 1188 {
 'led mode' 'off'
 forever {
   for i 8 {
@@ -259,29 +259,29 @@ forever {
 }
 }
 
-script 1138 1199 {
+script 1136 1199 {
 graphIt (_line_pos - 128) (_line_derivative - 128)
 }
 
-script 907 1512 (v a)
+script 905 1512 (v a)
 
-script 1211 1523 {
+script 1209 1523 {
 graphIt (at 1 _line_buf)
 }
 
-script 1045 1628 {
+script 1043 1628 {
 to shape {}
 }
 
-script 279 1634 {
+script 277 1634 {
 to line {}
 }
 
-script 176 1768 {
+script 174 1768 {
 to active {}
 }
 
-script 462 1871 {
+script 460 1871 {
 forever {
   graphIt _pup_connected
 }

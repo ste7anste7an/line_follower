@@ -40,7 +40,7 @@ inline const char *logLevelStr(LogLevel level) {
 
 
 #define MAJ_VERSION 2
-#define MIN_VERSION 3
+#define MIN_VERSION 4
 
 
 #define NUM_SENSORS 8
