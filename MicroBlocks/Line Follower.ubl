@@ -111,7 +111,7 @@ to 'get version' {
   command 'get version'
   '[sensors:i2cRead]' 51 tmp
   _can_measure = (booleanConstant false)
-  return tmp
+  return ('[data:join]' (at 1 tmp) '.' (at 2 tmp))
 }
 
 to init_line 'number of sensors' plot {
@@ -129,7 +129,7 @@ to init_line 'number of sensors' plot {
       '[tft:LVGLsetattribute]' 'range' ('_bar_nr' i) 0 255
     }
   }
-  _line_buf = (newList (_nr_sensors + 4))
+  _line_buf = (newList (_nr_sensors + 5))
 }
 
 to invert inverted {
@@ -186,21 +186,19 @@ to position_i2c {
 
 to 'read line' {
   if _can_measure {
-    '[sensors:i2cRead]' 51 _line_buf
-    if _inverted {
-      for i _nr_sensors {
-        atPut i _line_buf (255 - (at i _line_buf))
-      }
+    if _inverted {for i _nr_sensors {
+      atPut i _line_buf (255 - (at i _line_buf))
     }
-    if _line_plot {
-      for i _nr_sensors {
-        '[tft:LVGLsetval]' ('_bar_nr' i) (at i _line_buf)
-      }
+}
+    if _line_plot {for i _nr_sensors {
+      '[tft:LVGLsetval]' ('_bar_nr' i) (at i _line_buf)
     }
+}
     _line_pos = (at (_nr_sensors + 1) _line_buf)
     _line_min = (at (_nr_sensors + 2) _line_buf)
     _line_max = (at (_nr_sensors + 3) _line_buf)
     _line_derivative = (at (_nr_sensors + 4) _line_buf)
+    _line_shape = (at (_nr_sensors + 5) _line_buf)
     return _line_buf
   }
 }

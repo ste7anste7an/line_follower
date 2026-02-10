@@ -40,7 +40,13 @@ inline const char *logLevelStr(LogLevel level) {
 
 
 #define MAJ_VERSION 2
-#define MIN_VERSION 4
+#define MIN_VERSION 5
+/*
+2.5 fixed colors: green for MODE_CAL and red for MODE_RAW
+
+
+
+*/
 
 
 #define NUM_SENSORS 8
@@ -297,7 +303,7 @@ void show_neopixel(uint8_t buf[]) {
     for (int i = 0; i < NUM_SENSORS; i++) {
       uint8_t intensity = (uint8_t)(buf[i] / 16);
       if (intensity<2) intensity=0;
-      if (is_calibrated)
+      if (current_mode==MODE_CAL)
         strip.setPixelColor(i, strip.Color(0, intensity, 0));  // Green
       else
         strip.setPixelColor(i, strip.Color(intensity, 0, 0));  // Red
