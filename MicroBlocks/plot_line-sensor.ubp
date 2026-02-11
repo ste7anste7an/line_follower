@@ -61,7 +61,7 @@ to 'init bar graph' {
 }
 
 to inverting {
-  inverted = ('[tft:LVGLgetval]' 'inverting')
+  'line sensor invert' ('[tft:LVGLgetval]' 'inverting')
 }
 
 to line {
@@ -108,19 +108,21 @@ to switch {
   }
 }
 
-script 751 50 {
+script 336 50 ('read line')
+
+script 751 90 {
 'set emitter level' true
 }
 
-script 324 59 {
-command 'mode calibrated'
+script 324 99 {
+command 'get maximum'
 }
 
-script 102 67 {
+script 102 107 {
 'restore calibration'
 }
 
-script 280 123 {
+script 280 163 {
 whenCondition calibrate
 comment 'start calibration for 10 seconds'
 command 'calibrate'
@@ -134,7 +136,7 @@ if ('[tft:LVGLgetval]' 'cal_val') {
 calibrate = (booleanConstant false)
 }
 
-script 624 123 {
+script 624 163 {
 whenStarted
 'init bar graph'
 comment 'start line follower with 8 sensors and plot'
@@ -176,56 +178,69 @@ add_callback 'Load'
 add_callback 'active'
 calibrate = (booleanConstant false)
 forever {
+  'line sensor update'
   'plot bar'
   handle_event
-  '[tft:LVGLsetval]' 'position' (position)
   comment 'add green process here when connected to lego'
 }
 }
 
-script 119 170 (position)
+script 119 210 (position)
 
-script 946 212 {
+script 946 252 {
 to 'init bar graph' {}
 }
 
-script 148 502 {
+script 70 291 {
+'store calibration'
+}
+
+script 148 542 {
 to Calibrate {}
 }
 
-script 50 716 {
+script 50 756 {
 to inverting {}
 }
 
-script 215 940 {
+script 120 884 ('read line')
+
+script 215 980 {
 'led mode' 'position'
 }
 
-script 133 983 (v inverted)
+script 133 1023 (v inverted)
 
-script 155 1162 {
+script 155 1202 {
 to line {}
 }
 
-script 157 1325 {
+script 157 1365 {
 to active {}
 }
 
-script 641 1506 {
+script 467 1411 {
+forever {
+  '[tft:LVGLsetval]' 'position' (position)
+  waitMillis 100
+}
+}
+
+script 641 1546 {
 forever {
   graphIt (position)
 }
 }
 
-script 188 1636 {
+script 188 1676 {
 to bar_nr {}
 }
 
-script 773 1773 {
+script 773 1813 {
 sayIt ('line sensor shape')
 }
 
-script 50 1821 {
+script 50 1861 {
 to 'plot bar' {}
 }
 
@@ -390,10 +405,12 @@ version 1 4
 choices led_modes off on inverted position 
 choices commands 'mode raw' 'mode calibrated' 'get version' debug calibrate 'is calibrated' 'load calibration' 'save calibration' 'get minimum' 'get maximum' 'set minimum' 'set maximum' neopixel 'set leds' 
 description 'I2C Line follower on ch32v203'
-variables _can_measure 
+variables _can_measure _line_data _line_inverted 
 
-  spec ' ' 'line init' 'line init'
-  spec 'r' 'read line' 'line sensor read values'
+  spec ' ' 'line init' 'line sensor init'
+  spec ' ' 'line sensor update' 'line sensor update'
+  spec ' ' 'line sensor invert' 'line sensor invert _' 'bool' true
+  spec 'r' 'read line' 'line sensor values'
   spec 'r' 'position' 'line position'
   spec 'r' 'line position derative' 'line position deravitive'
   spec 'r' 'line sensor shape' 'line sensor shape'
@@ -487,19 +504,22 @@ to 'line init' {
 }
 
 to 'line position derative' {
-  local 'buf' (newList 13)
-  if _can_measure {
-    '[sensors:i2cRead]' 51 buf
-  }
-  return ((at 12 buf) - 128)
+  return ((at 12 _line_data) - 128)
+}
+
+to 'line sensor invert' inverted {
+  _line_inverted = inverted
 }
 
 to 'line sensor shape' {
-  local 'buf' (newList 13)
+  return (at 13 _line_data)
+}
+
+to 'line sensor update' {
+  _line_data = (newList 13)
   if _can_measure {
-    '[sensors:i2cRead]' 51 buf
+    '[sensors:i2cRead]' 51 _line_data
   }
-  return ('[data:unicodeString]' (at 13 buf))
 }
 
 to neopixel nr color {
@@ -510,17 +530,19 @@ to neopixel nr color {
 }
 
 to position {
-  local 'buf' (newList 9)
-  if _can_measure {
-    '[sensors:i2cRead]' 51 buf
-  }
-  return ((at 9 buf) - 128)
+  return ((at 9 _line_data) - 128)
 }
 
 to 'read line' {
   local 'buf' (newList 8)
-  if _can_measure {
-    '[sensors:i2cRead]' 51 buf
+  if _line_inverted {
+    for i 8 {
+      atPut i buf (255 - (at i _line_data))
+    }
+  } else {
+    for i 8 {
+      atPut i buf (at i _line_data)
+    }
   }
   return buf
 }

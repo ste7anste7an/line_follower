@@ -1,3 +1,54 @@
+module main
+author unknown
+version 1 0 
+description ''
+
+script 636 152 {
+whenStarted
+'line init'
+'set emitter level' true
+'led mode' 'on'
+forever {
+  comment 'read all values from sensor'
+  'line sensor update'
+  comment 'plot position and derivative'
+  graphIt (position) ('line position derative')
+  comment 'shape: |, <, >, T Y or '' '' (space=no line)'
+  sayIt ('[data:unicodeString]' ('line sensor shape'))
+}
+}
+
+script 259 183 {
+comment 'click here to see values of sensors'
+}
+
+script 277 219 ('read line')
+
+script 236 279 {
+comment 'start calibration, blue led flashing'
+command 'calibrate'
+}
+
+script 240 372 {
+comment 'choose calibrated values'
+command 'mode calibrated'
+}
+
+script 242 474 {
+comment 'choose raw values'
+command 'mode raw'
+}
+
+script 665 533 {
+comment 'open graph to see position and derivative'
+}
+
+script 238 565 {
+comment 'invert line sensor values'
+'line sensor invert' true
+}
+
+
 module 'Line Follower' Input
 author Ste7an
 version 1 4 
