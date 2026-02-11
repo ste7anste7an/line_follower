@@ -40,18 +40,18 @@ inline const char *logLevelStr(LogLevel level) {
 
 
 #define MAJ_VERSION 2
-#define MIN_VERSION 6
+#define MIN_VERSION 8
 /*
 2.5 fixed colors: green for MODE_CAL and red for MODE_RAW
 2.6 add line position also for MODE_RAW
-
-
+2.7 changed weighted position, and refoactored code in main loop.
+2.8 changed smoothing derivative
 */
 
 
 #define NUM_SENSORS 8
 #define THRESHOLD 50  // ignore reading below 50 for calculating position
-#define N_SAMPLES 8   // number of derivative samples to average
+#define N_SAMPLES 20   // number of derivative samples to average
 
 #define NEOPIXEL_PIN PB11   // any PAx / PBx pin works
 #define CALLIBRATE_PIN PB1  // connected to BOOT0.
@@ -334,6 +334,38 @@ void computeNormalized(const uint8_t raw[], uint8_t normOut[]) {
   }
 }
 
+uint8_t filterPosition(uint8_t raw)
+{
+  
+    static int16_t y = 0;   // filtered output (keep signed internally)
+
+    // ---- convert to signed ----
+    int16_t x = (int16_t)raw - 128;
+
+    // ---- slew limiter (kills spikes) ----
+    const int16_t MAX_STEP = 4;   // tune 3..12
+    int16_t diff = x - y;
+
+    if (diff >  MAX_STEP) diff =  MAX_STEP;
+    if (diff < -MAX_STEP) diff = -MAX_STEP;
+
+    y += diff;
+
+    // ---- IIR smoothing (kills jitter) ----
+    // larger shift = smoother but slower
+    const uint8_t SMOOTH_SHIFT = 3;   // 1=fast  4=very smooth
+    y += (x - y) >> SMOOTH_SHIFT;
+
+    // ---- convert back to uint8 ----
+    int16_t out = y + 128;
+    if (out < 0) out = 0;
+    if (out > 255) out = 255;
+
+    return (uint8_t)out;
+}
+
+
+
 bool getLinePosition(const uint8_t vals[], uint8_t &posOut, uint8_t &minOut, uint8_t &maxOut) {
   long weighted_sum = 0;
   long sum = 0;
@@ -362,8 +394,51 @@ bool getLinePosition(const uint8_t vals[], uint8_t &posOut, uint8_t &minOut, uin
   return true;
 }
 
+uint8_t computeMovingAverageDerivative(uint8_t pos)
+{
+    const uint8_t WINDOW = N_SAMPLES;   // e.g. 20
 
-uint8_t computeMovingAverageDerivative(uint8_t pos) {
+    static uint8_t posHist[WINDOW];
+    static uint32_t timeHist[WINDOW];
+    static uint8_t idx = 0;
+    static bool full = false;
+
+    uint32_t now = millis();
+
+    uint8_t oldPos = posHist[idx];
+    uint32_t oldTime = timeHist[idx];
+
+    posHist[idx] = pos;
+    timeHist[idx] = now;
+
+    idx++;
+    if (idx >= WINDOW) { idx = 0; full = true; }
+
+    if (!full) return 128;
+    uint8_t posFiltered = filterPosition(pos);
+    int16_t deltaPos = (int16_t)posFiltered - (int16_t)oldPos;
+
+    // wraparound correction
+    if (deltaPos > 128) deltaPos -= 256;
+    else if (deltaPos < -128) deltaPos += 256;
+
+    uint32_t deltaTime = now - oldTime;
+    if (deltaTime == 0) return 128;
+
+    // scaled derivative (integer)
+    // scale factor controls sensitivity (tune 50..200)
+    int32_t deriv = (deltaPos * 120) / (int32_t)deltaTime;
+
+    int32_t out = 128 + deriv;
+
+    if (out < 0) out = 0;
+    if (out > 255) out = 255;
+
+    return (uint8_t)out;
+}
+
+
+uint8_t computeMovingAverageDerivative2(uint8_t pos) {
   static uint8_t lastPos = 0;
   static uint32_t lastTime = 0;
   static bool initialized = false;
@@ -598,26 +673,52 @@ void RequestEvent() {
   }
 }
 
-void showPositionLED(uint8_t pos, uint8_t r, uint8_t g, uint8_t b)
-{
-    uint16_t scaled = (uint16_t)pos * NUM_SENSORS; // 0..2040
-    uint8_t i = scaled >> 8;                       // /256
-    uint8_t frac = scaled & 0xFF;                  // remainder
+void showPositionLED(uint8_t pos, uint8_t r, uint8_t g, uint8_t b) {
+  uint16_t scaled = (uint16_t)pos * NUM_SENSORS;  // 0..2040
+  uint8_t i = scaled >> 8;                        // /256
+  uint8_t frac = scaled & 0xFF;                   // remainder
 
-    uint8_t j = i + 1;
-    if (j >= NUM_SENSORS) j = NUM_SENSORS - 1;
+  uint8_t j = i + 1;
+  if (j >= NUM_SENSORS) j = NUM_SENSORS - 1;
 
-    uint8_t Ri = (r * (255 - frac)) >> 8;
-    uint8_t Rj = (r * frac) >> 8;
-    uint8_t Gi = (g * (255 - frac)) >> 8;
-    uint8_t Gj = (g * frac) >> 8;
-    uint8_t Bi = (b * (255 - frac)) >> 8;
-    uint8_t Bj = (b * frac) >> 8;
+  uint8_t Ri = (r * (255 - frac)) >> 8;
+  uint8_t Rj = (r * frac) >> 8;
+  uint8_t Gi = (g * (255 - frac)) >> 8;
+  uint8_t Gj = (g * frac) >> 8;
+  uint8_t Bi = (b * (255 - frac)) >> 8;
+  uint8_t Bj = (b * frac) >> 8;
 
-    strip.clear();
-    if (i < NUM_SENSORS) strip.setPixelColor(i, strip.Color(Ri,Gi,Bi));
-    if (j < NUM_SENSORS) strip.setPixelColor(j, strip.Color(Rj,Gj,Bj));
-    strip.show();
+  strip.clear();
+  if (i < NUM_SENSORS) strip.setPixelColor(i, strip.Color(Ri, Gi, Bi));
+  if (j < NUM_SENSORS) strip.setPixelColor(j, strip.Color(Rj, Gj, Bj));
+  strip.show();
+}
+
+void processLine(uint8_t *vals,
+                 bool allowLostReset,
+                 bool computeDerivative,
+                 uint8_t ledR, uint8_t ledG, uint8_t ledB) {
+  if (current_leds_mode != LEDS_POSITION)
+    show_neopixel(vals);
+
+  if (getLinePosition(vals, pos, minval, maxval)) {
+    if (current_leds_mode == LEDS_POSITION)
+      showPositionLED(pos, ledR, ledG, ledB);
+
+    norm[NUM_SENSORS] = pos;
+    norm[NUM_SENSORS + 1] = minval;
+    norm[NUM_SENSORS + 2] = maxval;
+    norm[NUM_SENSORS + 4] = detect_shape(norm);
+  } else if (allowLostReset) {
+    pos = 0;
+    norm[NUM_SENSORS] = 0;
+    norm[NUM_SENSORS + 1] = 0;
+    norm[NUM_SENSORS + 2] = 0;
+    norm[NUM_SENSORS + 4] = 0;
+  }
+
+  if (computeDerivative)
+    norm[NUM_SENSORS + 3] = computeMovingAverageDerivative(pos);
 }
 
 
@@ -682,81 +783,12 @@ void loop() {
 
   switch (current_mode) {
     case MODE_RAW:
-      if (current_leds_mode != LEDS_POSITION)
-        show_neopixel(rawVals);
-      if (getLinePosition(rawVals, pos, minval, maxval)) {
-        if (current_leds_mode == LEDS_POSITION) {
-          float fpos = pos * (NUM_SENSORS * 1.0 / 256.0);
-          int i = floor(fpos);    // left LED
-          float frac = fpos - i;  // blend factor
-
-          int j = i + 1;  // right LED
-          if (j >= NUM_SENSORS) j = NUM_SENSORS - 1;
-
-          const int R = 20;
-          const int G = 0;
-          const int B = 0;
-
-          // Calculate intensity
-          int R_i = R * (1.0 - frac);
-          int R_j = R * frac;
-
-          // Light LEDs
-          strip.clear();
-          if (i >= 0 && i < NUM_SENSORS)
-            strip.setPixelColor(i, strip.Color(R_i, G, B));
-          if (j >= 0 && j < NUM_SENSORS)
-            strip.setPixelColor(j, strip.Color(R_j, G, B));
-          strip.show();
-        }
-        norm[NUM_SENSORS] = pos;
-        norm[NUM_SENSORS + 1] = minval;
-        norm[NUM_SENSORS + 2] = maxval;
-        norm[NUM_SENSORS + 4] = detect_shape(norm);
-      }
+      processLine(rawVals, false, false, 20, 0, 0);
       break;
+
     case MODE_CAL:
       computeNormalized(rawVals, norm);
-      if (current_leds_mode != LEDS_POSITION)
-        show_neopixel(norm);
-      if (getLinePosition(norm, pos, minval, maxval)) {
-        if (current_leds_mode == LEDS_POSITION) {
-          float fpos = pos * (NUM_SENSORS * 1.0 / 256.0);
-          int i = floor(fpos);    // left LED
-          float frac = fpos - i;  // blend factor
-
-          int j = i + 1;  // right LED
-          if (j >= NUM_SENSORS) j = NUM_SENSORS - 1;
-
-          const int R = 0;
-          const int G = 20;
-          const int B = 0;
-
-          // Calculate intensity
-          int R_i = R * (1.0 - frac);
-          int R_j = R * frac;
-
-          // Light LEDs
-          strip.clear();
-          if (i >= 0 && i < NUM_SENSORS)
-            strip.setPixelColor(i, strip.Color(R_i, G, B));
-          if (j >= 0 && j < NUM_SENSORS)
-            strip.setPixelColor(j, strip.Color(R_j, G, B));
-          strip.show();
-        }
-        norm[NUM_SENSORS] = pos;
-        norm[NUM_SENSORS + 1] = minval;
-        norm[NUM_SENSORS + 2] = maxval;
-        norm[NUM_SENSORS + 4] = detect_shape(norm);
-      } else {
-        pos = 0;
-        norm[NUM_SENSORS] = 0;
-        norm[NUM_SENSORS + 1] = 0;
-        norm[NUM_SENSORS + 2] = 0;
-        norm[NUM_SENSORS + 4] = 0;
-      }
-
-      norm[NUM_SENSORS + 3] = computeMovingAverageDerivative(pos);
+      processLine(norm, true, true, 0, 20, 0);
       break;
     case MODE_CALIBRATING:
       show_neopixel(rawVals);
