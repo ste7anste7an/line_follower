@@ -6,7 +6,7 @@ description ''
   spec 'r' 'pos' 'pos'
 
 to pos {
-  return ('[data:makeList]' 123 321)
+  return ('[data:makeList]' (position) ('line sensor shape'))
 }
 
 script 383 50 {
@@ -21,14 +21,6 @@ sayIt (timer)
 
 script 751 61 ('read line')
 
-script 64 116 {
-'line init'
-'led mode' 'on'
-'set emitter level' true
-'restore calibration'
-command 'mode calibrated'
-}
-
 script 62 279 {
 command 'mode raw'
 }
@@ -42,9 +34,15 @@ forever {
 
 script 564 469 {
 whenStarted
+'line init'
+'led mode' 'on'
+'set emitter level' true
+'restore calibration'
+command 'mode calibrated'
 init
 add_command 'pos' 2 0 'b'
 forever {
+  'line sensor update'
   process
 }
 }
@@ -53,10 +51,6 @@ script 57 546 {
 to pos {}
 }
 
-script 50 708 (return ('[data:makeList]' (position) ('line sensor shape')))
-
-script 404 736 (pos)
-
 
 module 'Line Follower' Input
 author Ste7an
@@ -64,10 +58,12 @@ version 1 4
 choices led_modes off on inverted position 
 choices commands 'mode raw' 'mode calibrated' 'get version' debug calibrate 'is calibrated' 'load calibration' 'save calibration' 'get minimum' 'get maximum' 'set minimum' 'set maximum' neopixel 'set leds' 
 description 'I2C Line follower on ch32v203'
-variables _can_measure 
+variables _can_measure _line_data _line_inverted 
 
-  spec ' ' 'line init' 'line init'
-  spec 'r' 'read line' 'line sensor read values'
+  spec ' ' 'line init' 'line sensor init'
+  spec ' ' 'line sensor update' 'line sensor update'
+  spec ' ' 'line sensor invert' 'line sensor invert _' 'bool' true
+  spec 'r' 'read line' 'line sensor values'
   spec 'r' 'position' 'line position'
   spec 'r' 'line position derative' 'line position deravitive'
   spec 'r' 'line sensor shape' 'line sensor shape'
@@ -161,19 +157,22 @@ to 'line init' {
 }
 
 to 'line position derative' {
-  local 'buf' (newList 13)
-  if _can_measure {
-    '[sensors:i2cRead]' 51 buf
-  }
-  return ((at 12 buf) - 128)
+  return ((at 12 _line_data) - 128)
+}
+
+to 'line sensor invert' inverted {
+  _line_inverted = inverted
 }
 
 to 'line sensor shape' {
-  local 'buf' (newList 13)
+  return (at 13 _line_data)
+}
+
+to 'line sensor update' {
+  _line_data = (newList 13)
   if _can_measure {
-    '[sensors:i2cRead]' 51 buf
+    '[sensors:i2cRead]' 51 _line_data
   }
-  return ('[data:unicodeString]' (at 13 buf))
 }
 
 to neopixel nr color {
@@ -184,17 +183,19 @@ to neopixel nr color {
 }
 
 to position {
-  local 'buf' (newList 9)
-  if _can_measure {
-    '[sensors:i2cRead]' 51 buf
-  }
-  return ((at 9 buf) - 128)
+  return ((at 9 _line_data) - 128)
 }
 
 to 'read line' {
   local 'buf' (newList 8)
-  if _can_measure {
-    '[sensors:i2cRead]' 51 buf
+  if _line_inverted {
+    for i 8 {
+      atPut i buf (255 - (at i _line_data))
+    }
+  } else {
+    for i 8 {
+      atPut i buf (at i _line_data)
+    }
   }
   return buf
 }
