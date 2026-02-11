@@ -40,18 +40,19 @@ inline const char *logLevelStr(LogLevel level) {
 
 
 #define MAJ_VERSION 2
-#define MIN_VERSION 8
+#define MIN_VERSION 9
 /*
 2.5 fixed colors: green for MODE_CAL and red for MODE_RAW
 2.6 add line position also for MODE_RAW
 2.7 changed weighted position, and refoactored code in main loop.
 2.8 changed smoothing derivative
+2.9 add position also for raw
 */
 
 
 #define NUM_SENSORS 8
 #define THRESHOLD 50  // ignore reading below 50 for calculating position
-#define N_SAMPLES 20   // number of derivative samples to average
+#define N_SAMPLES 50  // number of derivative samples to average
 
 #define NEOPIXEL_PIN PB11   // any PAx / PBx pin works
 #define CALLIBRATE_PIN PB1  // connected to BOOT0.
@@ -172,14 +173,13 @@ void wdt_feed() {
 #define THRESHOLD_BLACK 100  // Anything below = black, above = white
 
 typedef enum {
-  LINE_NONE,
-  LINE_STRAIGHT,
-  LINE_T,
-  LINE_L_LEFT,
-  LINE_L_RIGHT,
-  LINE_Y
+  LINE_NONE     = ' ',
+  LINE_STRAIGHT = '|',
+  LINE_T        = 'T',
+  LINE_L_LEFT   = '<',
+  LINE_L_RIGHT  = '>',
+  LINE_Y        = 'Y'
 } line_shape_t;
-
 
 
 uint8_t detect_shape(uint8_t s[]) {
@@ -334,34 +334,33 @@ void computeNormalized(const uint8_t raw[], uint8_t normOut[]) {
   }
 }
 
-uint8_t filterPosition(uint8_t raw)
-{
-  
-    static int16_t y = 0;   // filtered output (keep signed internally)
+uint8_t filterPosition(uint8_t raw) {
 
-    // ---- convert to signed ----
-    int16_t x = (int16_t)raw - 128;
+  static int16_t y = 0;  // filtered output (keep signed internally)
 
-    // ---- slew limiter (kills spikes) ----
-    const int16_t MAX_STEP = 4;   // tune 3..12
-    int16_t diff = x - y;
+  // ---- convert to signed ----
+  int16_t x = (int16_t)raw - 128;
 
-    if (diff >  MAX_STEP) diff =  MAX_STEP;
-    if (diff < -MAX_STEP) diff = -MAX_STEP;
+  // ---- slew limiter (kills spikes) ----
+  const int16_t MAX_STEP = 4;  // tune 3..12
+  int16_t diff = x - y;
 
-    y += diff;
+  if (diff > MAX_STEP) diff = MAX_STEP;
+  if (diff < -MAX_STEP) diff = -MAX_STEP;
 
-    // ---- IIR smoothing (kills jitter) ----
-    // larger shift = smoother but slower
-    const uint8_t SMOOTH_SHIFT = 3;   // 1=fast  4=very smooth
-    y += (x - y) >> SMOOTH_SHIFT;
+  y += diff;
 
-    // ---- convert back to uint8 ----
-    int16_t out = y + 128;
-    if (out < 0) out = 0;
-    if (out > 255) out = 255;
+  // ---- IIR smoothing (kills jitter) ----
+  // larger shift = smoother but slower
+  const uint8_t SMOOTH_SHIFT = 3;  // 1=fast  4=very smooth
+  y += (x - y) >> SMOOTH_SHIFT;
 
-    return (uint8_t)out;
+  // ---- convert back to uint8 ----
+  int16_t out = y + 128;
+  if (out < 0) out = 0;
+  if (out > 255) out = 255;
+
+  return (uint8_t)out;
 }
 
 
@@ -394,47 +393,49 @@ bool getLinePosition(const uint8_t vals[], uint8_t &posOut, uint8_t &minOut, uin
   return true;
 }
 
-uint8_t computeMovingAverageDerivative(uint8_t pos)
-{
-    const uint8_t WINDOW = N_SAMPLES;   // e.g. 20
+uint8_t computeMovingAverageDerivative(uint8_t pos) {
+  const uint8_t WINDOW = N_SAMPLES;  // e.g. 20
 
-    static uint8_t posHist[WINDOW];
-    static uint32_t timeHist[WINDOW];
-    static uint8_t idx = 0;
-    static bool full = false;
+  static uint8_t posHist[WINDOW];
+  static uint32_t timeHist[WINDOW];
+  static uint8_t idx = 0;
+  static bool full = false;
 
-    uint32_t now = millis();
+  uint32_t now = millis();
 
-    uint8_t oldPos = posHist[idx];
-    uint32_t oldTime = timeHist[idx];
+  uint8_t oldPos = posHist[idx];
+  uint32_t oldTime = timeHist[idx];
 
-    posHist[idx] = pos;
-    timeHist[idx] = now;
+  posHist[idx] = pos;
+  timeHist[idx] = now;
 
-    idx++;
-    if (idx >= WINDOW) { idx = 0; full = true; }
+  idx++;
+  if (idx >= WINDOW) {
+    idx = 0;
+    full = true;
+  }
 
-    if (!full) return 128;
-    uint8_t posFiltered = filterPosition(pos);
-    int16_t deltaPos = (int16_t)posFiltered - (int16_t)oldPos;
+  if (!full) return 128;
+  uint8_t posFiltered = filterPosition(pos);
+  int16_t deltaPos = (int16_t)posFiltered - (int16_t)oldPos;
 
-    // wraparound correction
-    if (deltaPos > 128) deltaPos -= 256;
-    else if (deltaPos < -128) deltaPos += 256;
+  // wraparound correction
+  if (deltaPos > 128) deltaPos -= 256;
+  else if (deltaPos < -128) deltaPos += 256;
 
-    uint32_t deltaTime = now - oldTime;
-    if (deltaTime == 0) return 128;
+  uint32_t deltaTime = now - oldTime;
+  if (deltaTime == 0) return 128;
 
-    // scaled derivative (integer)
-    // scale factor controls sensitivity (tune 50..200)
-    int32_t deriv = (deltaPos * 120) / (int32_t)deltaTime;
+  // scaled derivative (integer)
+  // scale factor controls sensitivity (tune 50..200)
+  int32_t deriv = (deltaPos * 120) / (int32_t)deltaTime;
 
-    int32_t out = 128 + deriv;
+  int32_t out = 128 + deriv;
 
-    if (out < 0) out = 0;
-    if (out > 255) out = 255;
+  if (out < 0) out = 0;
+  if (out > 255) out = 255;
 
-    return (uint8_t)out;
+  return (uint8_t)out;
 }
 
 
@@ -695,7 +696,7 @@ void showPositionLED(uint8_t pos, uint8_t r, uint8_t g, uint8_t b) {
 }
 
 void processLine(uint8_t *vals,
-                 bool allowLostReset,
+                 bool normalized,
                  bool computeDerivative,
                  uint8_t ledR, uint8_t ledG, uint8_t ledB) {
   if (current_leds_mode != LEDS_POSITION)
@@ -704,21 +705,41 @@ void processLine(uint8_t *vals,
   if (getLinePosition(vals, pos, minval, maxval)) {
     if (current_leds_mode == LEDS_POSITION)
       showPositionLED(pos, ledR, ledG, ledB);
+    if (normalized) {
+      norm[NUM_SENSORS] = pos;
+      norm[NUM_SENSORS + 1] = minval;
+      norm[NUM_SENSORS + 2] = maxval;
+      norm[NUM_SENSORS + 4] = detect_shape(norm);
+    } else {
+      rawVals[NUM_SENSORS] = pos;
+      rawVals[NUM_SENSORS + 1] = minval;
+      rawVals[NUM_SENSORS + 2] = maxval;
+      rawVals[NUM_SENSORS + 4] = detect_shape(norm);
+    }
+  } else {
 
-    norm[NUM_SENSORS] = pos;
-    norm[NUM_SENSORS + 1] = minval;
-    norm[NUM_SENSORS + 2] = maxval;
-    norm[NUM_SENSORS + 4] = detect_shape(norm);
-  } else if (allowLostReset) {
+  
     pos = 0;
-    norm[NUM_SENSORS] = 0;
-    norm[NUM_SENSORS + 1] = 0;
-    norm[NUM_SENSORS + 2] = 0;
-    norm[NUM_SENSORS + 4] = 0;
+    if (normalized) {
+      norm[NUM_SENSORS] = 0;
+      norm[NUM_SENSORS + 1] = 0;
+      norm[NUM_SENSORS + 2] = 0;
+      norm[NUM_SENSORS + 4] = LINE_NONE;
+    } else {
+      rawVals[NUM_SENSORS] = pos;
+      rawVals[NUM_SENSORS + 1] = 0;
+      rawVals[NUM_SENSORS + 2] = 0;
+      rawVals[NUM_SENSORS + 4] = LINE_NONE;
+    }
+
   }
 
-  if (computeDerivative)
-    norm[NUM_SENSORS + 3] = computeMovingAverageDerivative(pos);
+  if (computeDerivative) {
+    if (normalized)
+      norm[NUM_SENSORS + 3] = computeMovingAverageDerivative(pos);
+    else
+      rawVals[NUM_SENSORS + 3] = computeMovingAverageDerivative(pos);
+  }
 }
 
 
@@ -783,7 +804,7 @@ void loop() {
 
   switch (current_mode) {
     case MODE_RAW:
-      processLine(rawVals, false, false, 20, 0, 0);
+      processLine(rawVals, false, true, 20, 0, 0);
       break;
 
     case MODE_CAL:
