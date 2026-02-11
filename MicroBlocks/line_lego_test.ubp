@@ -32,22 +32,30 @@ forever {
 }
 }
 
-script 564 469 {
+script 169 396 {
 whenStarted
+sayIt 'wait for lego connection'
+waitMillis 10000
+sayIt 'demo started'
 'line init'
 'led mode' 'on'
 'set emitter level' true
 'restore calibration'
 command 'mode calibrated'
+}
+
+script 564 469 {
+whenStarted
 init
 add_command 'pos' 2 0 'b'
 forever {
   'line sensor update'
   process
+  sayIt _pup_connected
 }
 }
 
-script 57 546 {
+script 57 712 {
 to pos {}
 }
 
