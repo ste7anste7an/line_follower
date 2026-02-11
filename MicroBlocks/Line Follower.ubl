@@ -1,15 +1,16 @@
 module 'Line Follower' Input
 author Ste7an
 version 1 4 
-
 choices led_modes off on inverted position 
 choices commands 'mode raw' 'mode calibrated' 'get version' debug calibrate 'is calibrated' 'load calibration' 'save calibration' 'get minimum' 'get maximum' 'set minimum' 'set maximum' neopixel 'set leds' 
 description 'I2C Line follower on ch32v203'
+variables _can_measure 
 
   spec ' ' 'line init' 'line init'
   spec 'r' 'read line' 'line sensor read values'
   spec 'r' 'position' 'line position'
   spec 'r' 'line position derative' 'line position deravitive'
+  spec 'r' 'line sensor shape' 'line sensor shape'
   space
   spec ' ' 'command' 'line sensor command _ : value _' 'str.commands num' 'mode raw' 0
   spec 'r' 'get version' 'line sensor  version'
@@ -21,6 +22,7 @@ description 'I2C Line follower on ch32v203'
   spec ' ' 'set emitter level' 'enable emitters _' 'bool' true
   spec ' ' 'led mode' 'led mode _' 'str.led_modes' 'on'
   spec ' ' 'neopixel' 'set NeoPixel _ color _' 'auto color' 10
+
 
 to command cmd args {
   local 'cmd_id' 0
@@ -107,6 +109,14 @@ to 'line position derative' {
   return ((at 12 buf) - 128)
 }
 
+to 'line sensor shape' {
+  local 'buf' (newList 13)
+  if _can_measure {
+    '[sensors:i2cRead]' 51 buf
+  }
+  return ('[data:unicodeString]' (at 13 buf))
+}
+
 to neopixel nr color {
   local 'r' ((color >> 16) & 255)
   local 'g' ((color >> 8) & 255)
@@ -123,7 +133,7 @@ to position {
 }
 
 to 'read line' {
-  local 'buf' (newList 13)
+  local 'buf' (newList 8)
   if _can_measure {
     '[sensors:i2cRead]' 51 buf
   }

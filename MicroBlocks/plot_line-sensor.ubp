@@ -1,0 +1,546 @@
+module main
+author unknown
+version 1 0 
+description ''
+variables mode buf calibrate inverted 
+
+  spec ' ' 'calibrate' 'calibrate _' 'auto' 200
+  spec ' ' 'Calibrate' 'Calibrate'
+  spec ' ' 'inverting' 'inverting'
+  spec ' ' 'switch' 'switch'
+  spec ' ' 'Load' 'Load'
+  spec 'r' 'shape' 'shape'
+  spec 'r' 'line' 'line'
+  spec ' ' 'active' 'active'
+  spec 'r' 'bar_nr' 'bar_nr _' 'auto' '10'
+  spec ' ' 'init bar graph' 'init bar graph'
+  spec ' ' 'plot bar' 'plot bar'
+
+to Calibrate {
+  '[tft:LVGLsetcolor]' 'Calibrate' (colorSwatch 244 14 72 255)
+  calibrate = (booleanConstant true)
+  sayIt calibrate
+}
+
+to Load {
+  sayIt 123
+  command 'load calibration'
+}
+
+to active {
+  if ('[tft:LVGLgetval]' 'active') {
+    'led mode' 'on'
+    'set emitter level' 1
+  } else {
+    'led mode' 'off'
+    'set emitter level' 0
+  }
+}
+
+to bar_nr nr {
+  return ('[data:join]' 'bar' nr)
+}
+
+to calibrate nr {
+  command 'calibrate'
+  for i nr {
+    local 'var' ('read line')
+  }
+  command 'val_raw'
+}
+
+to 'init bar graph' {
+  'enable lvgl' true true
+  for i 8 {
+    '[tft:LVGLaddobj]' 'bar' (bar_nr i)
+    '[tft:LVGLsetsize]' (bar_nr i) 15 100
+    '[tft:LVGLsetpos]' (bar_nr i) (((8 * 20) - (i * 20)) + 20) 20
+    '[tft:LVGLsetcolor]' (bar_nr i) (colorSwatch 190 29 9 255) (colorSwatch 255 0 10 255)
+    '[tft:LVGLsetattribute]' 'range' (bar_nr i) 0 255
+  }
+}
+
+to inverting {
+  inverted = ('[tft:LVGLgetval]' 'inverting')
+}
+
+to line {
+  return ('[data:makeList]' _line_pos _line_shape)
+}
+
+to 'plot bar' {
+  buf = ('read line')
+  if inverted {
+    for i 8 {
+      '[tft:LVGLsetval]' (bar_nr i) (255 - (at i buf))
+    }
+  } else {
+    for i 8 {
+      '[tft:LVGLsetval]' (bar_nr i) (at i buf)
+    }
+  }
+}
+
+to shape {
+  local 'shape' 0
+  if (_line_shape == 0) {
+    shape = 'none'
+  } (_line_shape == 1) {
+    shape = 'straight'
+  } (_line_shape == 2) {
+    shape = 'T section'
+  } (_line_shape == 3) {
+    shape = 'left'
+  } (_line_shape == 4) {
+    shape = 'right'
+  } (_line_shape == 5) {
+    shape = 'Y section'
+  } else {
+  }
+  return shape
+}
+
+to switch {
+  if ('[tft:LVGLgetval]' 'switch') {
+    command 'mode calibrated'
+  } else {
+    command 'mode raw'
+  }
+}
+
+script 751 50 {
+'set emitter level' true
+}
+
+script 324 59 {
+command 'mode calibrated'
+}
+
+script 102 67 {
+'restore calibration'
+}
+
+script 280 123 {
+whenCondition calibrate
+comment 'start calibration for 10 seconds'
+command 'calibrate'
+waitMillis 10000
+if ('[tft:LVGLgetval]' 'cal_val') {
+  command 'mode calibrated'
+} else {
+  command 'mode raw'
+}
+'[tft:LVGLsetcolor]' 'Calibrate' (colorSwatch 16 63 244 255)
+calibrate = (booleanConstant false)
+}
+
+script 624 123 {
+whenStarted
+'init bar graph'
+comment 'start line follower with 8 sensors and plot'
+'line init'
+'set emitter level' 0
+'led mode' 'on'
+command 'mode raw'
+init_callback
+comment 'make simple GUI for calibration etc.'
+'[tft:LVGLaddbtn]' 'Calibrate'
+'[tft:LVGLsetcolor]' 'Calibrate' (colorSwatch 16 63 244 255)
+'[tft:LVGLsetpos]' 'Calibrate' 10 140
+'[tft:LVGLaddbtn]' 'Load'
+'[tft:LVGLsetpos]' 'Load' 10 180
+'[tft:LVGLaddobj]' 'switch' 'switch'
+'[tft:LVGLsetpos]' 'switch' 110 140
+'[tft:LVGLsetsize]' 'switch' 70 40
+'[tft:LVGLaddlabel]' 'cal_val' 1 'cal val'
+'[tft:LVGLsetpos]' 'cal_val' 120 120
+'[tft:LVGLaddobj]' 'switch' 'inverting'
+'[tft:LVGLsetsize]' 'inverting' 70 40
+'[tft:LVGLsetpos]' 'inverting' 110 200
+'[tft:LVGLaddlabel]' 'lab_invert' 1 'invert'
+'[tft:LVGLsetpos]' 'lab_invert' 120 180
+'[tft:LVGLaddobj]' 'switch' 'active'
+'[tft:LVGLsetsize]' 'active' 70 40
+'[tft:LVGLsetpos]' 'active' 180 140
+'[tft:LVGLaddlabel]' 'act_lbl' 1 'active'
+'[tft:LVGLsetpos]' 'act_lbl' 200 120
+add_callback 'Calibrate'
+'[tft:LVGLaddobj]' 'bar' 'position'
+'[tft:LVGLsetsize]' 'position' 20 200
+'[tft:LVGLsetpos]' 'position' 250 20
+comment 'position ranges need to be checked'
+'[tft:LVGLsetattribute]' 'range' 'position' -128 128
+add_callback 'switch'
+add_callback 'inverting'
+add_callback 'Load'
+add_callback 'active'
+calibrate = (booleanConstant false)
+forever {
+  'plot bar'
+  handle_event
+  '[tft:LVGLsetval]' 'position' (position)
+  comment 'add green process here when connected to lego'
+}
+}
+
+script 119 170 (position)
+
+script 946 212 {
+to 'init bar graph' {}
+}
+
+script 148 502 {
+to Calibrate {}
+}
+
+script 50 716 {
+to inverting {}
+}
+
+script 215 940 {
+'led mode' 'position'
+}
+
+script 133 983 (v inverted)
+
+script 155 1162 {
+to line {}
+}
+
+script 157 1325 {
+to active {}
+}
+
+script 641 1506 {
+forever {
+  graphIt (position)
+}
+}
+
+script 188 1636 {
+to bar_nr {}
+}
+
+script 773 1773 {
+sayIt ('line sensor shape')
+}
+
+script 50 1821 {
+to 'plot bar' {}
+}
+
+
+module LVGL Output
+author Ste7an
+version 1 10 
+choices attribute_types range rotation angles brightness 'line width' animation digits increment decrement points length 'tick count' 'major tick every' 'show labels' 'scale mode' 'button ctrl' width focused flags 
+choices style_types 'text font' 'text color' 'bg color' 'bg opa' 'border width' 'border color' radius 'shadow width' 'shadow offset x' 'shadow offset y' 'shadow opa' width 'line width' 'line color' 
+choices obj_types arc bar led list roller scale screen slider spinbox spinner style switch tabview tileview keyboard textarea 
+choices symbols bullet audio video list ok close power settings home download drive refresh mute volume_mid volume_max image tint prev play pause stop next eject left right plus minus eye_open eye_close warning shuffle up down loop directory upload call cut copy save bars envelope charge paste bell keyboard gps file wifi battery_full battery_3 battery_2 battery_1 battery_empty usb bluetooth trash edit backspace sd_card new_line 
+choices chart_update_mode shift circular 
+choices scale_modes 'hor top' 'hor bottom' 'ver left' 'ver right' 'round inner' 'round outer' last 
+choices chart_type line bar scatter 
+choices scroll_dirs none hor ver all 
+description 'LVGL support for MicroBlocks'
+variables _lvgl_call_backs 
+
+  spec ' ' 'enable lvgl' 'enable lvgl _ delete all _' 'bool bool' true true
+  spec ' ' '[tft:LVGLaddbtn]' 'button _ : scale _ : text _ : parent _' 'str num str str' 'button' 1 'button' 'lv_scr_act'
+  spec ' ' '[tft:LVGLaddlabel]' 'label _ : scale _ : text _ : parent _' 'str num str str' 'label' 1 'label' 'lv_scr_act'
+  spec ' ' '[tft:LVGLaddobj]' 'add _ as _ : parent _' 'str.obj_types str str' 'arc' '' 'lv_scr_act'
+  spec ' ' '[tft:LVGLsetpos]' 'set position _ x _ y _' 'str num num' '' 100 100
+  spec ' ' '[tft:LVGLsetsize]' 'set size _ width _ height _' 'str num num' '' 100 10
+  spec ' ' '[tft:LVGLsetval]' 'set value _ value _' 'str num' '' 10
+  spec 'r' '[tft:LVGLgetval]' 'get value _' 'str' ''
+  spec ' ' '[tft:LVGLsettext]' 'set text _ text _ : scale _' 'str str auto' '' 'text' 1
+  spec ' ' '[tft:LVGLsetcolor]' 'set color _ background _ : second _ : third _' 'str color color color' ''
+  spec 'r' 'lvgl_color' '_' 'color'
+  spec 'r' 'makeColor' 'color r _ g _ b _ (0-255)' 'num num num' 0 100 100
+  space
+  spec 'r' '[tft:LVGLevent]' 'event available'
+  spec 'r' '[tft:LVGLgetevent]' 'get event'
+  space
+  spec 'r' 'screen' 'screen'
+  spec 'r' 'symbol' 'symbol _' 'str.symbols' 'bullet'
+  spec ' ' '[tft:LVGLsetparent]' 'set _ parent _ : states _ : parts _' 'str str num num' '' '' 0 0
+  spec 'r' '[tft:LVGLgetallobjs]' 'get all objects'
+  spec ' ' '[tft:LVGLdelobj]' 'delete object _' 'str' ''
+  spec ' ' 'delete_all_objects' 'delete all objects'
+  spec ' ' '[tft:LVGLaddimg]' 'image path _  as  _ : parent _' 'str str str' '' 'img' 'lv_scr_act'
+  spec ' ' '[tft:LVGLaddfont]' 'font path _  as  _' 'str str' '' ''
+  spec ' ' '[tft:LVGLsetattribute]' 'set attribute _ of _ first _ : second _' 'str.attribute_types str auto auto' 'range' '' '' ''
+  spec ' ' '[tft:LVGLsetstyle]' 'set style _ of _ to _' 'str.style_types str auto' 'text font' '' ''
+  spec 'r' 'set_states' 'state pressed _ : checked _ : scrolled _' 'bool bool bool bool' true false false
+  spec 'r' 'set_parts' 'parts selected _ : indicator _ : knob _ : #BR# items _ : scrollbar _' 'bool bool bool bool bool' true false false false false
+  spec 'r' 'set_scale_mode' 'scale mode _' 'str.scale_modes' 'hor top'
+  spec 'r' 'set_button_ctrl' 'button ctrl checkable _ : checked _ : hidden _ : disabled _' 'bool bool bool bool' true false false false
+  spec 'r' 'set_flag' 'behaviour flags hidden _ : clickable _ : checkable _ : scrollable : _ : scroll one _' 'bool bool bool bool bool' false false false false false
+  spec ' ' '[tft:LVGLsetscroll]' 'set scroll direction of _ to _' 'str str.scroll_dirs' '' 'none'
+  spec ' ' '[tft:LVGLloadscreen]' 'load screen _' 'str' ''
+  spec ' ' '[tft:LVGLaddtab]' 'tab _ parent _' 'str str' 'tab' ''
+  spec ' ' '[tft:LVGLaddbuttonmatrix]' 'button matrix _ elements _ : parent _' 'str auto str' '' 'aList' 'lv_scr_act'
+  spec ' ' '[tft:LVGLaddchart]' 'chart _ type _ update mode _ : parent _' 'str str.chart_type str.chart_update_mode str' '' 'line' 'shift' 'lv_scr_act'
+  spec ' ' '[tft:LVGLaddseries]' 'add series _ chart _ color _' 'str str color' '' ''
+  spec ' ' '[tft:LVGLsetnextvalue]' 'add value to series _ from chart _ value _ : value2 _' 'str str num num' '' '' 0 0
+  spec ' ' '[tft:LVGLaddtile]' 'tile _ parent _ col _ row _ #BR# L _ R _ T _ B _' 'str str num num bool bool bool bool' 'tile' '' 0 0 false false false false
+  spec 'r' '[tft:LVGLpsram]' 'get PSRAM'
+  spec ' ' 'init_callback' 'init callback'
+  spec ' ' 'add_callback' 'add callback _ : function _' 'str str' '' ''
+  spec ' ' 'handle_event' 'handle event'
+
+to add_callback obj function {
+  if (not (isType _lvgl_call_backs 'list')) {_lvgl_call_backs = ('[data:makeList]')}
+  if ((pushArgCount) < 2) {
+    '[data:addLast]' ('[data:makeList]' obj obj) _lvgl_call_backs
+  } else {
+    '[data:addLast]' ('[data:makeList]' obj function) _lvgl_call_backs
+  }
+}
+
+to delete_all_objects {
+  local 'all_objects' ('[tft:LVGLgetallobjs]')
+  for i (size all_objects) {
+    if ((at i all_objects) != '!main_screen_default') {'[tft:LVGLdelobj]' (at i all_objects)}
+  }
+  comment 'load original main screen that is stored'
+  '[tft:LVGLloadscreen]' '!main_screen_default'
+}
+
+to 'enable lvgl' enable delete {
+  callCustomCommand '[tft:LVGLon]' ('[data:makeList]' enable)
+  if delete {
+    delete_all_objects
+  }
+}
+
+to handle_event {
+  if ('[tft:LVGLevent]') {
+    local 'var' 1
+    local 'event' ('[tft:LVGLgetevent]')
+    repeatUntil (or (var > (size _lvgl_call_backs)) (event == (at 1 (at var _lvgl_call_backs)))) {
+      var += 1
+    }
+    if (var <= (size _lvgl_call_backs)) {
+      callCustomCommand (at 2 (at var _lvgl_call_backs))
+    }
+  }
+}
+
+to init_callback {
+  _lvgl_call_backs = 0
+}
+
+to lvgl_color color {
+  return color
+}
+
+to makeColor r g b {
+  r = (maximum 0 (minimum r 255))
+  g = (maximum 0 (minimum g 255))
+  b = (maximum 0 (minimum b 255))
+  return ((r << 16) | ((g << 8) | b))
+}
+
+to screen {
+  return 'lv_scr_act'
+}
+
+to set_button_ctrl checkable checked hidden disabled {
+  return (sum (ifExpression checkable (hexToInt '80') 0) (ifExpression checked (hexToInt '100') 0) (ifExpression hidden (hexToInt '10') 0) (ifExpression disabled (hexToInt '40') 0))
+}
+
+to set_flag hidden clickable checkable scrollable scroll_one {
+  return (sum (ifExpression hidden (hexToInt '1') 0) (ifExpression clickable (hexToInt '2') 0) (ifExpression checkable (hexToInt '8') 0) (ifExpression scrollable (hexToInt '10') 0) (ifExpression scroll_one (hexToInt '80') 0))
+}
+
+to set_parts selected indicator knob items scrollbar {
+  return (sum (ifExpression scrollbar (hexToInt '10000') 0) (ifExpression indicator (hexToInt '20000') 0) (ifExpression knob (hexToInt '30000') 0) (ifExpression selected (hexToInt '40000') 0) (ifExpression items (hexToInt '50000') 0))
+}
+
+to set_scale_mode mode {
+  if (mode == 'hor top') {
+    return 0
+  } (mode == 'hor bottom') {
+    return 1
+  } (mode == 'ver left') {
+    return 2
+  } (mode == 'ver right') {
+    return 4
+  } (mode == 'round inner') {
+    return 8
+  } (mode == 'round outer') {
+    return 16
+  } else {
+    return 0
+  }
+}
+
+to set_states pressed checked scrolled {
+  return (sum (ifExpression checked 1 0) (ifExpression pressed (hexToInt '20') 0) (ifExpression scrolled (hexToInt '40') 0))
+}
+
+to symbol symbolname {
+  return ('[data:unicodeString]' (callCustomReporter '[tft:LVGLgetsymbol]' ('[data:makeList]' symbolname)))
+}
+
+
+module 'Line Follower' Input
+author Ste7an
+version 1 4 
+choices led_modes off on inverted position 
+choices commands 'mode raw' 'mode calibrated' 'get version' debug calibrate 'is calibrated' 'load calibration' 'save calibration' 'get minimum' 'get maximum' 'set minimum' 'set maximum' neopixel 'set leds' 
+description 'I2C Line follower on ch32v203'
+variables _can_measure 
+
+  spec ' ' 'line init' 'line init'
+  spec 'r' 'read line' 'line sensor read values'
+  spec 'r' 'position' 'line position'
+  spec 'r' 'line position derative' 'line position deravitive'
+  spec 'r' 'line sensor shape' 'line sensor shape'
+  space
+  spec ' ' 'command' 'line sensor command _ : value _' 'str.commands num' 'mode raw' 0
+  spec 'r' 'get version' 'line sensor  version'
+  space
+  spec 'r' 'is calibrated' 'line sensor is calibrated'
+  spec ' ' 'store calibration' 'store calibration'
+  spec ' ' 'restore calibration' 'restore calibration'
+  space
+  spec ' ' 'set emitter level' 'enable emitters _' 'bool' true
+  spec ' ' 'led mode' 'led mode _' 'str.led_modes' 'on'
+  spec ' ' 'neopixel' 'set NeoPixel _ color _' 'auto color' 10
+
+to command cmd args {
+  local 'cmd_id' 0
+  if (cmd == 'mode raw') {
+    cmd_id = 0
+  } (cmd == 'mode calibrated') {
+    cmd_id = 1
+  } (cmd == 'get version') {
+    cmd_id = 2
+  } (cmd == 'debug') {
+    cmd_id = 3
+  } (cmd == 'calibrate') {
+    cmd_id = 4
+  } (cmd == 'is calibrated') {
+    cmd_id = 5
+  } (cmd == 'load calibration') {
+    cmd_id = 6
+  } (cmd == 'save calibration') {
+    cmd_id = 7
+  } (cmd == 'get minimum') {
+    cmd_id = 8
+  } (cmd == 'get maximum') {
+    cmd_id = 9
+  } (cmd == 'set minimum') {
+    cmd_id = 10
+  } (cmd == 'set maximum') {
+    cmd_id = 11
+  } (cmd == 'neopixel') {
+    cmd_id = 12
+  } (cmd == 'set leds') {
+    cmd_id = 13
+  } (cmd == 'set emitter') {
+    cmd_id = 14
+  }
+  if ((argOrDefault 2 'None') == 'None') {
+    local 'buf' ('[data:makeList]' cmd_id)
+  } else {
+    local 'buf' ('[data:makeList]' cmd_id args)
+  }
+  '[sensors:i2cWrite]' 51 buf
+}
+
+to 'get version' {
+  _can_measure = (booleanConstant false)
+  local 'tmp' (newList 2)
+  command 'get version'
+  '[sensors:i2cRead]' 51 tmp
+  _can_measure = (booleanConstant false)
+  return ('[data:join]' (at 1 tmp) '.' (at 2 tmp))
+}
+
+to 'is calibrated' {
+  _can_measure = (booleanConstant false)
+  local 'buf' (newList 1)
+  command 'is calibrated'
+  '[sensors:i2cRead]' 51 buf
+  _can_measure = (booleanConstant true)
+  return ((at 1 buf) == 1)
+}
+
+to 'led mode' mode {
+  local 'led_mode' 0
+  if (mode == 'off') {
+    led_mode = 0
+  } (mode == 'on') {
+    led_mode = 1
+  } (mode == 'inverted') {
+    led_mode = 2
+  } (mode == 'position') {
+    led_mode = 3
+  }
+  '[sensors:i2cWrite]' 51 ('[data:makeList]' 13 led_mode)
+}
+
+to 'line init' {
+  _can_measure = (booleanConstant true)
+}
+
+to 'line position derative' {
+  local 'buf' (newList 13)
+  if _can_measure {
+    '[sensors:i2cRead]' 51 buf
+  }
+  return ((at 12 buf) - 128)
+}
+
+to 'line sensor shape' {
+  local 'buf' (newList 13)
+  if _can_measure {
+    '[sensors:i2cRead]' 51 buf
+  }
+  return ('[data:unicodeString]' (at 13 buf))
+}
+
+to neopixel nr color {
+  local 'r' ((color >> 16) & 255)
+  local 'g' ((color >> 8) & 255)
+  local 'b' (color & 255)
+  '[sensors:i2cWrite]' 51 ('[data:makeList]' 12 (nr - 1) r g b)
+}
+
+to position {
+  local 'buf' (newList 9)
+  if _can_measure {
+    '[sensors:i2cRead]' 51 buf
+  }
+  return ((at 9 buf) - 128)
+}
+
+to 'read line' {
+  local 'buf' (newList 8)
+  if _can_measure {
+    '[sensors:i2cRead]' 51 buf
+  }
+  return buf
+}
+
+to 'restore calibration' {
+  _can_measure = (booleanConstant false)
+  command 'load calibration'
+  waitMillis 500
+  _can_measure = (booleanConstant true)
+}
+
+to 'set emitter level' enable {
+  '[sensors:i2cWrite]' 51 ('[data:makeList]' 14 ('[data:convertType]' enable 'number')) true
+}
+
+to 'store calibration' {
+  _can_measure = (booleanConstant false)
+  command 'save calibration'
+  comment 'wait some safe time'
+  waitMillis 1000
+  _can_measure = (booleanConstant true)
+}
+
