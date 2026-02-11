@@ -40,12 +40,12 @@ Each read returns a **13-byte** buffer:
 
 | Code | Shape |
 |------|-------|
-| `0`  | None |
-| `1`  | Straight |
-| `2`  | T-junction |
-| `3`  | L-left |
-| `4`  | L-right |
-| `5`  | Y-junction |
+| ` `  | None |
+| `|`  | Straight |
+| `T`  | T-junction |
+| `<`  | L-left |
+| `>`  | L-right |
+| `Y`  | Y-junction |
 
 ---
 
@@ -175,6 +175,7 @@ If both min & max have been set, calibration is considered active.
 Wire.beginTransmission(0x33);
 Wire.write(1); // CMD_SET_MODE_CAL
 Wire.endTransmission();
+
 
 
 
