@@ -40,10 +40,10 @@ inline const char *logLevelStr(LogLevel level) {
 
 
 #define MAJ_VERSION 2
-#define MIN_VERSION 5
+#define MIN_VERSION 6
 /*
 2.5 fixed colors: green for MODE_CAL and red for MODE_RAW
-
+2.6 add line position also for MODE_RAW
 
 
 */
@@ -53,8 +53,8 @@ inline const char *logLevelStr(LogLevel level) {
 #define THRESHOLD 50  // ignore reading below 50 for calculating position
 #define N_SAMPLES 8   // number of derivative samples to average
 
-#define NEOPIXEL_PIN PB11  // any PAx / PBx pin works
-#define CALLIBRATE_PIN PB1 // connected to BOOT0.
+#define NEOPIXEL_PIN PB11   // any PAx / PBx pin works
+#define CALLIBRATE_PIN PB1  // connected to BOOT0.
 
 
 Adafruit_NeoPixel strip(NUM_SENSORS + 1, NEOPIXEL_PIN, NEO_GRB + NEO_KHZ800);
@@ -302,8 +302,8 @@ void show_neopixel(uint8_t buf[]) {
   if (current_leds_mode == LEDS_NORMAL) {
     for (int i = 0; i < NUM_SENSORS; i++) {
       uint8_t intensity = (uint8_t)(buf[i] / 16);
-      if (intensity<2) intensity=0;
-      if (current_mode==MODE_CAL)
+      if (intensity < 2) intensity = 0;
+      if (current_mode == MODE_CAL)
         strip.setPixelColor(i, strip.Color(0, intensity, 0));  // Green
       else
         strip.setPixelColor(i, strip.Color(intensity, 0, 0));  // Red
@@ -311,8 +311,8 @@ void show_neopixel(uint8_t buf[]) {
     strip.show();
   } else if (current_leds_mode == LEDS_INVERTED) {
     for (int i = 0; i < NUM_SENSORS; i++) {
-      uint8_t intensity = 16- (uint8_t)(buf[i] / 16);
-      if (intensity<2) intensity=0;
+      uint8_t intensity = 16 - (uint8_t)(buf[i] / 16);
+      if (intensity < 2) intensity = 0;
       if (is_calibrated)
         strip.setPixelColor(i, strip.Color(0, intensity, 0));  // Green
       else
@@ -334,32 +334,31 @@ void computeNormalized(const uint8_t raw[], uint8_t normOut[]) {
   }
 }
 
-bool getLinePosition(const uint8_t norm[], uint8_t &posOut, uint8_t &minOut, uint8_t &maxOut) {
+bool getLinePosition(const uint8_t vals[], uint8_t &posOut, uint8_t &minOut, uint8_t &maxOut) {
   long weighted_sum = 0;
   long sum = 0;
   minOut = 255;
   maxOut = 0;
-  posOut = 0;  // default value
-  int val;
-  if (!is_calibrated) return false;
-  // hardcoded num sensors !!!
+
   for (int i = 0; i < NUM_SENSORS; ++i) {
-    val = 255 - norm[i];  // invert
-    if (val < THRESHOLD) val = 0;
-    weighted_sum += val * (i);
+    uint16_t val = 255 - vals[i];  // black = strong
+
+    weighted_sum += (uint32_t)val * i;
     sum += val;
+
     if (val > maxOut) maxOut = val;
     if (val < minOut) minOut = val;
   }
+  if (sum < 40)  // tune experimentally
+    return false;
+  uint32_t numerator = weighted_sum * 255 + (sum * 7) / 2;
+  uint32_t denominator = sum * 7;
 
-  long p;
-  if (sum > 0) {
-    p = (255 * weighted_sum);
-    p /= sum;  // p in approx -350..350
-  } else
-    p = 0;
+  uint32_t pos = numerator / denominator;
 
-  posOut = (p - 255) / 7;
+  if (pos > 255) pos = 255;  // safety clamp
+
+  posOut = (uint8_t)pos;
   return true;
 }
 
@@ -599,6 +598,28 @@ void RequestEvent() {
   }
 }
 
+void showPositionLED(uint8_t pos, uint8_t r, uint8_t g, uint8_t b)
+{
+    uint16_t scaled = (uint16_t)pos * NUM_SENSORS; // 0..2040
+    uint8_t i = scaled >> 8;                       // /256
+    uint8_t frac = scaled & 0xFF;                  // remainder
+
+    uint8_t j = i + 1;
+    if (j >= NUM_SENSORS) j = NUM_SENSORS - 1;
+
+    uint8_t Ri = (r * (255 - frac)) >> 8;
+    uint8_t Rj = (r * frac) >> 8;
+    uint8_t Gi = (g * (255 - frac)) >> 8;
+    uint8_t Gj = (g * frac) >> 8;
+    uint8_t Bi = (b * (255 - frac)) >> 8;
+    uint8_t Bj = (b * frac) >> 8;
+
+    strip.clear();
+    if (i < NUM_SENSORS) strip.setPixelColor(i, strip.Color(Ri,Gi,Bi));
+    if (j < NUM_SENSORS) strip.setPixelColor(j, strip.Color(Rj,Gj,Bj));
+    strip.show();
+}
+
 
 void setup() {
   strip.begin();
@@ -661,7 +682,38 @@ void loop() {
 
   switch (current_mode) {
     case MODE_RAW:
-      show_neopixel(rawVals);
+      if (current_leds_mode != LEDS_POSITION)
+        show_neopixel(rawVals);
+      if (getLinePosition(rawVals, pos, minval, maxval)) {
+        if (current_leds_mode == LEDS_POSITION) {
+          float fpos = pos * (NUM_SENSORS * 1.0 / 256.0);
+          int i = floor(fpos);    // left LED
+          float frac = fpos - i;  // blend factor
+
+          int j = i + 1;  // right LED
+          if (j >= NUM_SENSORS) j = NUM_SENSORS - 1;
+
+          const int R = 20;
+          const int G = 0;
+          const int B = 0;
+
+          // Calculate intensity
+          int R_i = R * (1.0 - frac);
+          int R_j = R * frac;
+
+          // Light LEDs
+          strip.clear();
+          if (i >= 0 && i < NUM_SENSORS)
+            strip.setPixelColor(i, strip.Color(R_i, G, B));
+          if (j >= 0 && j < NUM_SENSORS)
+            strip.setPixelColor(j, strip.Color(R_j, G, B));
+          strip.show();
+        }
+        norm[NUM_SENSORS] = pos;
+        norm[NUM_SENSORS + 1] = minval;
+        norm[NUM_SENSORS + 2] = maxval;
+        norm[NUM_SENSORS + 4] = detect_shape(norm);
+      }
       break;
     case MODE_CAL:
       computeNormalized(rawVals, norm);
@@ -676,8 +728,8 @@ void loop() {
           int j = i + 1;  // right LED
           if (j >= NUM_SENSORS) j = NUM_SENSORS - 1;
 
-          const int R = 20;
-          const int G = 0;
+          const int R = 0;
+          const int G = 20;
           const int B = 0;
 
           // Calculate intensity
@@ -714,12 +766,12 @@ void loop() {
   }
 
   //==========================
-   bool currentCalPinState = digitalRead(CALLIBRATE_PIN);
-  
+  bool currentCalPinState = digitalRead(CALLIBRATE_PIN);
+
   if (currentCalPinState == HIGH && lastCalPinState == LOW) {
     callibrate = !callibrate;  // toggle state
     if (callibrate) {
-      
+
       current_mode = MODE_CALIBRATING;
     } else {
       current_mode = MODE_RAW;
@@ -728,7 +780,7 @@ void loop() {
 
   lastCalPinState = currentCalPinState;
 
-  
+
   if (current_mode != MODE_CALIBRATING) {
     if (is_calibrated)
       strip.setPixelColor(NUM_SENSORS, strip.Color(0, 20, 0));
@@ -753,5 +805,4 @@ void loop() {
     }
     delay(1);
   }
-  
 }

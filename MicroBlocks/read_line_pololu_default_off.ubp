@@ -2,7 +2,7 @@ module main
 author unknown
 version 1 0 
 description ''
-variables count calibrate time_ms _line_pos _line_min _line_max _line_derivative _line_shape 
+variables count calibrate time_ms _line_pos _line_min _line_max _line_derivative _line_shape 'number of sensors' plot mode 
 
   spec ' ' 'calibrate' 'calibrate _' 'auto' 200
   spec ' ' 'Calibrate' 'Calibrate'
@@ -76,53 +76,80 @@ to switch {
   }
 }
 
-script 192 50 ('is calibrated')
+script 723 50 {
+init_line 8 false
+forever {
+  '[sensors:i2cRead]' 51 _line_buf
+  sayIt (at 1 _line_buf) (at 2 _line_buf) (at 3 _line_buf) (at 4 _line_buf) (at 5 _line_buf) (at 6 _line_buf) (at 7 _line_buf) (at 8 _line_buf) mode
+}
+}
 
-script 55 59 ('read line')
+script 1232 111 {
+forever {
+  waitMillis 1000
+  mode = 'C'
+  command 'mode calibrated'
+  waitMillis 1000
+  mode = 'R'
+  command 'mode raw'
+}
+}
 
-script 782 76 {
+script 50 127 {
+graphIt (at 1 _line_buf) (at 2 _line_buf) (at 3 _line_buf) (at 4 _line_buf) (at 5 _line_buf) (at 6 _line_buf) (at 7 _line_buf) (at 8 _line_buf)
+}
+
+script 417 302 {
+command 'mode raw'
+}
+
+script 241 361 ('is calibrated')
+
+script 104 370 ('read line')
+
+script 831 387 {
 'save calibration'
 }
 
-script 457 90 {
+script 975 401 {
+'set emitter level' 1
+}
+
+script 506 401 {
 '[file:open]' 'cal_val.bin'
 }
 
-script 193 98 ('get calibration' 'minimum')
+script 242 409 ('get calibration' 'minimum')
 
-script 783 127 {
+script 832 438 {
 'load calibration'
 }
 
-script 189 139 ('get calibration' 'maximum')
+script 238 450 ('get calibration' 'maximum')
 
-script 459 143 ('[file:readBytes]' 8 'cal_val.bin')
+script 508 454 ('[file:readBytes]' 8 'cal_val.bin')
 
-script 181 185 {
-command 'save calibration'
-}
-
-script 494 202 {
+script 543 513 {
 '[file:close]' 'cal_val.bin'
 }
 
-script 733 205 (v _line_buf)
+script 781 518 (v _line_buf)
 
-script 1024 211 (v _line_min)
+script 1073 522 (v _line_min)
 
-script 898 212 (v _line_pos)
+script 947 523 (v _line_pos)
 
-script 1134 213 (v _line_max)
+script 1183 524 (v _line_max)
 
-script 277 233 {
-'led mode' 'position'
+script 326 544 {
+'led mode' 'on'
 }
 
-script 58 234 ('get version')
+script 107 545 ('get version')
 
-script 68 274 ('is calibrated')
+script 117 585 ('is calibrated')
 
-script 279 290 {
+script 328 601 {
 whenCondition calibrate
 comment 'start calibration for 10 seconds'
 command 'calibrate'
@@ -136,7 +163,7 @@ if ('[tft:LVGLgetval]' 'cal_val') {
 calibrate = (booleanConstant false)
 }
 
-script 623 290 {
+script 672 601 {
 whenStarted
 init
 comment 'start line follower with 8 sensors and plot'
@@ -185,65 +212,64 @@ forever {
   buf = (newList 12)
   '[tft:LVGLsetval]' 'position' _line_pos
   sayIt (shape)
-  process
 }
 }
 
-script 71 335 {
+script 120 646 {
 'store calibration'
 }
 
-script 1068 443 (v _pup_connected)
+script 1117 754 (v _pup_connected)
 
-script 50 457 {
+script 99 768 {
 'restore calibration'
 }
 
-script 318 659 {
+script 367 970 {
 to Calibrate {}
 }
 
-script 121 696 {
+script 170 1007 {
 to switch {}
 }
 
-script 121 696 {
+script 170 1007 {
 to switch {}
 }
 
-script 121 696 {
+script 170 1007 {
 to switch {}
 }
 
-script 121 696 {
+script 170 1007 {
 to switch {}
 }
 
-script 388 894 {
+script 437 1205 {
 to Load {}
 }
 
-script 388 894 {
+script 437 1205 {
 to Load {}
 }
 
-script 388 894 {
+script 437 1205 {
 to Load {}
 }
 
-script 388 894 {
+script 437 1205 {
 to Load {}
 }
 
-script 121 950 {
+script 170 1261 {
 to inverting {}
 }
 
-script 214 1107 {
+script 263 1418 {
 'led mode' 'position'
 }
 
-script 90 1188 {
+script 139 1499 {
 'led mode' 'off'
 forever {
   for i 8 {
@@ -259,33 +285,41 @@ forever {
 }
 }
 
-script 1136 1199 {
+script 1185 1510 {
 graphIt (_line_pos - 128) (_line_derivative - 128)
 }
 
-script 905 1512 (v a)
+script 1043 1749 (v a)
 
-script 1209 1523 {
+script 1258 1834 {
 graphIt (at 1 _line_buf)
 }
 
-script 1043 1628 {
+script 1092 1939 {
 to shape {}
 }
 
-script 277 1634 {
+script 326 1945 {
 to line {}
 }
 
-script 174 1768 {
+script 767 2017 {
+process
+}
+
+script 223 2079 {
 to active {}
 }
 
-script 460 1871 {
+script 509 2182 {
 forever {
   graphIt _pup_connected
 }
 }
+
+script 492 2354 ('[data:unicodeString]' 65)
+
+script 396 2435 ('get version')
 
 
 module Files Data
@@ -524,7 +558,7 @@ variables _buf _line_plot _line_buf a _inverted _nr_sensors tmp buf _can_measure
   spec 'r' 'position_i2c' 'position_i2c'
   spec ' ' 'store calibration' 'store calibration'
   spec ' ' 'restore calibration' 'restore calibration'
-  spec ' ' 'neopixel' 'neopixel _ color _' 'auto color' '10'
+  spec ' ' 'neopixel' 'set NeoPixel _ color _' 'auto color' 10
   spec ' ' 'led mode' 'led mode _' 'str.led_modes' 'on'
   spec 'r' 'get version' 'get version'
 
@@ -612,7 +646,7 @@ to 'get version' {
   command 'get version'
   '[sensors:i2cRead]' 51 tmp
   _can_measure = (booleanConstant false)
-  return tmp
+  return ('[data:join]' (at 1 tmp) '.' (at 2 tmp))
 }
 
 to init_line 'number of sensors' plot {
@@ -687,17 +721,14 @@ to position_i2c {
 
 to 'read line' {
   if _can_measure {
-    '[sensors:i2cRead]' 51 _line_buf
-    if _inverted {
-      for i _nr_sensors {
-        atPut i _line_buf (255 - (at i _line_buf))
-      }
+    if _inverted {for i _nr_sensors {
+      atPut i _line_buf (255 - (at i _line_buf))
     }
-    if _line_plot {
-      for i _nr_sensors {
-        '[tft:LVGLsetval]' ('_bar_nr' i) (at i _line_buf)
-      }
+}
+    if _line_plot {for i _nr_sensors {
+      '[tft:LVGLsetval]' ('_bar_nr' i) (at i _line_buf)
     }
+}
     _line_pos = (at (_nr_sensors + 1) _line_buf)
     _line_min = (at (_nr_sensors + 2) _line_buf)
     _line_max = (at (_nr_sensors + 3) _line_buf)
