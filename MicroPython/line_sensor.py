@@ -36,6 +36,12 @@ class LineSensor:
     LEDS_INVERTED = 2
     LEDS_POSITION = 3
     LEDS_MAX = 4
+    
+    POSITION = 8
+    MIN = 9
+    MAX = 10
+    DERIVATIVE = 11
+    SHAPE = 12
 
     def __init__(self, scl_pin=4, sda_pin=5, device_addr=51):
         """
@@ -45,7 +51,6 @@ class LineSensor:
             scl_pin: SCL pin number (default 4)
             sda_pin: SDA pin number (default 5)
             device_addr: I2C device address (default 51)
-            freq: I2C frequency in Hz (default 100000)
         """
         self.device_addr = device_addr
         self.i2c = I2C(1,scl=Pin(scl_pin), sda=Pin(sda_pin))
@@ -53,46 +58,50 @@ class LineSensor:
     def light_values(self):
         """
         Read only the 8 light sensor values.
-        
-        Returns:
-            list: List of 8 light sensor values
         """
         data = self.i2c.readfrom(self.device_addr, 13)
         return list(data[0:8])
 
-    def raw_data(self):
-        return self.i2c.readfrom(self.device_addr, 13)
+    def data(self, *indices):
+        try:
+            d = list(self.i2c.readfrom(self.device_addr, 13))
+        except:
+            d = list(self.i2c.readfrom(self.device_addr, 13))
+        d[self.POSITION] -= 128
+        d[self.DERIVATIVE] -= 128
+        if len(indices) == 0:
+            return d
+        elif len(indices) == 1:
+            return d[indices[0]]
+        else:
+            return [d[i] for i in indices]
     
     def position(self):
         """
         Read the position value.
-        
-        Returns:
-            int: Position value (byte 8)
         """
-        data = self.i2c.readfrom(self.device_addr, 13)
-        return data[8]-128
+        return self.data(self.POSITION)
 
     def position_derivative(self):
         """
-        Read the position value.
-        
-        Returns:
-            int: Position value (byte 8)
+        Read the position derivative value.
         """
-        data = self.i2c.readfrom(self.device_addr, 13)
-        return data[11]-128
+        return self.data(self.DERIVATIVE)
+    
+    def shape(self):
+        """
+        Read the shape value.
+        """
+        return self.data(self.SHAPE)
     
     def write_command(self, command):
         """
         Write a 1-byte command to the sensor.
-        
-        Args:
-            command: Command byte to send (MODE_RAW, MODE_CALIBRATED, or START_CALIBRATION)
         """
         if type(command) is int:
             command = [command]
         self.i2c.writeto(self.device_addr, bytes(command))
+        sleep(0.01)
     
     def mode_raw(self):
         """Set sensor to raw mode."""
