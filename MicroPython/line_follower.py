@@ -1,4 +1,4 @@
-from machine import SoftI2C, Pin
+from machine import I2C, Pin
 from time import sleep
 
 class LineSensor:
@@ -31,10 +31,13 @@ class LineSensor:
     MAX_CMDS = 15
 
     # LED Modes
-    OFF = 0
-    INVERTED = 1
+    LEDS_OFF = 0
+    LEDS_NORMAL = 1
+    LEDS_INVERTED = 2
+    LEDS_POSITION = 3
+    LEDS_MAX = 4
 
-    def __init__(self, scl_pin=4, sda_pin=5, device_addr=51, freq=400000):
+    def __init__(self, scl_pin=4, sda_pin=5, device_addr=51):
         """
         Initialize the line sensor.
         
@@ -45,7 +48,7 @@ class LineSensor:
             freq: I2C frequency in Hz (default 100000)
         """
         self.device_addr = device_addr
-        self.i2c = SoftI2C(scl=Pin(scl_pin), sda=Pin(sda_pin), freq=freq)
+        self.i2c = I2C(1,scl=Pin(scl_pin), sda=Pin(sda_pin))
     
     def light_values(self):
         """
@@ -56,6 +59,9 @@ class LineSensor:
         """
         data = self.i2c.readfrom(self.device_addr, 13)
         return list(data[0:8])
+
+    def raw_data(self):
+        return self.i2c.readfrom(self.device_addr, 13)
     
     def position(self):
         """
@@ -65,7 +71,7 @@ class LineSensor:
             int: Position value (byte 8)
         """
         data = self.i2c.readfrom(self.device_addr, 13)
-        return data[8]-127
+        return data[8]-128
 
     def position_derivative(self):
         """
@@ -75,7 +81,7 @@ class LineSensor:
             int: Position value (byte 8)
         """
         data = self.i2c.readfrom(self.device_addr, 13)
-        return data[12]
+        return data[11]-128
     
     def write_command(self, command):
         """
@@ -102,12 +108,16 @@ class LineSensor:
 
     def ir_led_on(self):
         self.write_command((self.CMD_SET_EMITTER, 1))
+        
     def ir_led_off(self):
         self.write_command((self.CMD_SET_EMITTER, 0))
+        
     def rgb_led_mode(self, mode):
         self.write_command((self.CMD_LEDS, mode))
+        
     def save_calibration_in_rom(self):
         self.write_command(self.CMD_SAVE_CAL)
+        
     def load_calibration_from_rom(self):
         self.write_command(self.CMD_LOAD_CAL)
         
@@ -119,7 +129,7 @@ if __name__ == "__main__":
     sensor = LineSensor()
     
     sensor.ir_led_on()
-    sensor.rgb_led_mode(sensor.INVERTED)
+    sensor.rgb_led_mode(sensor.LEDS_INVERTED)
     
     # # # Start calibration
     # sensor.start_calibration()
@@ -131,5 +141,6 @@ if __name__ == "__main__":
     # Read just light values
     for i in range(1000):
         pos = sensor.position()
-        print("Position:", pos)
+        der = sensor.position_derivative()
+        print("Pos:", pos, der)
         sleep(0.1)
