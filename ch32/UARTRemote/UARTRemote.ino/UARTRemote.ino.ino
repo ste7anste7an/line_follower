@@ -210,16 +210,21 @@ void setup(){
     Serial.println("hello");
     //while(!SerialUSB); // wait PC
 }
-
+int cnt=0;
 void loop(){
     //Serial.println("listening");
     //delay(500);
-   
-     //uart.process(handler);
-     while (SerialA.available()>0) {
-        uint8_t a = SerialA.read();
-        Serial.print(a,HEX);
-        Serial.print(" ");
+    cnt++;
+    if (cnt==1000) {
+        Serial.println(cnt);
+        
+    }
+    delay(1);
+    uart.process(handler);
+    //  while (SerialA.available()>0) {
+    //     uint8_t a = SerialA.read();
+    //     Serial.print(a,HEX);
+    //     Serial.print(" ");
 
-     }
+    //  }
 }

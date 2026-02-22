@@ -2,173 +2,46 @@ module main
 author unknown
 version 1 0 
 description ''
-variables tmp ii buf 
+variables buf 
 
-  spec 'r' 'joy' 'joy'
-
-to joy {
-  local 'bytes' ('[data:newByteArray]' 3)
-  '[sensors:i2cRead]' (hexToInt '52') bytes
-  return ('[data:makeList]' (at 1 bytes) (at 2 bytes) (at 3 bytes))
-}
-
-script 232 50 {
-whenStarted
-init
-forever {
-  process
-}
-}
-
-script 668 57 {
+script 573 50 {
 init
 }
 
-script 819 100 {
-process
+script 196 132 {
+'_send command' 'ping' ('[data:makeList]')
 }
 
-script 1129 109 (call 'add' ('[data:makeList]' 248 2480))
+script 629 168 (call 'led' ('[data:makeList]' (booleanConstant true)))
 
-script 631 168 {
-flush
+script 185 178 (at 2 ('_receive command'))
+
+script 615 260 (call 'add' ('[data:makeList]' 5 10))
+
+script 130 331 ('[sensors:i2cExists]' (hexToInt '33'))
+
+script 887 347 (booleanConstant true)
+
+script 589 405 {
+i2cSet (hexToInt '33') 1 123
 }
 
-script 970 184 {
-'_send command' 'add' ('[data:makeList]' 248 2480)
+script 78 421 {
+'[sensors:i2cWrite]' (hexToInt '33') ('[data:makeList]' 1 (hexToInt 'de') (hexToInt 'ad') (hexToInt 'be') (hexToInt 'ef'))
 }
 
-script 683 197 {
-'[serial:available]'
+script 105 550 {
+buf = ('[data:newByteArray]' 8)
+'[sensors:i2cRead]' (hexToInt '33') buf
 }
 
-script 73 203 {
-to joy {}
-}
+script 798 569 ('[serial:read]')
 
-script 1034 274 (call 'led' ('[data:makeList]' (booleanConstant false)))
+script 156 643 (v buf)
 
-script 754 297 ('_read serial')
-
-script 1318 326 (1 << 30)
-
-script 810 391 (at 2 (call 'add' ('[data:makeList]' 10 10)))
-
-script 1240 452 (v i)
-
-script 288 463 {
-for i 10 {
-  buf = ('[data:makeList]' 1 i 5 6 7)
-  '[sensors:i2cWrite]' 51 buf
-  waitMillis 500
-}
-}
-
-script 1104 545 (call 'ping' ('[data:makeList]'))
-
-script 637 600 {
-i2cSet 51 1 1
-}
-
-script 373 613 (536870912 + 2)
-
-script 1178 634 ('[data:makeList]' 1048575 1)
-
-script 124 653 (1073741800 + 24)
-
-script 586 690 {
-tmp = ('[data:newByteArray]' 8)
-}
-
-script 924 735 (v tmp)
-
-script 311 743 ('[sensors:i2cExists]' 51)
-
-script 603 747 {
-'[sensors:i2cRead]' 51 tmp
-}
-
-script 656 803 ('[data:unicodeString]' ('[data:convertType]' ('_encode' 'add' ('[data:makeList]' 1073741823 1234)) 'list'))
-
-script 331 813 {
-'[serial:available]'
-}
-
-script 73 897 {
-to flush {}
-}
-
-script 975 992 (at 2 ('_receive command'))
-
-script 517 995 {
-ii = 10
-}
-
-script 764 1009 {
-resetTimer
-flush
-for i 1000 {
-  flush
-  tmp = (call 'add' ('[data:makeList]' i (10 * i)))
-  waitMillis 1
-  if (tmp != (i + (10 * i))) {
-    sayIt 'error' i tmp (i + (10 * i))
-  }
-}
-sayIt (timer)
-}
-
-script 476 1070 ('_receive command')
-
-script 358 1118 {
-'_send command' 'aap' 10
-}
-
-script 550 1166 (v ii)
-
-script 210 1181 ('[serial:read]')
-
-script 353 1198 {
-buf = 0
-}
-
-script 50 1222 (at 2 'Rosa')
-
-script 611 1229 (v tmp)
-
-script 145 1280 (at 2 'Rosa')
-
-script 408 1286 (call 'led' ('[data:makeList]' (booleanConstant false)))
-
-script 139 1355 (call 'str' ('[data:makeList]' ('[data:asByteArray]' 'aByteListOrString') 'dog'))
-
-script 501 1396 (10 * ii)
-
-script 302 1449 (call 'add' ('[data:makeList]' 123 3333))
-
-script 87 1450 (v ii)
-
-script 998 1479 ('[data:makeList]' 1 1)
-
-script 127 1513 {
+script 50 671 {
 to call {}
 }
-
-script 565 1536 ('_encode' 'add' ('[data:makeList]' i (10 * i)))
-
-script 489 1561 (120 * ii)
-
-script 570 1595 (call 'add' ('[data:makeList]' 10 30))
-
-script 690 1656 (v i)
-
-script 818 1679 (10 * i)
-
-script 696 1782 (hexToInt '-3fffffff')
-
-script 635 1999 ('[data:makeList]' 123 432)
-
-script 575 2030 ('_encode' 'qqqap' ('[data:asByteArray]' 'hallo'))
 
 
 module microremote
@@ -188,6 +61,7 @@ variables time
   spec ' ' 'process' 'process'
   spec ' ' 'flush' 'flush'
   spec ' ' 'init' 'init'
+  spec 'r' 'does function' 'does function _ exist?' 'auto' '10'
 
 to '_decode' encoded {
   local 'tot_len' (size encoded)
@@ -228,7 +102,6 @@ to '_decode' encoded {
 }
 
 to '_encode' cmd list {
-  if (not (isType list 'list')) {list = ('[data:makeList]' list)}
   local 'list_len' (size list)
   local 'bytes' ('[data:newByteArray]' 0)
   local 'all_bytes' ('[data:newByteArray]' 0)
@@ -329,19 +202,17 @@ to '_send command' cmd data {
 
 to call cmd data {
   '_send command' cmd data
-  local 'rcv' ('_receive command')
-  local 'rcv_data' (at 2 rcv)
-  if ((size rcv_data) == 1) {
-    return (at 1 rcv_data)
-  } else {
-    return rcv_data
-  }
+  return ('_receive command')
+}
+
+to 'does function' function {
+  return (callCustomReporter '[misc:functionExists]' ('[data:makeList]' function))
 }
 
 to flush {
   local 'var' 0
-  repeatUntil (('[serial:available]') == 0) {
-    var = ('[serial:read]')
+  repeatUntil (('[serial:available]') > 0) {
+    time = ('[serial:read]')
   }
 }
 
@@ -356,14 +227,18 @@ to process {
   if (not ((size cmd_data) == 0)) {
     local 'cmd' (at 1 cmd_data)
     local 'data' (at 2 cmd_data)
-    local 'return' (callCustomReporter cmd data)
-    if (isType return 'boolean') {
-      return = ('[data:makeList]')
-    } (not (isType return 'list')) {
-      return = ('[data:makeList]' return)
+    if ('does function' cmd) {
+      local 'return' (callCustomReporter cmd data)
+      if (isType return 'boolean') {
+        return = ('[data:makeList]')
+      } (not (isType return 'list')) {
+        return = ('[data:makeList]' return)
+      }
+      cmd = ('[data:join]' cmd '_ack')
+      '_send command' cmd return
+    } else {
+      '_send command' '!ERROR' ('[data:makeList]' 'function does not exist')
     }
-    cmd = ('[data:join]' cmd '_ack')
-    '_send command' cmd return
   }
 }
 
